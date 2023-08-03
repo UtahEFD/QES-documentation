@@ -1,0 +1,30 @@
+\section{Installation}
+
+This section is designed to serve as a step-by-step instruction of how to build and run QES-Winds. In the first part, packages required to build the code will be mentioned along with the oldest version of each package that satisfies the purpose. The next part will be interaction with the repository on GitHub in which the code is been stored to clone the code. Also, commands required for cloning the repository and building the executable of code, will be mentioned. The last part of this section will cover a brief description of how to change the input files of the code and run it.
+
+\subsection{Required Packages}
+
+The very first package needed to be installed is ''git'' package. It provides the ability to interact with GitHub and use commands to clone the repository, switch between different branches and etc. This package does not have any dependencies, so it is always recommended to install the latest version. The next package inline is ''CMake'' and its GUI version ''CCMake''. It finds all the packages required, links them together and creates the ''makefile'' for building the code. CMake should be any version greater than 3.10.
+QES-Winds also needs ''boost'' libraries in order to have access to C++ source libraries. Boost 1.66.0 is sufficient for the purpose of QES-Winds. ''Gdal'' libraries are necessary to read in Digital Elevation Models (DEM) and shapefile (for buildings). Version 2.3.1 of gdal libraries will do the job for our applications. The last library that needs to be installed is ''netcdf-c'' libraries along with netcdf interface with C++, version 4.6 is required. Netcdf libraries are essential for reading in WRF output files and writing QES-Winds results in netcdf format.
+Finally, since QES-Winds is written in C++ and CUDA, ''gcc'' and ''CUDA'' compilers needed to be installed. Because there is a compatibility issue between versions of CUDA, gcc and Operating System(OS) (for more information go to https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html), version of gcc that is compatible with the version of CUDA and OS is required. For CUDA, at least version 8.0 needs to be installed.
+
+\subsection{Cloning QES-Winds from GitHub}
+
+After making sure all the required packages are installed and ready to use, a copy of QES-Winds needs to be downloaded on the local computer (cloning process). To clone the code, go to the directory you want to have the code downloaded, open a terminal and type ''git clone [address to the repository]''. To get the address to the repository, go to the repository GitHub page, UtahEFD/QES-Winds-Public, click on the green button ''Code'' and copy the ''HTTPS'' address. It downloads a copy of the code in the “master” branch of the repository in your local directory.
+
+\subsection{Building Executable of QES-Winds}
+
+Next steps are:
+\begin{itemize}
+    \item Go to the folder created with name QES-Winds: ''cd QES-Winds-Public''.
+    \item Create a build directory: ''mkdir build'' or ''sudo mkdir build''.
+    \item Go to folder build: ''cd build''.
+    \item Type: ''cmake ..''.
+\end{itemize}
+
+There is a chance that cmake fails to find all the packages needed for running the code (packages installed on unconventional directories). In this case, you need to do cmake with appropriate flags that point to those packages.
+
+\begin{itemize}
+    \item After cmake is done successfully, type: ''build''
+    \item A successful build will result in creating the executable named ''qesWinds''
+\end{itemize}

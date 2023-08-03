@@ -1,24 +1,22 @@
 Usage
-=====
+-----
 
+The command to run the QES-Winds executable created above is:
 
-Creating recipes
-----------------
+./qesWinds/qesWinds -q [address to XML file] -o [output file] -s [solver
+type] -z [Visualization output]
 
-To retrieve a list of random ingredients,
-you can use the ``lumache.get_random_ingredients()`` function:
+At least three elements need to be addressed: input XML file, output
+file name and type of solver. The input XML file defines various
+variables necessary for running the code. Input files are usually
+located in ”QES-Winds/data/InputFiles” and defined in command line by
+”-q”.
 
-.. autofunction:: lumache.get_random_ingredients
+[address to XML file] = QES-Winds/data/InputFiles/XMLfilename
 
-The ``kind`` parameter should be either ``"meat"``, ``"fish"``,
-or ``"veggies"``. Otherwise, :py:func:`lumache.get_random_ingredients`
-will raise an exception.
-
-.. autoexception:: lumache.InvalidKindError
-
-For example:
-
->>> import lumache
->>> lumache.get_random_ingredients()
-['shells', 'gorgonzola', 'parsley']
-
+User can change the name of output file by ”-o” outputname. QES-Winds
+has four solver types: solving on CPU (determined by ”-s 1”), solving
+SOR equation on GPU using dynamic parallelism (determined by ”-s 2”),
+GPU solver using global memory (determined by ”-s 3”) and GPU solver
+using shared memory (determined by ”-s 4”). GPU solvers are much faster
+than CPU solver and are highly recommended especially for large domains.

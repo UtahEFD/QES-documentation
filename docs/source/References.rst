@@ -1,3 +1,6 @@
-References
-==========
+Publications
+============
+
+Reference List
+==============
 .. bibliography::

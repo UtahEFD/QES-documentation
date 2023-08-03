@@ -1,5 +1,5 @@
-Plume Dispersion model
-======================
+QES-Plume
+=========
 
 The model
 ~~~~~~~~~
@@ -17,7 +17,7 @@ The parameters below are the parameters used to run the Plume model.
    <simulationParameters>
        <simDur> 1000.0 </simDur>   <!-- Total simulation time -->
        <timeStep> 0.1 </timeStep>  <!-- time step -->
-       <CourantNumber> 0.5 </CourantNumber>  
+       <CourantNumber> 0.5 </CourantNumber>
        <invarianceTol> 1e-10 </invarianceTol>
        <C_0> 4.0 </C_0>
        <updateFrequency_particleLoop> 10000 </updateFrequency_particleLoop>
@@ -172,7 +172,7 @@ Full XML Example
    <simulationParameters>
        <simDur> 1000.0 </simDur>
        <timeStep> 0.1 </timeStep>
-       <CourantNumber> 1 </CourantNumber> 
+       <CourantNumber> 1 </CourantNumber>
        <invarianceTol> 1e-10 </invarianceTol>
        <C_0> 4.0 </C_0>
        <updateFrequency_particleLoop> 10000 </updateFrequency_particleLoop>

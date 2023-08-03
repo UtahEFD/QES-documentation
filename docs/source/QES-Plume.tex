@@ -1,4 +1,4 @@
-\part{Plume Dispersion model}
+\part{QES-Plume}
 
 \section{The model}
 
@@ -13,7 +13,7 @@ The parameters below are the parameters used to run the Plume model.
 <simulationParameters>
     <simDur> 1000.0 </simDur>   <!-- Total simulation time -->
     <timeStep> 0.1 </timeStep>  <!-- time step -->
-    <CourantNumber> 0.5 </CourantNumber>  
+    <CourantNumber> 0.5 </CourantNumber>
     <invarianceTol> 1e-10 </invarianceTol>
     <C_0> 4.0 </C_0>
     <updateFrequency_particleLoop> 10000 </updateFrequency_particleLoop>
@@ -23,7 +23,7 @@ The parameters below are the parameters used to run the Plume model.
 
 \subsection{Collection Parameters}
 
-The parameters below are the parameters used to calculate the concentration of particle (in \#particles/m$^{3}$). All parameters are in SI units by default (second and meters). The size of collection area should be set smaller or equal to the domain. 
+The parameters below are the parameters used to calculate the concentration of particle (in \#particles/m$^{3}$). All parameters are in SI units by default (second and meters). The size of collection area should be set smaller or equal to the domain.
 \begin{lstlisting}[language=XML]
 <collectionParameters>
     <timeAvgStart> 0.0 </timeAvgStart>  <!-- time to start calc of concentration -->
@@ -131,7 +131,7 @@ The parameters below are the parameters used to calculate the concentration of p
 
 \noindent Here are the option of the boundary conditions types:
 \begin{itemize}
-    \item \texttt{exiting} particle exit the domain 
+    \item \texttt{exiting} particle exit the domain
     \item \texttt{periodic} particle reenter the domain at the other side
     \item \texttt{reflection} particle is reflected from the domain boundary (works only of domain ends)
 \end{itemize}
@@ -149,7 +149,7 @@ The parameters below are the parameters used to calculate the concentration of p
 <simulationParameters>
     <simDur> 1000.0 </simDur>
     <timeStep> 0.1 </timeStep>
-    <CourantNumber> 1 </CourantNumber> 
+    <CourantNumber> 1 </CourantNumber>
     <invarianceTol> 1e-10 </invarianceTol>
     <C_0> 4.0 </C_0>
     <updateFrequency_particleLoop> 10000 </updateFrequency_particleLoop>
