@@ -48,9 +48,8 @@ The modules are the following:
    :maxdepth: 2
    :caption: User Guide
 
-   installation
-   usage
-   tutorial
+   Installation
+   Usage
 
 .. toctree::
    :maxdepth: 2
@@ -64,6 +63,7 @@ The modules are the following:
    :maxdepth: 2
    :caption: References
 
+   Publications
    References
 
 
