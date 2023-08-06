@@ -29,6 +29,13 @@ There is a chance that cmake fails to find all the packages needed for running t
     \item A successful build will result in creating the executable named ''qesWinds''
 \end{itemize}
 
+
+
 \begin{verbatim}
 cmake -DENABLE_SANITY_TESTS=ON -DENABLE_GPU_TESTS=ON ..
+\end{verbatim}
+
+Unit tests can be enable by settong the flag \verb|ENABLE_UNITTESTS| to \verb|ON|.
+\begin{verbatim}
+cmake -DENABLE_UNITTESTS=ON ..
 \end{verbatim}

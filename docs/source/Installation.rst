@@ -71,3 +71,14 @@ those packages.
 
 -  A successful build will result in creating the executable named
    ”qesWinds”
+
+::
+
+   cmake -DENABLE_SANITY_TESTS=ON -DENABLE_GPU_TESTS=ON ..
+
+Unit tests can be enable by settong the flag ``ENABLE_UNITTESTS`` to
+``ON``.
+
+::
+
+   cmake -DENABLE_UNITTESTS=ON ..
