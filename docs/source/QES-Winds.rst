@@ -2,7 +2,7 @@ QES-Winds
 =========
 
 Introduction
-~~~~~~~~~~~~
+------------
 
 A new dispersion modeling system based on the well-used FORTRAN-based
 QUIC (Quick Urban and Industrial Complex) dispersion modeling system
@@ -27,7 +27,7 @@ high-level flowchart for QES-Winds code.
    Flowchart for the QES-Winds wind solver
 
 QES-Winds Domain
-~~~~~~~~~~~~~~~~
+----------------
 
 The first step in every computational code or package is to define the
 computational domain. The user can define the domain by specifying the
@@ -35,7 +35,7 @@ number of cells in :math:`x`, :math:`y` and :math:`z` directions as well
 as the cell size in each direction in the input file (XML file).
 
 XML Example
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 The domain information (number of cells and cell size) are defined under
 the <simulationParameters> part of the XML file. Following is an example
@@ -50,7 +50,7 @@ resolution of :math:`2` m by :math:`2` m by :math:`2` m:
    </simulationParameters>
 
 Staggered Grid
-~~~~~~~~~~~~~~
+--------------
 
 QES-Winds discretizes the computational domain using a staggered grid as
 shown in Figure `[fig:staggered_grid] <#fig:staggered_grid>`__. The
@@ -76,7 +76,7 @@ providing the neighboring cell for the finite difference method.
    variable.
 
 Halo Region
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 If a solid element (building or terrain) overlaps with the QES domain
 boundaries, QES-Winds cannot model the wind field around the element
@@ -106,7 +106,7 @@ length of the halo in :math:`x` and :math:`y` directions, respectively.
    </simulationParameters>
 
 Digital Elevation Model (DEM) and ESRI Shapefile
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 The current version of QES-Winds has been written to allow commonly
 available terrain and building geometry datasets to be used for
@@ -114,7 +114,7 @@ simulations. In this section, various input file formats for QES-Winds
 will be covered.
 
 Terrain Features
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 Using the Geospatial Data Abstraction Library (GDAL;
 https://www.gdal.org), we are able to load geo-referenced datasets of
@@ -156,7 +156,7 @@ the <simulationParameters> part in the XML file:
    </simulationParameters>
 
 Process Part of DEM
-'''''''''''''''''''
+^^^^^^^^^^^^^^^^^^^
 
 In some cases, user wants to load a giant DEM but only process part of
 the file. This is possible in QES-Winds by defining the origin of QES
@@ -201,7 +201,7 @@ domain inside the DEM borders:
       </simulationParameters>
 
 Automated City Building
-^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~
 
 A new shapefile reader function has been added to QES-Winds, which
 provides the capacity to load the ESRI shapefiles using GDAL (Geospatial
@@ -250,7 +250,7 @@ actual height of the buildings using the <heightFactor> under
 .. _`sec:building`:
 
 Import Building From XML
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Instead of reading in a ESRI shapefile, the user can import building
 information manually through the XML file. This can be done by using the
@@ -281,7 +281,7 @@ surface roughness for all the building walls.
    </buildings>
 
 Initial Wind Field
-~~~~~~~~~~~~~~~~~~
+------------------
 
 QES-Winds can read a single or multiple sensors for a specific test
 case. In this context, sensor means the velocity magnitude and direction
@@ -336,7 +336,7 @@ distance from each sensor.
 .. _`sec:sensor_xml`:
 
 XML Setup
-^^^^^^^^^
+~~~~~~~~~
 
 There are two options available for defining sensor information:
 
@@ -541,7 +541,7 @@ QES-Winds:
       </metParams>
 
 Empirical Parameterizations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------
 
 QES-Winds only conserves mass and no momentum equation is solved. As a
 result, the solution is a potential-flow solution (no shear effects). In
@@ -555,7 +555,7 @@ available parameterizations in QES-Winds along with their effects on the
 wind field.
 
 Upwind Cavity
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 Upwind cavity as described in
 :cite:`nelson20085,bagal2004improved,gowardhan2010evaluation` is the
@@ -589,9 +589,9 @@ contour to represent the area of effect of the Röckle upwind cavity
 parameterization in a vertical plane at :math:`y=100` m and a horizontal
 plane at :math:`z=5` m, respectively. The upwind parameterizations is
 applied to a rectangular building defined in Section
-`4.3 <#sec:building>`__. The initial guess field is constructed using a
-single sensor with logarithmic profile as defined in
-`5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+`1.4.3 <#sec:building>`__. The initial guess field is constructed using
+a single sensor with logarithmic profile as defined in
+`1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and Figure
 `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
@@ -644,9 +644,9 @@ contour to represent the area of effect of the MVP upwind cavity
 parameterization in a vertical plane at :math:`y=100` m and a horizontal
 plane at :math:`z=5` m, respectively. The upwind parameterizations is
 applied to a rectangular building defined in Section
-`4.3 <#sec:building>`__. The initial guess field is constructed using a
-single sensor with logarithmic profile as defined in
-`5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+`1.4.3 <#sec:building>`__. The initial guess field is constructed using
+a single sensor with logarithmic profile as defined in
+`1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and Figure
 `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
@@ -692,9 +692,9 @@ contour to represent the area of effect of the HMVP upwind cavity
 parameterization in a vertical plane at :math:`y=100` m and a horizontal
 plane at :math:`z=5` m, respectively. The upwind parameterization is
 applied to a rectangular building defined in Section
-`4.3 <#sec:building>`__. The initial guess field is constructed using a
-single sensor with logarithmic profile as defined in
-`5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+`1.4.3 <#sec:building>`__. The initial guess field is constructed using
+a single sensor with logarithmic profile as defined in
+`1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and Figure
 `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
@@ -733,7 +733,7 @@ change the value of "upwindCavityFlag" in the XML file.
    </simulationParameters>
 
 Leeside Cavity and Far-Wake
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The far-wake and cavity parameterization described in
 :cite:`singh2005testing,singh2006testing` are a significant part of the
@@ -782,9 +782,9 @@ Part (a) of Figure `[fig:wake_vert] <#fig:wake_vert>`__ and Figure
 represent the area of effect of the Röckle wake parameterization in a
 vertical plane at :math:`y=100` m and a horizontal plane at :math:`z=5`
 m, respectively. The wake parameterization is applied to a rectangular
-building defined in Section `4.3 <#sec:building>`__. The initial guess
+building defined in Section `1.4.3 <#sec:building>`__. The initial guess
 field is constructed using a single sensor with logarithmic profile as
-defined in `5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+defined in `1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:wake_vert] <#fig:wake_vert>`__ and Figure
 `[fig:wake_horiz] <#fig:wake_horiz>`__ indicate velocity magnitude
 contour with overlaying velocity vectors of initial (part (b)) and final
@@ -823,7 +823,7 @@ of "wakeFlag" in the XML file.
    </simulationParameters>
 
 Street Canyon
-^^^^^^^^^^^^^
+~~~~~~~~~~~~~
 
 The street canyon parameterization detailed in
 :cite:`singh2008evaluation` represents the effects of two buildings in
@@ -858,14 +858,14 @@ represent the area of effect of the street canyon parameterization in a
 vertical plane at :math:`y=100` m and a horizontal plane at :math:`z=5`
 m, respectively. The street canyon parameterization is applied to an
 area between two rectangular buildings. The upwind building is same as
-the one defined in Section `4.3 <#sec:building>`__. The downwind
+the one defined in Section `1.4.3 <#sec:building>`__. The downwind
 building is a rectangular building with :math:`20` m as height,
 :math:`0` m as base height, :math:`20` m as length and width, closest
 corner to the origin located at :math:`90` m in :math:`x` and
 :math:`120` m in :math:`y` directions, and :math:`0^{\circ}` as rotation
 angle with respect to the North-South line. The initial guess field is
 constructed using a single sensor with logarithmic profile as defined in
-`5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+`1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:street_vert] <#fig:street_vert>`__ and Figure
 `[fig:street_horiz] <#fig:street_horiz>`__ indicate velocity magnitude
 contour with overlaying velocity vectors of initial (part (b)) and final
@@ -904,7 +904,7 @@ the value of "streetCanyonFlag" in the XML file.
    </simulationParameters>
 
 Rooftop Recirculation
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 
 The rooftop parameterization described in
 :cite:`bagal2004implementation,pol2006implementation`, captures the
@@ -945,7 +945,7 @@ closest corner to the origin located at :math:`90` m in :math:`x` and
 :math:`y` directions, and :math:`0^{\circ}` as rotation angle with
 respect to the North-South line. The initial guess field is constructed
 using a single sensor with logarithmic profile as defined in
-`5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+`1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:street_vert] <#fig:street_vert>`__ indicate velocity magnitude
 contour with overlaying velocity vectors of initial (part (b)) and final
 (part(c)) velocity fields in a vertical plane at :math:`y=100` m.
@@ -971,7 +971,7 @@ To turn the parameterization on, the user needs to change the value of
    </simulationParameters>
 
 Sidewall Recirculation Zone
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The sidewall parameterization is designed to represent the effects of
 the edge of the building on the upwind field
@@ -1000,9 +1000,9 @@ Part (a) of Figure `[fig:street_vert] <#fig:street_vert>`__ show cell
 type contour to represent the area of effect of the sidewall
 parameterization in a horizontal plane at :math:`z=5` m. The rooftop
 parameterization is applied to a rectangular building defined in Section
-`4.3 <#sec:building>`__. The initial guess field is constructed using a
-single sensor with logarithmic profile as defined in
-`5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+`1.4.3 <#sec:building>`__. The initial guess field is constructed using
+a single sensor with logarithmic profile as defined in
+`1.5.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:sidewall_horiz] <#fig:sidewall_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
 and final (part(c)) velocity fields in a horizontal plane at :math:`z=5`
@@ -1029,7 +1029,7 @@ In order to turn the algorithm on, the user needs to change the value of
    </simulationParameters>
 
 Mass Consistent Solver
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 QES-Winds have mass conserving wind field solvers that rapidly compute
 wind fields using a variational method rather than slower yet more
@@ -1097,7 +1097,7 @@ The boundary condition for solid surfaces is
 surfaces it is :math:`\lambda=0`.
 
 Solver Types
-^^^^^^^^^^^^
+~~~~~~~~~~~~
 
 QES-Winds has four options for solving the SOR equation discussed above,
 the first option is to solve the equation on the CPU and the rest use

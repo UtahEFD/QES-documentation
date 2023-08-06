@@ -1,4 +1,4 @@
-\part{QES-Winds}
+\chapter{QES-Winds}
 
 \section{Introduction}
 
@@ -855,4 +855,3 @@ Where e,f,g,h,m,n are boundary condition coefficients and A and B are domain con
 \subsection{Solver Types}
 
 QES-Winds has four options for solving the SOR equation discussed above, the first option is to solve the equation on the CPU and the rest use the GPU for computations. The GPU solvers are called: the dynamic parallel, the global memory and the shared memory. The CPU solver is quite rapid, but slow in comparison to the GPU solvers since it is a serial solver and does not have parallel computing capabilities, especially for large domains. For more information regarding different types of solvers available in QES-Winds, read \cite{Bozorgmehr2021}.
-

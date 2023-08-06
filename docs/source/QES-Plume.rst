@@ -2,13 +2,13 @@ QES-Plume
 =========
 
 The model
-~~~~~~~~~
+---------
 
 The XML file
-~~~~~~~~~~~~
+------------
 
 Simulation Parameters
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 
 The parameters below are the parameters used to run the Plume model.
 
@@ -25,7 +25,7 @@ The parameters below are the parameters used to run the Plume model.
    </simulationParameters>
 
 Collection Parameters
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 
 The parameters below are the parameters used to calculate the
 concentration of particle (in #particles/m\ :math:`^{3}`). All
@@ -49,7 +49,7 @@ collection area should be set smaller or equal to the domain.
    </collectionParameters>
 
 Sources
-^^^^^^^
+~~~~~~~
 
 .. code:: xml
 
@@ -59,7 +59,7 @@ Sources
    </sources>
 
 Source types
-''''''''''''
+^^^^^^^^^^^^
 
 .. code:: xml
 
@@ -111,7 +111,7 @@ Source types
    </SourceFullDomain>
 
 Release types
-'''''''''''''
+^^^^^^^^^^^^^
 
 .. code:: xml
 
@@ -134,7 +134,7 @@ Release types
    </ReleaseType_instantaneous>
 
 Boundary Conditions
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 
 .. code:: xml
 
@@ -165,7 +165,7 @@ Here are the option of the wall reflections methods
    entering a wall
 
 Full XML Example
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 .. code:: xml
 
