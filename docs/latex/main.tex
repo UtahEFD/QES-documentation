@@ -108,40 +108,20 @@
 \newpage
 
 
-\section{Introduction}
-A new dispersion modeling system based on the well-used FORTRAN-based QUIC (Quick Urban and Industrial Complex) dispersion modeling system originally developed by the University of Utah and Los Alamos National Laboratory \cite{brown2013quic}, has been under development as collaboration between the University of Utah, the University of Minnesota, Duluth and Pukyong National University. Quick Environmental Simulation (QES) is a microclimate simulation platform for computing 3D environmental scalars in urban areas and over complex terrain. QES-Winds, QES-TURB and QES-Plume are mean wind modeling, turbulence, and plume dispersion modeling components of QUIC EnvSim (QES). Figure \ref{fig:QES} shows a schematic of QES system and how different elements of the system interact with each other.
+\part{User Guide}
 
-\begin{figure}[h!]
-\includegraphics[width=16cm]{{Images/QES_chart.png}}
-\centering
-\caption{\small{Schematic of the QUIC EnvSim system and the relationship between different elements of the system including data flow from one element to the other}}
-\label{fig:QES}
-\end{figure}
-
-QES is written in C++ using NVIDIA's parallel computing (Graphics Processing Unit or GPU) platform and API called CUDA \cite{nvidia2019cuda}, to substantially accelerate wind and dispersion simulations and accommodate new physics that are critical to predicting pollutant and contaminant dispersion in cities located in complex terrain. The modules are the following: 
-\begin{description}
-\item[QES-Winds] is the new wind model computing divergence-free steady-state 3D wind field in complex domain. 
-\item[QES-TURB] is a stand-alone turbulence model that computes turbulence fields from the calculated wind field in QES-Winds.
-\item[QES-Plume] is a stand-alone Lagrangian dispersion model with the ability to calculate spatially and temporally varying scalar concentrations.
-\item[QES-Fire] is a fire-spread model.
-\item[QES-Transport] is a transport model (to be implemented)
-\end{description}
-
-
-These newly developed or modified elements enable the modeling 3D wind fields, turbulence fields and scalar concentrations over very large domains.
-
+\input{../source/GettingStarted}
 \input{../source/Publications}
 
 
-\section{Acknowledgements}
-This work was partly supported by grants from:
-\begin{description}\setlength\itemsep{0em}
-\item[] The National Institute of Environment Research (NIER), funded by the Ministry of Environment (MOE) of the Republic of Korea (NIER-SP2019-312). In addition, we would like to acknowledge Dr. Jae-Jin Kim from Department of Environmental Atmospheric Sciences, Pukyong National University, Republic of Korea, as the main Principal Investigator (PI) on the grant from the National Institute of Environment Research (NIER). 
-\item[] The United States Department of Agriculture National Institute for Food and Agriculture Specialty Crop Research Initiative Award No. $2018\mbox{--}03375$
-\item[] The United States Department of Agriculture Agricultural Research Service through Research Support Agreement $58\mbox{--}2072\mbox{--}0\mbox{--}036$. 
-\end{description}
+%\section{Acknowledgements}
+%This work was partly supported by grants from:
+%\begin{description}\setlength\itemsep{0em}
+%\item[] The National Institute of Environment Research (NIER), funded by the Ministry of Environment (MOE) of the Republic of Korea (NIER-SP2019-312). In addition, we would like to acknowledge Dr. Jae-Jin Kim from Department of Environmental Atmospheric Sciences, Pukyong National University, Republic of Korea, as the main Principal Investigator (PI) on the grant from the National Institute of Environment Research (NIER). 
+%\item[] The United States Department of Agriculture National Institute for Food and Agriculture Specialty Crop Research Initiative Award No. $2018\mbox{--}03375$
+%\item[] The United States Department of Agriculture Agricultural Research Service through Research Support Agreement $58\mbox{--}2072\mbox{--}0\mbox{--}036$. 
+%\end{description}
 
-\part{User Guide}
 \input{../source/Installation}
 \input{../source/Usage}
 
