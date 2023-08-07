@@ -4,12 +4,12 @@ This section is designed to serve as a step-by-step instruction of how to build 
 
 \subsection{Required Packages}
 
-The very first package needed to be installed is ''git'' package. It provides the ability to interact with GitHub and use commands to clone the repository, switch between different branches and etc. This package does not have any dependencies, so it is always recommended to install the latest version. 
+The very first package needed to be installed is ''git'' package. It provides the ability to interact with GitHub and use commands to clone the repository, switch between different branches and etc. This package does not have any dependencies, so it is always recommended to install the latest version.
 
 \begin{itemize}
 \item The next package inline is ''CMake'' and its GUI version ''CCMake''. It finds all the packages required, links them together and creates the ''makefile'' for building the code. CMake should be any version greater than 3.10.
-\item QES-Winds also needs ''boost'' libraries in order to have access to C++ source libraries. Boost 1.66.0 is sufficient for the purpose of QES-Winds. 
-\item ''Gdal'' libraries are necessary to read in Digital Elevation Models (DEM) and shapefile (for buildings). Version 2.3.1 of gdal libraries will do the job for our applications. 
+\item QES-Winds also needs ''boost'' libraries in order to have access to C++ source libraries. Boost 1.66.0 is sufficient for the purpose of QES-Winds.
+\item ''Gdal'' libraries are necessary to read in Digital Elevation Models (DEM) and shapefile (for buildings). Version 2.3.1 of gdal libraries will do the job for our applications.
 
 \item The last library that needs to be installed is ''netcdf-c'' libraries along with netcdf interface with C++, version 4.6 is required. Netcdf libraries are essential for reading in WRF output files and writing QES-Winds results in netcdf format.
 
@@ -36,25 +36,6 @@ There is a chance that cmake fails to find all the packages needed for running t
     \item After cmake is done successfully, type: ''build''
     \item A successful build will result in creating the executable named ''qesWinds''
 \end{itemize}
-\subsection{Build Types}
-
-The code support several build types: \textit{Debug}, \textit{Release}, \textit{RelWithDebInfo}, \textit{MinSizeRel}. You can select the build type
-\begin{verbatim}
-cmake -DCMAKE_BUILD_TYPE=Release ..
-\end{verbatim}
-\textit{Release} is recommanded for production
-
-cmake options:
-\begin{itemize}
-    \item build code without CUDA support automatically if CUDA is not supported by the system
-	\item build code with openmp support for future multithread application,openmp is not automatically enabled. if openmp support is enable (\verb|-DENABLE_OPENMP=ON|) the code will run a new red/black solver on the CPU. Unfortunately thread safety issues with some plume classes did not allow for an easy parallelization of the plume advection.
-	\item default is \textit{RELEASE} with most warning off, \verb|-O3| optimization.
-a dev mode was added \verb|-DENABLE_DEV_MODE=ON| showing warnings, will build the code in DEBUG this option is slow and recommended only for active development.
-	\item ClangTidy option was added
-	\item use \verb|-DENABLE_TESTS=ON| to enable unit, sanity, and regressions tests using Catch2 (https://github.com/catchorg/Catch2) 
-\end{itemize}
-
-
 
 \subsubsection{Linux}
 On a general Linux system, such as Ubuntu 18.04 or 20.04, the following packages need to be installed:
@@ -75,7 +56,7 @@ apt install libgdal-dev libnetcdf-c++4-dev  libnetcdf-cxx-legacy-dev libnetcdf-d
 \end{verbatim}
 
 
-We separate the build 
+We separate the build
 \begin{verbatim}
 mkdir build
 cd build
@@ -94,7 +75,7 @@ The packages can be installed using Homebrew (https://brew.sh)
 brew install cmake boost gdal hdf5 netcdf netcdf-cxx
 \end{verbatim}
 
-If openMP multithreading is desired: 
+If openMP multithreading is desired:
 \begin{verbatim}
 brew install libomp
 \end{verbatim}
@@ -121,7 +102,7 @@ The code does run on the CHPC cluster. You need to make sure the correct set of 
 \end{itemize}
 If you build with OptiX support, you will need to use CUDA 10.2 or newer configuration. Any builds (with or without OptiX) with CUDA 11.4 are preferred if you don't know which to use. Older configurations are provided in \verb|CHPC/oldBuilds.md|.
 
-After logging into your CHPC account, you will need to load specific modules. In the following sections, we outline the modules that need to be loaded along with the various cmake command-line calls that specify the exact locations of module installs on the CHPC system.  
+After logging into your CHPC account, you will need to load specific modules. In the following sections, we outline the modules that need to be loaded along with the various cmake command-line calls that specify the exact locations of module installs on the CHPC system.
 
 To build with GCC 8.5.0, CUDA 11.4, and OptiX 7.1.0 on CHPC. Please use the following modules:
 \begin{verbatim}
@@ -144,7 +125,7 @@ Currently Loaded Modules:
   1) cuda/11.4    (g)   3) gcc/8.5.0      5) intel-oneapi-mpi/2021.4.0   7) netcdf-c/4.8.1
   2) cmake/3.21.4       4) boost/1.77.0   6) gdal/3.3.3                  8) netcdf-cxx/4.2
 \end{verbatim}
-After the modules are loaded, you can create the Makefiles with cmake.  We keep our builds separate from the source and contain our builds within their own folders.  For example, 
+After the modules are loaded, you can create the Makefiles with cmake.  We keep our builds separate from the source and contain our builds within their own folders.  For example,
 \begin{verbatim}
 mkdir build
 cd build
@@ -157,3 +138,21 @@ After you've created the Makefiles with the cmake commands above, the code can b
 make
 \end{verbatim}
 Note you \textit{may} need to type make a second time due to a build bug, especially on the CUDA 8.0 build.
+
+\subsection{Build Types}
+
+The code support several build types: \textit{Debug}, \textit{Release}, \textit{RelWithDebInfo}, \textit{MinSizeRel}. You can select the build type
+\begin{verbatim}
+cmake -DCMAKE_BUILD_TYPE=Release ..
+\end{verbatim}
+\textit{Release} is recommanded for production
+
+cmake options:
+\begin{itemize}
+    \item build code without CUDA support automatically if CUDA is not supported by the system
+	\item build code with openmp support for future multithread application,openmp is not automatically enabled. if openmp support is enable (\verb|-DENABLE_OPENMP=ON|) the code will run a new red/black solver on the CPU. Unfortunately thread safety issues with some plume classes did not allow for an easy parallelization of the plume advection.
+	\item default is \textit{RELEASE} with most warning off, \verb|-O3| optimization.
+a dev mode was added \verb|-DENABLE_DEV_MODE=ON| showing warnings, will build the code in DEBUG this option is slow and recommended only for active development.
+	\item ClangTidy option was added
+	\item use \verb|-DENABLE_TESTS=ON| to enable unit, sanity, and regressions tests using Catch2 (https://github.com/catchorg/Catch2)
+\end{itemize}

@@ -1,6 +1,9 @@
 Getting Started
 ===============
 
+Introduction
+------------
+
 A new dispersion modeling system based on the well-used FORTRAN-based
 QUIC (Quick Urban and Industrial Complex) dispersion modeling system
 originally developed by the University of Utah and Los Alamos National

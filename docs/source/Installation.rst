@@ -81,40 +81,6 @@ those packages.
 -  A successful build will result in creating the executable named
    ”qesWinds”
 
-Build Types
------------
-
-The code support several build types: *Debug*, *Release*,
-*RelWithDebInfo*, *MinSizeRel*. You can select the build type
-
-::
-
-   cmake -DCMAKE_BUILD_TYPE=Release ..
-
-*Release* is recommanded for production
-
-cmake options:
-
--  build code without CUDA support automatically if CUDA is not
-   supported by the system
-
--  build code with openmp support for future multithread
-   application,openmp is not automatically enabled. if openmp support is
-   enable (``-DENABLE_OPENMP=ON``) the code will run a new red/black
-   solver on the CPU. Unfortunately thread safety issues with some plume
-   classes did not allow for an easy parallelization of the plume
-   advection.
-
--  default is *RELEASE* with most warning off, ``-O3`` optimization. a
-   dev mode was added ``-DENABLE_DEV_MODE=ON`` showing warnings, will
-   build the code in DEBUG this option is slow and recommended only for
-   active development.
-
--  ClangTidy option was added
-
--  use ``-DENABLE_TESTS=ON`` to enable unit, sanity, and regressions
-   tests using Catch2 (https://github.com/catchorg/Catch2)
-
 Linux
 ~~~~~
 
@@ -263,3 +229,37 @@ code can be compiled on CHPC:
 
 Note you *may* need to type make a second time due to a build bug,
 especially on the CUDA 8.0 build.
+
+Build Types
+-----------
+
+The code support several build types: *Debug*, *Release*,
+*RelWithDebInfo*, *MinSizeRel*. You can select the build type
+
+::
+
+   cmake -DCMAKE_BUILD_TYPE=Release ..
+
+*Release* is recommanded for production
+
+cmake options:
+
+-  build code without CUDA support automatically if CUDA is not
+   supported by the system
+
+-  build code with openmp support for future multithread
+   application,openmp is not automatically enabled. if openmp support is
+   enable (``-DENABLE_OPENMP=ON``) the code will run a new red/black
+   solver on the CPU. Unfortunately thread safety issues with some plume
+   classes did not allow for an easy parallelization of the plume
+   advection.
+
+-  default is *RELEASE* with most warning off, ``-O3`` optimization. a
+   dev mode was added ``-DENABLE_DEV_MODE=ON`` showing warnings, will
+   build the code in DEBUG this option is slow and recommended only for
+   active development.
+
+-  ClangTidy option was added
+
+-  use ``-DENABLE_TESTS=ON`` to enable unit, sanity, and regressions
+   tests using Catch2 (https://github.com/catchorg/Catch2)
