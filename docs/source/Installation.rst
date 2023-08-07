@@ -49,8 +49,8 @@ repository GitHub page, UtahEFD/QES-Winds-Public, click on the green
 button ”Code” and copy the ”HTTPS” address. It downloads a copy of the
 code in the “master” branch of the repository in your local directory.
 
-Building Executable of QES-Winds
---------------------------------
+Building QES
+------------
 
 Next steps are:
 
@@ -72,13 +72,140 @@ those packages.
 -  A successful build will result in creating the executable named
    ”qesWinds”
 
+Linux
+-----
+
+On a general Linux system, such as Ubuntu 18.04 or 20.04, the following
+packages need to be installed:
+
+-  libgdal-dev
+
+-  libnetcdf-c++4-dev
+
+-  libnetcdf-cxx-legacy-dev
+
+-  libnetcdf-dev
+
+-  netcdf-bin
+
+-  libboost-all-dev
+
+-  cmake
+
+-  cmake-curses-gui
+
+If the system uses ``apt``, the packages can be installed using the
+following command:
+
 ::
 
-   cmake -DENABLE_SANITY_TESTS=ON -DENABLE_GPU_TESTS=ON ..
+   apt install libgdal-dev libnetcdf-c++4-dev  libnetcdf-cxx-legacy-dev libnetcdf-dev netcdf-bin libboost-all-dev cmake cmake-curses-gui
 
-Unit tests can be enable by settong the flag ``ENABLE_UNITTESTS`` to
-``ON``.
+We separate the build
 
 ::
 
-   cmake -DENABLE_UNITTESTS=ON ..
+   mkdir build
+   cd build
+   cmake ..
+
+You can then build the source:
+
+::
+
+   make
+
+macOS
+-----
+
+University of Utah - CHPC
+-------------------------
+
+*This is the preferred build setup on CHPC*
+
+The code does run on the CHPC cluster. You need to make sure the correct
+set of modules are loaded. Currently, we have tested a few
+configurations that use
+
+-  GCC 5.4.0 and CUDA 8.0
+
+-  CCC 8.1.0 and CUDA 10.1 (10.2)
+
+-  GCC 8.5.0 and CUDA 11.4
+
+If you build with OptiX support, you will need to use CUDA 10.2 or newer
+configuration. Any builds (with or without OptiX) with CUDA 11.4 are
+preferred if you don’t know which to use. Older configurations are
+provided in ``CHPC/oldBuilds.md``.
+
+After logging into your CHPC account, you will need to load specific
+modules. In the following sections, we outline the modules that need to
+be loaded along with the various cmake command-line calls that specify
+the exact locations of module installs on the CHPC system.
+
+To build with GCC 8.5.0, CUDA 11.4, and OptiX 7.1.0 on CHPC. Please use
+the following modules:
+
+::
+
+   module load cuda/11.4
+   module load cmake/3.21.4
+   module load gcc/8.5.0
+   module load boost/1.77.0
+   module load intel-oneapi-mpi/2021.4.0
+   module load gdal/3.3.3
+   module load netcdf-c/4.8.1
+   module load netcdf-cxx/4.2
+
+Or use the provided load script.
+
+::
+
+   source CHPC/loadmodules_QES.sh
+
+After completing the above module loads, the following modules are
+reported from ‘module list‘:
+
+::
+
+   Currently Loaded Modules:
+     1) cuda/11.4    (g)   3) gcc/8.5.0      5) intel-oneapi-mpi/2021.4.0   7) netcdf-c/4.8.1
+     2) cmake/3.21.4       4) boost/1.77.0   6) gdal/3.3.3                  8) netcdf-cxx/4.2
+
+After the modules are loaded, you can create the Makefiles with cmake.
+We keep our builds separate from the source and contain our builds
+within their own folders. For example,
+
+::
+
+   mkdir build
+   cd build
+   cmake -DCUDA_TOOLKIT_DIR=/uufs/chpc.utah.edu/sys/installdir/cuda/11.4.0 -DCUDA_SDK_ROOT_DIR=/uufs/chpc.utah.edu/sys/installdir/cuda/11.4.0 -DOptiX_INSTALL_DIR=/uufs/chpc.utah.edu/sys/installdir/optix/7.1.0 -DCMAKE_C_COMPILER=gcc -DNETCDF_CXX_DIR=/uufs/chpc.utah.edu/sys/installdir/netcdf-cxx/4.3.0-5.4.0g/include ..
+
+Upon completion of the above commands, you can go about editing and
+building mostly as normal, and issue the ‘make‘ command in your build
+folder to compile the source.
+
+After you’ve created the Makefiles with the cmake commands above, the
+code can be compiled on CHPC:
+
+::
+
+   make
+
+Note you *may* need to type make a second time due to a build bug,
+especially on the CUDA 8.0 build.
+
+Build Types
+-----------
+
+The code support several build types: *Debug*, *Release*,
+*RelWithDebInfo*, *MinSizeRel*. You can select the build type
+
+::
+
+   cmake -DCMAKE_BUILD_TYPE=Release ..
+
+*Release* is recommanded for production
+
+cmake options:

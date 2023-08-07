@@ -12,7 +12,7 @@ Finally, since QES-Winds is written in C++ and CUDA, ''gcc'' and ''CUDA'' compil
 
 After making sure all the required packages are installed and ready to use, a copy of QES-Winds needs to be downloaded on the local computer (cloning process). To clone the code, go to the directory you want to have the code downloaded, open a terminal and type ''git clone [address to the repository]''. To get the address to the repository, go to the repository GitHub page, UtahEFD/QES-Winds-Public, click on the green button ''Code'' and copy the ''HTTPS'' address. It downloads a copy of the code in the “master” branch of the repository in your local directory.
 
-\subsection{Building Executable of QES-Winds}
+\subsection{Building QES}
 
 Next steps are:
 \begin{itemize}
@@ -29,13 +29,94 @@ There is a chance that cmake fails to find all the packages needed for running t
     \item A successful build will result in creating the executable named ''qesWinds''
 \end{itemize}
 
+\subsection{Linux}
+On a general Linux system, such as Ubuntu 18.04 or 20.04, the following packages need to be installed:
+\begin{itemize}
+\item libgdal-dev
+\item libnetcdf-c++4-dev
+\item libnetcdf-cxx-legacy-dev
+\item libnetcdf-dev
+\item netcdf-bin
+\item libboost-all-dev
+\item cmake
+\item cmake-curses-gui
+\end{itemize}
 
-
+If the system uses \verb|apt|, the packages can be installed using the following command:
 \begin{verbatim}
-cmake -DENABLE_SANITY_TESTS=ON -DENABLE_GPU_TESTS=ON ..
+apt install libgdal-dev libnetcdf-c++4-dev  libnetcdf-cxx-legacy-dev libnetcdf-dev netcdf-bin libboost-all-dev cmake cmake-curses-gui
 \end{verbatim}
 
-Unit tests can be enable by settong the flag \verb|ENABLE_UNITTESTS| to \verb|ON|.
+
+We separate the build 
 \begin{verbatim}
-cmake -DENABLE_UNITTESTS=ON ..
+mkdir build
+cd build
+cmake ..
 \end{verbatim}
+You can then build the source:
+\begin{verbatim}
+make
+\end{verbatim}
+
+\subsection{macOS}
+
+
+\subsection{University of Utah - CHPC}
+
+\textit{This is the preferred build setup on CHPC}
+
+The code does run on the CHPC cluster. You need to make sure the correct set of modules are loaded.  Currently, we have tested a few configurations that use
+\begin{itemize}
+\item GCC 5.4.0 and CUDA 8.0
+\item CCC 8.1.0 and CUDA 10.1 (10.2)
+\item GCC 8.5.0 and CUDA 11.4
+\end{itemize}
+If you build with OptiX support, you will need to use CUDA 10.2 or newer configuration. Any builds (with or without OptiX) with CUDA 11.4 are preferred if you don't know which to use. Older configurations are provided in \verb|CHPC/oldBuilds.md|.
+
+After logging into your CHPC account, you will need to load specific modules. In the following sections, we outline the modules that need to be loaded along with the various cmake command-line calls that specify the exact locations of module installs on the CHPC system.  
+
+To build with GCC 8.5.0, CUDA 11.4, and OptiX 7.1.0 on CHPC. Please use the following modules:
+\begin{verbatim}
+module load cuda/11.4
+module load cmake/3.21.4
+module load gcc/8.5.0
+module load boost/1.77.0
+module load intel-oneapi-mpi/2021.4.0
+module load gdal/3.3.3
+module load netcdf-c/4.8.1
+module load netcdf-cxx/4.2
+\end{verbatim}
+Or use the provided load script.
+\begin{verbatim}
+source CHPC/loadmodules_QES.sh
+\end{verbatim}
+After completing the above module loads, the following modules are reported from `module list`:
+\begin{verbatim}
+Currently Loaded Modules:
+  1) cuda/11.4    (g)   3) gcc/8.5.0      5) intel-oneapi-mpi/2021.4.0   7) netcdf-c/4.8.1
+  2) cmake/3.21.4       4) boost/1.77.0   6) gdal/3.3.3                  8) netcdf-cxx/4.2
+\end{verbatim}
+After the modules are loaded, you can create the Makefiles with cmake.  We keep our builds separate from the source and contain our builds within their own folders.  For example, 
+\begin{verbatim}
+mkdir build
+cd build
+cmake -DCUDA_TOOLKIT_DIR=/uufs/chpc.utah.edu/sys/installdir/cuda/11.4.0 -DCUDA_SDK_ROOT_DIR=/uufs/chpc.utah.edu/sys/installdir/cuda/11.4.0 -DOptiX_INSTALL_DIR=/uufs/chpc.utah.edu/sys/installdir/optix/7.1.0 -DCMAKE_C_COMPILER=gcc -DNETCDF_CXX_DIR=/uufs/chpc.utah.edu/sys/installdir/netcdf-cxx/4.3.0-5.4.0g/include ..
+\end{verbatim}
+Upon completion of the above commands, you can go about editing and building mostly as normal, and issue the `make` command in your build folder to compile the source.
+
+After you've created the Makefiles with the cmake commands above, the code can be compiled on CHPC:
+\begin{verbatim}
+make
+\end{verbatim}
+Note you \textit{may} need to type make a second time due to a build bug, especially on the CUDA 8.0 build.
+
+\subsection{Build Types}
+
+The code support several build types: \textit{Debug}, \textit{Release}, \textit{RelWithDebInfo}, \textit{MinSizeRel}. You can select the build type
+\begin{verbatim}
+cmake -DCMAKE_BUILD_TYPE=Release ..
+\end{verbatim}
+\textit{Release} is recommanded for production
+
+cmake options:

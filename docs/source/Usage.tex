@@ -1,18 +1,102 @@
-\subsection{Usage}
+\section{Running QES}
 
 The command to run the QES-Winds executable created above is:
-\newline
-
+\begin{verbatim}
 ./qesWinds/qesWinds -q [address to XML file] -o [output file] -s [solver type] -z [Visualization output]
-\newline
+\end{verbatim}
 
-\noindent
 At least three elements need to be addressed: input XML file, output file name and type of solver.
-The input XML file defines various variables necessary for running the code. Input files are usually located in ''QES-Winds/data/InputFiles'' and defined in command line by ''-q''.
-\newline
+The input XML file defines various variables necessary for running the code. Input files are usually located in \verb|QES-Winds/data/InputFiles| and defined in command line by \verb|-q|.
 
+\begin{verbatim}
 [address to XML file] = QES-Winds/data/InputFiles/XMLfilename
-\newline
+\end{verbatim}
 
-User can change the name of output file by  ''-o'' outputname.
-QES-Winds has four solver types: solving on CPU (determined by ''-s 1''), solving SOR equation on GPU using dynamic parallelism (determined by ''-s 2''), GPU solver using global memory (determined by ''-s 3'') and GPU solver using shared memory (determined by ''-s 4''). GPU solvers are much faster than CPU solver and are highly recommended especially for large domains.
+User can change the name of output file by  \verb|-o outputname|.
+QES-Winds has four solver types: solving on CPU (determined by \verb|-s 1|), solving SOR equation on GPU using dynamic parallelism (determined by \verb|-s 2|), GPU solver using global memory (determined by \verb|-s 3|) and GPU solver using shared memory (determined by \verb|-s 4|). GPU solvers are much faster than CPU solver and are highly recommended especially for large domains.
+
+To run QES-Winds, you can take the following slurm template and run on CHPC.  We'd suggest placing it in a \verb|run| folder at the same level as your build folder.  Make sure you change the various sbatch parameters as needed for your access to CHPC.
+
+\subsection{Running from the Command Line}
+
+QES is run from the terminal using arguments. For exmaple:
+\begin{verbatim}
+./qesWinds/qesWinds -q ../data/InputFiles/GaussianHill.xml -s 2 -w -o gaussianHill
+\end{verbatim}
+
+More info about the arguments supported by QES can be display using:
+\begin{verbatim}
+./qesWinds/qesWinds -?
+\end{verbatim}
+
+
+\subsection{slurm Template (for CUDA 11.4 build}
+\begin{lstlisting}[language=bash]
+#!/bin/bash
+#SBATCH --account=efd-np
+#SBATCH --partition=efd-shared-np
+#SBATCH --job-name=qesGaussian
+#SBATCH --nodes=1
+#SBATCH --mem=15G
+#SBATCH --gres=gpu:titanv:1
+#SBATCH --time=01:00:00
+#SBATCH -e init_error.log
+#SBATCH -o init_out.log
+module load gcc/8.5.0
+ulimit -c unlimited -s
+./qesWinds/qesWinds -q ../data/InputFiles/GaussianHill.xml -s 2 -w -o gaussianHill
+\end{lstlisting}
+
+Note that if you build with a different GCC (e.g. 5.4.0), you will need to change the module load to use that version of GCC. Once the slurm file has been placed in the run folder, you can then send out the job.  For example, assuming you are in the build folder and just built the code and we saved the slurm template above as a file \verb|rGaussianHill_gpu.slurm|:
+
+\begin{verbatim}
+make clean
+make
+cd ../run
+sbatch rGaussianHill_gpu.slurm
+\end{verbatim}
+
+This will create the various NetCDF output files in the run folder, along with any output in the \verb|init_error.log| and \verb|init_out.log| files.
+
+
+\section{Testing QES}
+
+We are using ctest to conduct unit tests and sanity check on the code. Here are a few commands:
+\begin{verbatim}
+ctest			# launch all tests
+ctest --verbose		# launch all tests with verbose (see commant output)
+ctest -N		# get list of tests
+ctest -R $testname	# launch only $testname
+\end{verbatim}
+Here is a list of tests and testing option. Most test require manuel inspection of the results. Recursive testing will be implemented in the future.
+
+\subsection{QES-Winds Tests}
+
+Test for QES-Winds are designed to check that to code is still running under a given set of parameters. These tests do not guarentee the validity of the results. To turn on the basic QES-wind test, use:
+\begin{verbatim}
+cmake -DENABLE_SANITY_TESTS=ON -DENABLE_GPU_TESTS=ON ..
+\end{verbatim}
+The QES-Winds sanity tests are:
+- GPU-FlatTerrain: basic empty domain test
+- GPU-GaussianHill: basic terrain test
+- GPU-OklahomaCity: coarse resolution shapefile reader (without parameterization)
+- GPU-MultiSensors: test of multiple sensor and multiple timesteps
+- GPU-SaltLakeCity: test of high resolution urban setup with parameterizations
+- GPU-RxCADRE: test of high resolution and complex terrain (DEM)
+
+\subsection{QES-Turb Tests}
+
+There currently is no automated test available for QES-Turb.
+
+\subsection{QES-Plume Tests}
+
+There currently is no automated test available for QES-Plume. The following test cases are available
+- testing well-mixed condition: \verb|Sinusoidal3D| \verb|Channel3D| \verb|BaileyLES|
+- testing against analitical soluation: \verb|UniformFlow_ContRelease| \verb|PowerLawBLFlow_ContRelease|
+- testing against wind-tunnel data: \verb|EPA_7x11array|
+
+\subsection{Unit Tests}
+Unit tests can be enable by settong the flag \verb|ENABLE_UNITTESTS| to \verb|ON|.
+\begin{verbatim}
+cmake -DENABLE_UNITTESTS=ON ..
+\end{verbatim}
