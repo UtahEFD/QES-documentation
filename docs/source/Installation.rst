@@ -18,24 +18,33 @@ The very first package needed to be installed is ”git” package. It
 provides the ability to interact with GitHub and use commands to clone
 the repository, switch between different branches and etc. This package
 does not have any dependencies, so it is always recommended to install
-the latest version. The next package inline is ”CMake” and its GUI
-version ”CCMake”. It finds all the packages required, links them
-together and creates the ”makefile” for building the code. CMake should
-be any version greater than 3.10. QES-Winds also needs ”boost” libraries
-in order to have access to C++ source libraries. Boost 1.66.0 is
-sufficient for the purpose of QES-Winds. ”Gdal” libraries are necessary
-to read in Digital Elevation Models (DEM) and shapefile (for buildings).
-Version 2.3.1 of gdal libraries will do the job for our applications.
-The last library that needs to be installed is ”netcdf-c” libraries
-along with netcdf interface with C++, version 4.6 is required. Netcdf
-libraries are essential for reading in WRF output files and writing
-QES-Winds results in netcdf format. Finally, since QES-Winds is written
-in C++ and CUDA, ”gcc” and ”CUDA” compilers needed to be installed.
-Because there is a compatibility issue between versions of CUDA, gcc and
-Operating System(OS) (for more information go to
-https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html),
-version of gcc that is compatible with the version of CUDA and OS is
-required. For CUDA, at least version 8.0 needs to be installed.
+the latest version.
+
+-  The next package inline is ”CMake” and its GUI version ”CCMake”. It
+   finds all the packages required, links them together and creates the
+   ”makefile” for building the code. CMake should be any version greater
+   than 3.10.
+
+-  QES-Winds also needs ”boost” libraries in order to have access to C++
+   source libraries. Boost 1.66.0 is sufficient for the purpose of
+   QES-Winds.
+
+-  ”Gdal” libraries are necessary to read in Digital Elevation Models
+   (DEM) and shapefile (for buildings). Version 2.3.1 of gdal libraries
+   will do the job for our applications.
+
+-  The last library that needs to be installed is ”netcdf-c” libraries
+   along with netcdf interface with C++, version 4.6 is required. Netcdf
+   libraries are essential for reading in WRF output files and writing
+   QES-Winds results in netcdf format.
+
+-  Finally, since QES-Winds is written in C++ and CUDA, ”gcc” and ”CUDA”
+   compilers needed to be installed. Because there is a compatibility
+   issue between versions of CUDA, gcc and Operating System(OS) (for
+   more information go to
+   https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html),
+   version of gcc that is compatible with the version of CUDA and OS is
+   required. For CUDA, at least version 8.0 needs to be installed.
 
 Cloning QES-Winds from GitHub
 -----------------------------
@@ -72,8 +81,42 @@ those packages.
 -  A successful build will result in creating the executable named
    ”qesWinds”
 
+Build Types
+-----------
+
+The code support several build types: *Debug*, *Release*,
+*RelWithDebInfo*, *MinSizeRel*. You can select the build type
+
+::
+
+   cmake -DCMAKE_BUILD_TYPE=Release ..
+
+*Release* is recommanded for production
+
+cmake options:
+
+-  build code without CUDA support automatically if CUDA is not
+   supported by the system
+
+-  build code with openmp support for future multithread
+   application,openmp is not automatically enabled. if openmp support is
+   enable (``-DENABLE_OPENMP=ON``) the code will run a new red/black
+   solver on the CPU. Unfortunately thread safety issues with some plume
+   classes did not allow for an easy parallelization of the plume
+   advection.
+
+-  default is *RELEASE* with most warning off, ``-O3`` optimization. a
+   dev mode was added ``-DENABLE_DEV_MODE=ON`` showing warnings, will
+   build the code in DEBUG this option is slow and recommended only for
+   active development.
+
+-  ClangTidy option was added
+
+-  use ``-DENABLE_TESTS=ON`` to enable unit, sanity, and regressions
+   tests using Catch2 (https://github.com/catchorg/Catch2)
+
 Linux
------
+~~~~~
 
 On a general Linux system, such as Ubuntu 18.04 or 20.04, the following
 packages need to be installed:
@@ -116,10 +159,34 @@ You can then build the source:
    make
 
 macOS
------
+~~~~~
+
+The packages can be installed using Homebrew (https://brew.sh)
+
+::
+
+   brew install cmake boost gdal hdf5 netcdf netcdf-cxx
+
+If openMP multithreading is desired:
+
+::
+
+   brew install libomp
+
+On intel silicon machines:
+
+::
+
+   cmake -DNETCDF_LIBRARIES_CXX=/usr/local/lib/libnetcdf-cxx4.dylib -DENABLE_OPENMP=ON -DCMAKE_PREFIX_PATH=/usr/local/Cellar/libomp/15.0.7/ ..
+
+On apple silicon machines:
+
+::
+
+   cmake -DCMAKE_PREFIX_PATH=/opt/homebrew/Cellar/libomp/15.0.7 -DENABLE_OPENMP=ON -DNETCDF_LIBRARIES_CXX=/opt/homebrew/lib/libnetcdf-cxx4.dylib ..
 
 University of Utah - CHPC
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *This is the preferred build setup on CHPC*
 
@@ -157,7 +224,8 @@ the following modules:
    module load netcdf-c/4.8.1
    module load netcdf-cxx/4.2
 
-Or use the provided load script.
+Or use the provided load script, which will always load the latest
+tested configuration.
 
 ::
 
@@ -195,17 +263,3 @@ code can be compiled on CHPC:
 
 Note you *may* need to type make a second time due to a build bug,
 especially on the CUDA 8.0 build.
-
-Build Types
------------
-
-The code support several build types: *Debug*, *Release*,
-*RelWithDebInfo*, *MinSizeRel*. You can select the build type
-
-::
-
-   cmake -DCMAKE_BUILD_TYPE=Release ..
-
-*Release* is recommanded for production
-
-cmake options:
