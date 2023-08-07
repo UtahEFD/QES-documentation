@@ -59,7 +59,7 @@ sbatch rGaussianHill_gpu.slurm
 This will create the various NetCDF output files in the run folder, along with any output in the \verb|init_error.log| and \verb|init_out.log| files.
 
 
-\section{Testing QES}
+\subsection{Testing QES}
 
 We are using ctest to conduct unit tests and sanity check on the code. Here are a few commands:
 \begin{verbatim}
@@ -70,7 +70,7 @@ ctest -R $testname	# launch only $testname
 \end{verbatim}
 Here is a list of tests and testing option. Most test require manuel inspection of the results. Recursive testing will be implemented in the future.
 
-\subsection{QES-Winds Tests}
+\subsubsection{QES-Winds Tests}
 
 Test for QES-Winds are designed to check that to code is still running under a given set of parameters. These tests do not guarentee the validity of the results. To turn on the basic QES-wind test, use:
 \begin{verbatim}
@@ -84,18 +84,18 @@ The QES-Winds sanity tests are:
 - GPU-SaltLakeCity: test of high resolution urban setup with parameterizations
 - GPU-RxCADRE: test of high resolution and complex terrain (DEM)
 
-\subsection{QES-Turb Tests}
+\subsubsection{QES-Turb Tests}
 
 There currently is no automated test available for QES-Turb.
 
-\subsection{QES-Plume Tests}
+\subsubsection{QES-Plume Tests}
 
 There currently is no automated test available for QES-Plume. The following test cases are available
 - testing well-mixed condition: \verb|Sinusoidal3D| \verb|Channel3D| \verb|BaileyLES|
 - testing against analitical soluation: \verb|UniformFlow_ContRelease| \verb|PowerLawBLFlow_ContRelease|
 - testing against wind-tunnel data: \verb|EPA_7x11array|
 
-\subsection{Unit Tests}
+\subsubsection{Unit Tests}
 Unit tests can be enable by settong the flag \verb|ENABLE_UNITTESTS| to \verb|ON|.
 \begin{verbatim}
 cmake -DENABLE_UNITTESTS=ON ..

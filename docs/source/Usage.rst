@@ -83,7 +83,7 @@ along with any output in the ``init_error.log`` and ``init_out.log``
 files.
 
 Testing QES
-===========
+-----------
 
 We are using ctest to conduct unit tests and sanity check on the code.
 Here are a few commands:
@@ -100,7 +100,7 @@ inspection of the results. Recursive testing will be implemented in the
 future.
 
 QES-Winds Tests
----------------
+~~~~~~~~~~~~~~~
 
 Test for QES-Winds are designed to check that to code is still running
 under a given set of parameters. These tests do not guarentee the
@@ -119,12 +119,12 @@ parameterizations - GPU-RxCADRE: test of high resolution and complex
 terrain (DEM)
 
 QES-Turb Tests
---------------
+~~~~~~~~~~~~~~
 
 There currently is no automated test available for QES-Turb.
 
 QES-Plume Tests
----------------
+~~~~~~~~~~~~~~~
 
 There currently is no automated test available for QES-Plume. The
 following test cases are available - testing well-mixed condition:
@@ -134,7 +134,7 @@ analitical soluation: ``UniformFlow_ContRelease``
 ``EPA_7x11array``
 
 Unit Tests
-----------
+~~~~~~~~~~
 
 Unit tests can be enable by settong the flag ``ENABLE_UNITTESTS`` to
 ``ON``.

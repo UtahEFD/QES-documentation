@@ -14,7 +14,7 @@ and plume dispersion modeling components of QUIC EnvSim (QES). Figure
 below shows a schematic of QES system and how different elements of the
 system interact with each other.
 
-.. figure:: {Images/QES_chart.png}
+.. figure:: Images/QES_chart.png
    :width: 16cm
 
    Schematic of the QUIC EnvSim system and the relationship between
@@ -30,7 +30,7 @@ simulations. **QES requires a NVIDIA GPU with Compute Capability of 7.0
 (or higher)**.
 
 QES-Winds
----------
+~~~~~~~~~
 
 QES-Winds is a fast-response 3D diagnostic urban wind model using a
 mass-conserving wind-field solver :cite:`Bozorgmehr2021`. QES-Winds uses
@@ -44,7 +44,7 @@ the Successive Over-Relaxation (SOR) method (an iterative solver), which
 is a variant of the Gauss-Seidel method with more rapid convergence.
 
 QES-Turb
---------
+~~~~~~~~
 
 QES-Turb is a turbulence model based on Prandtl’s mixing-length and
 Boussinesq eddy-viscosity hypotheses. QES-Turb computes the stress
@@ -52,7 +52,7 @@ tensor using local velocity gradients and some emprical non-local
 parameterizations.
 
 QES-Plume
----------
+~~~~~~~~~
 
 QES-Plume is a stochastic Lagrangian dispersion model using QES-Winds
 mean wind field and QES-Turb turbulence fields. QES-Plume solves the
@@ -64,7 +64,7 @@ QES-Plume is also a stand-alone dispersion model that can run using
 fields from diverses sources such as RANS or LES models.
 
 QES-Fire
---------
+~~~~~~~~
 
 QES-Fire is a microscale wildfire model coupling the fire front to
 microscale winds. The model consists of a simplified physics rate of
