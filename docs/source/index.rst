@@ -7,7 +7,7 @@ Welcome to QES's documentation!
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.7098279.svg?style=svg
    :target: https://doi.org/10.5281/zenodo.7098279
 
-Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid_fm|, Eric R Pardyjak |orcid_ep|, Rob Stoll |orcid_rs|, ,
+Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid_fm|, Lucas Ulmer |orcid_lu|, Eric R Pardyjak |orcid_ep|, Rob Stoll |orcid_rs|, Pete Willemsen
 
 .. |orcid_bb| image:: https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png
     :target: https://orcid.org/0000-0003-1633-8383
@@ -23,6 +23,11 @@ Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid
 
 .. |orcid_jg| image:: https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png
     :target: https://orcid.org/0000-0001-9340-2663
+
+.. |orcid_lu| image:: https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png
+    :target: https://orcid.org/0000-0002-8887-5738
+
+
 
 The Quick Environmental Simulation (**QES**) code is a low-computational-cost
 framework designed to compute high-resolution wind and concentration fields in
