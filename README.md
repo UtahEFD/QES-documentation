@@ -1,6 +1,6 @@
 # QES documentation
 
-Link to the documentation: https://fmargairaz-rtd-tutorial.readthedocs.io/en/latest/
+Link to the documentation: https://qes-documentation.readthedocs.io/en/latest/
 
 ### Template for the Read the Docs tutorial
 
