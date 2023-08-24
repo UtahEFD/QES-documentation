@@ -555,35 +555,36 @@ developed for different areas around the building. This section covers
 available parameterizations in QES-Winds along with their effects on the
 wind field.
 
-test: `[leeside-cavity-and-far-wake] <#leeside-cavity-and-far-wake>`__
+test: `[upwind-cavity] <#upwind-cavity>`__
+`[leeside-cavity-and-far-wake] <#leeside-cavity-and-far-wake>`__
 
 .. code:: xml
 
    <buildingsParams>
-       <wallRoughness>0.01</wallRoughness>  
+       <wallRoughness>0.01</wallRoughness>
        <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
-       <rooftopFlag> 2 </rooftopFlag> 
+       <rooftopFlag> 2 </rooftopFlag>
        <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
-       <upwindCavityFlag> 2 </upwindCavityFlag>    
-       <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->        
-       <streetCanyonFlag> 1 </streetCanyonFlag>    
-       <!--Street intersection flag (0-off, 1-on) -->      
-       <streetIntersectionFlag> 0 </streetIntersectionFlag> 
-       <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->       
-       <wakeFlag> 2 </wakeFlag>                    
+       <upwindCavityFlag> 2 </upwindCavityFlag>
+       <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->
+       <streetCanyonFlag> 1 </streetCanyonFlag>
+       <!--Street intersection flag (0-off, 1-on) -->
+       <streetIntersectionFlag> 0 </streetIntersectionFlag>
+       <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->
+       <wakeFlag> 2 </wakeFlag>
        <!-- High-rise flag (0-off (default), 1-on) -->
-       <highRiseFlag> 0 </highRiseFlag> 
-       <!-- Sidewall flag (0-off, 1-on (default)) -->           
-       <sidewallFlag> 0 </sidewallFlag>                
-       
+       <highRiseFlag> 0 </highRiseFlag>
+       <!-- Sidewall flag (0-off, 1-on (default)) -->
+       <sidewallFlag> 0 </sidewallFlag>
+
        <!-- Address to shapefile location-->
-       <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>  
-       <!-- Name of building layer in shapefile-->                       
-       <SHPBuildingLayer>slc_cut</SHPBuildingLayer>     
-       <!-- Name of building height field in shapefile -->                     
-       <SHPHeightField>MEANHEIGHT</SHPHeightField>      
-       <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
-       <heightFactor> 1.0 </heightFactor>                      
+       <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>
+       <!-- Name of building layer in shapefile-->
+       <SHPBuildingLayer>slc_cut</SHPBuildingLayer>
+       <!-- Name of building height field in shapefile -->
+       <SHPHeightField>MEANHEIGHT</SHPHeightField>
+       <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->
+       <heightFactor> 1.0 </heightFactor>
      </buildingsParams>
 
 Upwind Cavity
@@ -634,13 +635,13 @@ m and a horizontal plane at :math:`z=5` m, respectively.
 .. container:: float
 
    .. figure:: Images/upwind_y_100_1_init_icell.png
-      :width: 10.3cm
+      :width: 5cm
 
    .. figure:: Images/upwind_y_100_1_init_vel.png
-      :width: 11cm
+      :width: 5cm
 
    .. figure:: Images/upwind_y_100_1_final.png
-      :width: 11cm
+      :width: 5cm
 
 .. container:: float
 
