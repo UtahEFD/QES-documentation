@@ -640,20 +640,21 @@ magnitude contour with overlaying velocity vectors of initial (part (b))
 and final (part(c)) velocity fields in a vertical plane at :math:`y=100`
 m and a horizontal plane at :math:`z=5` m, respectively.
 
-.. container:: float
+.. figure:: Images/upwind_y_100_1.pdf
 
-   |image| |image1| |image2|
+   (a) Cell type contour to show the area of effect of the Röckle upwind
+   cavity parameterization in a vertical plane at :math:`y=100` m.
+   Velocity magnitude contour with overlaying velocity vectors of (b)
+   initial velocity field and (c) final velocity field, in a vertical
+   plane at :math:`y=100` m.
 
-.. container:: float
+.. figure:: Images/upwind_z_5_1.pdf
 
-   .. figure:: Images/upwind_z_5_1_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/upwind_z_5_1_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/upwind_z_5_1_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the Röckle upwind
+   cavity parameterization in a horizontal plane at :math:`z=5` m.
+   Velocity magnitude contour with overlaying velocity vectors of (b)
+   initial velocity field and (c) final velocity field, in a horizontal
+   plane at :math:`z=5` m.
 
 The second option is called the Modified Vortex Parameterization (MVP)
 and created by Bagal et al. :cite:`bagal2004improved`. In this
@@ -688,27 +689,21 @@ magnitude contour with overlaying velocity vectors of initial (part (b))
 and final (part(c)) velocity fields in a vertical plane at :math:`y=100`
 m and a horizontal plane at :math:`z=5` m, respectively.
 
-.. container:: float
+.. figure:: Images/upwind_y_100_2.pdf
 
-   .. figure:: Images/upwind_y_100_2_init_icell.png
-      :width: 10.3cm
+   (a) Cell type contour to show the area of effect of the MVP upwind
+   cavity parameterization in a vertical plane at :math:`y=100` m.
+   Velocity magnitude contour with overlaying velocity vectors of (b)
+   initial velocity field and (c) final velocity field, in a vertical
+   plane at :math:`y=100` m.
 
-   .. figure:: Images/upwind_y_100_2_init_vel.png
-      :width: 11cm
+.. figure:: Images/upwind_z_5_2.pdf
 
-   .. figure:: Images/upwind_y_100_2_final.png
-      :width: 11cm
-
-.. container:: float
-
-   .. figure:: Images/upwind_z_5_2_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/upwind_z_5_2_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/upwind_z_5_2_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the MVP upwind
+   cavity parameterization in a horizontal plane at :math:`z=5` m.
+   Velocity magnitude contour with overlaying velocity vectors of (b)
+   initial velocity field and (c) final velocity field, in a horizontal
+   plane at :math:`z=5` m.
 
 The third option is called the high-rise MVP algorithm (HMVP) and is
 designed to address the shortcomings of the previous models when it
@@ -736,27 +731,21 @@ magnitude contour with overlaying velocity vectors of initial (part (b))
 and final (part(c)) velocity fields in a vertical plane at :math:`y=100`
 m and a horizontal plane at :math:`z=5` m, respectively.
 
-.. container:: float
+.. figure:: Images/upwind_y_100_3.pdf
 
-   .. figure:: Images/upwind_y_100_3_init_icell.png
-      :width: 10.3cm
+   (a) Cell type contour to show the area of effect for the HMVP upwind
+   cavity parameterization in a vertical plane at :math:`y=100` m.
+   Velocity magnitude contour with overlaying velocity vectors of (b)
+   initial velocity field and (c) final velocity field, in a vertical
+   plane at :math:`y=100` m.
 
-   .. figure:: Images/upwind_y_100_3_init_vel.png
-      :width: 11cm
+.. figure:: Images/upwind_z_5_3.pdf
 
-   .. figure:: Images/upwind_y_100_3_final.png
-      :width: 11cm
-
-.. container:: float
-
-   .. figure:: Images/upwind_z_5_3_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/upwind_z_5_3_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/upwind_z_5_3_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the HMVP upwind
+   cavity parameterization in a horizontal plane at :math:`z=5` m.
+   Velocity magnitude contour with overlaying velocity vectors of (b)
+   initial velocity field and (c) final velocity field, in a horizontal
+   plane at :math:`z=5` m.
 
 In order to choose between these three upwind models, the user needs to
 change the value of "upwindCavityFlag" in the XML file.
@@ -829,27 +818,21 @@ contour with overlaying velocity vectors of initial (part (b)) and final
 (part(c)) velocity fields in a vertical plane at :math:`y=100` m and a
 horizontal plane at :math:`z=5` m, respectively.
 
-.. container:: float
+.. figure:: Images/wake_y_100_1.pdf
 
-   .. figure:: Images/wake_y_100_1_init_icell.png
-      :width: 10.3cm
+   (a) Cell type contour to show the area of effect of the Röckle wake
+   parameterization in a vertical plane at :math:`y=100` m. Velocity
+   magnitude contour with overlaying velocity vectors of (b) initial
+   velocity field and (c) final velocity field, in a vertical plane at
+   :math:`y=100` m.
 
-   .. figure:: Images/wake_y_100_1_init_vel.png
-      :width: 11cm
+.. figure:: Images/wake_z_5_1.pdf
 
-   .. figure:: Images/wake_y_100_1_final.png
-      :width: 11cm
-
-.. container:: float
-
-   .. figure:: Images/wake_z_5_1_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/wake_z_5_1_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/wake_z_5_1_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the Röckle wake
+   parameterization in a horizontal plane at :math:`z=5` m. Velocity
+   magnitude contour with overlaying velocity vectors of (b) initial
+   velocity field and (c) final velocity field, in a horizontal plane at
+   :math:`z=5` m.
 
 In order to turn on the wake model, the user needs to change the value
 of "wakeFlag" in the XML file.
@@ -911,27 +894,21 @@ contour with overlaying velocity vectors of initial (part (b)) and final
 (part(c)) velocity fields in a vertical plane at :math:`y=100` m and a
 horizontal plane at :math:`z=5` m, respectively.
 
-.. container:: float
+.. figure:: Images/street_y_100_1.pdf
 
-   .. figure:: Images/street_y_100_1_init_icell.png
-      :width: 10.3cm
+   (a) Cell type contour to show the area of effect of the street canyon
+   parameterization in a vertical plane at :math:`y=100` m. Velocity
+   magnitude contour with overlaying velocity vectors of (b) initial
+   velocity field and (c) final velocity field, in a vertical plane at
+   :math:`y=100` m.
 
-   .. figure:: Images/street_y_100_1_init_vel.png
-      :width: 11cm
+.. figure:: Images/street_z_5_1.pdf
 
-   .. figure:: Images/street_y_100_1_final.png
-      :width: 11cm
-
-.. container:: float
-
-   .. figure:: Images/street_z_5_1_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/street_z_5_1_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/street_z_5_1_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the street canyon
+   parameterization in a horizontal plane at :math:`z=5` m. Velocity
+   magnitude contour with overlaying velocity vectors of (b) initial
+   velocity field and (c) final velocity field, in a horizontal plane at
+   :math:`z=5` m.
 
 To turn on the street canyon parameterization, the user needs to change
 the value of "streetCanyonFlag" in the XML file.
@@ -989,16 +966,13 @@ using a single sensor with logarithmic profile as defined in
 contour with overlaying velocity vectors of initial (part (b)) and final
 (part(c)) velocity fields in a vertical plane at :math:`y=100` m.
 
-.. container:: float
+.. figure:: Images/rooftop_y_100_1.pdf
 
-   .. figure:: Images/rooftop_y_100_1_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/rooftop_y_100_1_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/rooftop_y_100_1_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the rooftop
+   parameterization in a vertical plane at :math:`y=100` m. Velocity
+   magnitude contour with overlaying velocity vectors of (b) initial
+   velocity field and (c) final velocity field, in a vertical plane at
+   :math:`y=100` m.
 
 To turn the parameterization on, the user needs to change the value of
 "rooftopFlag" in the XML file.
@@ -1047,16 +1021,13 @@ magnitude contour with overlaying velocity vectors of initial (part (b))
 and final (part(c)) velocity fields in a horizontal plane at :math:`z=5`
 m.
 
-.. container:: float
+.. figure:: Images/sidewall_z_5_1.pdf
 
-   .. figure:: Images/sidewall_z_5_1_init_icell.png
-      :width: 10.3cm
-
-   .. figure:: Images/sidewall_z_5_1_init_vel.png
-      :width: 11cm
-
-   .. figure:: Images/sidewall_z_5_1_final.png
-      :width: 11cm
+   (a) Cell type contour to show the area of effect of the sidewall
+   parameterization in a horizontal plane at :math:`z=5` m. Velocity
+   magnitude contour with overlaying velocity vectors of (b) initial
+   velocity field and (c) final velocity field, in a horizontal plane at
+   :math:`z=5` m.
 
 In order to turn the algorithm on, the user needs to change the value of
 "sidewallFlag" in the XML file.
@@ -1146,10 +1117,3 @@ quite rapid, but slow in comparison to the GPU solvers since it is a
 serial solver and does not have parallel computing capabilities,
 especially for large domains. For more information regarding different
 types of solvers available in QES-Winds, read :cite:`Bozorgmehr2021`.
-
-.. |image| image:: Images/upwind_y_100_1_init_icell.png
-   :width: 10.3cm
-.. |image1| image:: Images/upwind_y_100_1_init_vel.png
-   :width: 11cm
-.. |image2| image:: Images/upwind_y_100_1_final.png
-   :width: 11cm
