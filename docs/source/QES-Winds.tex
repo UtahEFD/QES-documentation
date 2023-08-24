@@ -370,26 +370,34 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 \begin{lstlisting}[language=XML]
 <metParams>
 	<sensor>
-	    <timeSeries>						<!-- Start of timestep informastion for a sensor -->
-       		<boundaryLayerFlag> 4 </boundaryLayerFlag> 			<!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->
-          <siteZ0> 0.1 </siteZ0> 									<!-- Site z0 -->
-          <reciprocal> 0.0 </reciprocal> 						<!-- Reciprocal Monin-Obukhov Length (1/m) -->
-          <height> 30.7015 </height> 							<!-- Height of the sensor -->
-          <height> 74.4169 </height>
-          <height> 144.644 </height>
-          <height> 197.455 </height>
-          <height> 268.468 </height>
-          <speed> 2.56922 </speed> 							<!-- Measured speed at the sensor height -->
-          <speed> 2.55532 </speed>
-          <speed> 2.33319 </speed>
-          <speed> 2.16058 </speed>
-          <speed> 1.98843 </speed>
-          <direction> 323.283 </direction> 					<!-- Wind direction of sensor -->
-          <direction> 327.377 </direction>
-          <direction> 332.676 </direction>
-          <direction> 337.649 </direction>
-          <direction> 344.273 </direction>
-    	</timeSeries>
+		<!-- Start of timestep information for a sensor -->
+	    <timeSeries>						
+			<!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->       
+       		<boundaryLayerFlag> 4 </boundaryLayerFlag> 			
+			<!-- Site z0 -->          	
+          	<siteZ0> 0.1 </siteZ0>
+          	<!-- Reciprocal Monin-Obukhov Length (1/m) --> 									
+          	<reciprocal> 0.0 </reciprocal>
+          
+         	<!-- Height of the sensor -->
+          	<height> 30.7015 </height> 							
+          	<height> 74.4169 </height>
+          	<height> 144.644 </height>
+          	<height> 197.455 </height>
+          	<height> 268.468 </height>
+          	<!-- Measured speed at the sensor height -->
+          	<speed> 2.56922 </speed> 							
+          	<speed> 2.55532 </speed>
+          	<speed> 2.33319 </speed>
+          	<speed> 2.16058 </speed>
+          	<speed> 1.98843 </speed>
+          	<!-- Wind direction of sensor -->
+          	<direction> 323.283 </direction> 					
+          	<direction> 327.377 </direction>
+          	<direction> 332.676 </direction>
+          	<direction> 337.649 </direction>
+          	<direction> 344.273 </direction>
+    		</timeSeries>
 	</sensor>
 </metParams>
 \end{lstlisting}
@@ -451,21 +459,9 @@ Part (a) of Figure \ref{fig:upwind_1_vert} and Figure \ref{fig:upwind_1_horiz} s
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}{\textwidth}
-    \centering
     \includegraphics[width=10.3cm,keepaspectratio]{Images/upwind_y_100_1_init_icell.png}
-    \caption{}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-    \centering
     \includegraphics[width=11.0cm,keepaspectratio]{Images/upwind_y_100_1_init_vel.png}
-    \caption{}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-    \centering
     \includegraphics[width=11.0cm,keepaspectratio]{Images/upwind_y_100_1_final.png}
-    \caption{}
-    \end{subfigure}
     \caption{(a) Cell type contour to show the area of effect of the R\"{o}ckle upwind cavity parameterization in a vertical plane at $y=100$ m. Velocity magnitude contour with overlaying velocity vectors of (b) initial velocity field and (c) final velocity field, in a vertical plane at $y=100$ m.}
 \end{figure}
 
