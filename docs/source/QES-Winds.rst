@@ -555,7 +555,7 @@ developed for different areas around the building. This section covers
 available parameterizations in QES-Winds along with their effects on the
 wind field.
 
-test: `1.6.2 <#leeside-cavity-and-far-wake>`__
+test: `[leeside-cavity-and-far-wake] <#leeside-cavity-and-far-wake>`__
 
 .. code:: xml
 
