@@ -518,26 +518,34 @@ QES-Winds:
 
       <metParams>
           <sensor>
-              <timeSeries>                        <!-- Start of timestep informastion for a sensor -->
-                  <boundaryLayerFlag> 4 </boundaryLayerFlag>          <!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->
-                <siteZ0> 0.1 </siteZ0>                                    <!-- Site z0 -->
-                <reciprocal> 0.0 </reciprocal>                        <!-- Reciprocal Monin-Obukhov Length (1/m) -->
-                <height> 30.7015 </height>                            <!-- Height of the sensor -->
-                <height> 74.4169 </height>
-                <height> 144.644 </height>
-                <height> 197.455 </height>
-                <height> 268.468 </height>
-                <speed> 2.56922 </speed>                          <!-- Measured speed at the sensor height -->
-                <speed> 2.55532 </speed>
-                <speed> 2.33319 </speed>
-                <speed> 2.16058 </speed>
-                <speed> 1.98843 </speed>
-                <direction> 323.283 </direction>                  <!-- Wind direction of sensor -->
-                <direction> 327.377 </direction>
-                <direction> 332.676 </direction>
-                <direction> 337.649 </direction>
-                <direction> 344.273 </direction>
-              </timeSeries>
+              <!-- Start of timestep information for a sensor -->
+              <timeSeries>                        
+                  <!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->       
+                  <boundaryLayerFlag> 4 </boundaryLayerFlag>          
+                  <!-- Site z0 -->            
+                  <siteZ0> 0.1 </siteZ0>
+                  <!-- Reciprocal Monin-Obukhov Length (1/m) -->                                  
+                  <reciprocal> 0.0 </reciprocal>
+                
+                  <!-- Height of the sensor -->
+                  <height> 30.7015 </height>                          
+                  <height> 74.4169 </height>
+                  <height> 144.644 </height>
+                  <height> 197.455 </height>
+                  <height> 268.468 </height>
+                  <!-- Measured speed at the sensor height -->
+                  <speed> 2.56922 </speed>                            
+                  <speed> 2.55532 </speed>
+                  <speed> 2.33319 </speed>
+                  <speed> 2.16058 </speed>
+                  <speed> 1.98843 </speed>
+                  <!-- Wind direction of sensor -->
+                  <direction> 323.283 </direction>                    
+                  <direction> 327.377 </direction>
+                  <direction> 332.676 </direction>
+                  <direction> 337.649 </direction>
+                  <direction> 344.273 </direction>
+                  </timeSeries>
           </sensor>
       </metParams>
 
@@ -561,30 +569,30 @@ test: `[upwind-cavity] <#upwind-cavity>`__
 .. code:: xml
 
    <buildingsParams>
-       <wallRoughness>0.01</wallRoughness>
+       <wallRoughness>0.01</wallRoughness>  
        <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
-       <rooftopFlag> 2 </rooftopFlag>
+       <rooftopFlag> 2 </rooftopFlag> 
        <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
-       <upwindCavityFlag> 2 </upwindCavityFlag>
-       <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->
-       <streetCanyonFlag> 1 </streetCanyonFlag>
-       <!--Street intersection flag (0-off, 1-on) -->
-       <streetIntersectionFlag> 0 </streetIntersectionFlag>
-       <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->
-       <wakeFlag> 2 </wakeFlag>
+       <upwindCavityFlag> 2 </upwindCavityFlag>    
+       <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->        
+       <streetCanyonFlag> 1 </streetCanyonFlag>    
+       <!--Street intersection flag (0-off, 1-on) -->      
+       <streetIntersectionFlag> 0 </streetIntersectionFlag> 
+       <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->       
+       <wakeFlag> 2 </wakeFlag>                    
        <!-- High-rise flag (0-off (default), 1-on) -->
-       <highRiseFlag> 0 </highRiseFlag>
-       <!-- Sidewall flag (0-off, 1-on (default)) -->
-       <sidewallFlag> 0 </sidewallFlag>
-
+       <highRiseFlag> 0 </highRiseFlag> 
+       <!-- Sidewall flag (0-off, 1-on (default)) -->           
+       <sidewallFlag> 0 </sidewallFlag>                
+       
        <!-- Address to shapefile location-->
-       <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>
-       <!-- Name of building layer in shapefile-->
-       <SHPBuildingLayer>slc_cut</SHPBuildingLayer>
-       <!-- Name of building height field in shapefile -->
-       <SHPHeightField>MEANHEIGHT</SHPHeightField>
-       <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->
-       <heightFactor> 1.0 </heightFactor>
+       <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>  
+       <!-- Name of building layer in shapefile-->                       
+       <SHPBuildingLayer>slc_cut</SHPBuildingLayer>     
+       <!-- Name of building height field in shapefile -->                     
+       <SHPHeightField>MEANHEIGHT</SHPHeightField>      
+       <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
+       <heightFactor> 1.0 </heightFactor>                      
      </buildingsParams>
 
 Upwind Cavity
@@ -634,14 +642,7 @@ m and a horizontal plane at :math:`z=5` m, respectively.
 
 .. container:: float
 
-   .. figure:: Images/upwind_y_100_1_init_icell.png
-      :width: 5cm
-
-   .. figure:: Images/upwind_y_100_1_init_vel.png
-      :width: 5cm
-
-   .. figure:: Images/upwind_y_100_1_final.png
-      :width: 5cm
+   |image| |image1| |image2|
 
 .. container:: float
 
@@ -1145,3 +1146,10 @@ quite rapid, but slow in comparison to the GPU solvers since it is a
 serial solver and does not have parallel computing capabilities,
 especially for large domains. For more information regarding different
 types of solvers available in QES-Winds, read :cite:`Bozorgmehr2021`.
+
+.. |image| image:: Images/upwind_y_100_1_init_icell.png
+   :width: 10.3cm
+.. |image1| image:: Images/upwind_y_100_1_init_vel.png
+   :width: 11cm
+.. |image2| image:: Images/upwind_y_100_1_final.png
+   :width: 11cm
