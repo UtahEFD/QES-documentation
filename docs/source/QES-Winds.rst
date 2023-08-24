@@ -555,7 +555,8 @@ developed for different areas around the building. This section covers
 available parameterizations in QES-Winds along with their effects on the
 wind field.
 
-test: `1.6.1 <#sec:upwind_cavity>`__
+test: `1.6.1 <#upwind-cavity>`__
+`1.6.2 <#leeside-cavity-and-far-wake>`__
 
 .. code:: xml
 
@@ -585,8 +586,6 @@ test: `1.6.1 <#sec:upwind_cavity>`__
        <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
        <heightFactor> 1.0 </heightFactor>                      
      </buildingsParams>
-
-.. _`sec:upwind_cavity`:
 
 Upwind Cavity
 ~~~~~~~~~~~~~

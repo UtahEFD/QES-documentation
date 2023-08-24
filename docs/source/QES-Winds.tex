@@ -400,7 +400,7 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 
 QES-Winds only conserves mass and no momentum equation is solved. As a result, the solution is a potential-flow solution (no shear effects). In order to add shear effects to our solution, empirical parameterizations are needed. These parameterizations are designed using results of experiments and computational simulations (e.g. \cite{singh2008evaluation,brown2013quic}). Buildings are the most important elements in urban areas. There are several parameterizations developed for different areas around the building. This section covers available parameterizations in QES-Winds along with their effects on the wind field.
 
-test: \ref{sec:upwind_cavity}
+test: \ref{upwind-cavity} \ref{leeside-cavity-and-far-wake}
 
 \begin{lstlisting}[language=XML]
 <buildingsParams>
@@ -431,7 +431,7 @@ test: \ref{sec:upwind_cavity}
   </buildingsParams>
 \end{lstlisting}
 
-\subsection{Upwind Cavity}\label{sec:upwind_cavity}
+\subsection{Upwind Cavity}\label{upwind-cavity}
 
 Upwind cavity as described in \cite{nelson20085,bagal2004improved,gowardhan2010evaluation} is the parameterization representing upwind and stagnation effects of the building on the fluid flow. There are three options available for this type of parameterization in QES-Winds. The first option based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. They defined an ellipsoid to represent what they call is the displacement zone in front of the building. The length of the displacement zone, $L_F$, is defined by: 
 \begin{equation}
@@ -594,7 +594,7 @@ In order to choose between these three upwind models, the user needs to change t
 </simulationParameters>
 \end{lstlisting}
 
-\subsection{Leeside Cavity and Far-Wake}
+\subsection{Leeside Cavity and Far-Wake}\label{leeside-cavity-and-far-wake}
 
 The far-wake and cavity parameterization described in \cite{singh2005testing,singh2006testing} are a significant part of the building parameterizations. The one available in QES-Winds is based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. The R\"{o}ckle parameterization defines two ellipsoids to represent the shape of the reversed flow cavity and the far-wake region. The reversed flow cavity extends to the along-wind cavity length
 ($L_R$), which is calculated as:
