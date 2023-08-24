@@ -38,7 +38,7 @@ The domain information (number of cells and cell size) are defined under the <si
 QES-Winds discretizes the computational domain using a staggered grid as shown in Figure \ref{fig:staggered_grid}. The velocity components ($u$, $v$ and $w$) are face-centered values and Lagrange multipliers ($\lambda$), divergence of the initial wind field ($R$) and solver coefficients ($e$, $f$, $g$, $h$, $m$ and $n$) are cell-centered variables. Because of nature of the finite difference method (depending on neighboring cells values), the first and last cells in $x$ and $y$ directions and the last cell in $z$ direction, are not updated in the solving process (their velocity remains as the same as the initial velocity field). For the same reason, there is a layer of ghost cells under the bottom surface to make velocity calculation in the first layer above the bottom surface possible. The values of the Lagrange multipliers for the ghost cells are set to the ones for the layer above the bottom surface to create a zero gradient for the Lagrange multipliers (boundary condition) as well as providing the neighboring cell for the finite difference method.
 
 \begin{figure}[h!]
-\includegraphics[width=\textwidth,keepaspectratio]{Images/staggered_grid_full.png}
+\includegraphics[width=11cm]{Images/staggered_grid_full.png}
 \caption{Staggered grid representation of the domain and location of each variable.}
 \end{figure}
 
@@ -400,21 +400,52 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 
 QES-Winds only conserves mass and no momentum equation is solved. As a result, the solution is a potential-flow solution (no shear effects). In order to add shear effects to our solution, empirical parameterizations are needed. These parameterizations are designed using results of experiments and computational simulations (e.g. \cite{singh2008evaluation,brown2013quic}). Buildings are the most important elements in urban areas. There are several parameterizations developed for different areas around the building. This section covers available parameterizations in QES-Winds along with their effects on the wind field.
 
-\subsection{Upwind Cavity}
+test: \ref{sec:upwind_cavity}
 
-Upwind cavity as described in \cite{nelson20085,bagal2004improved,gowardhan2010evaluation} is the parameterization representing upwind and stagnation effects of the building on the fluid flow. There are three options available for this type of parameterization in QES-Winds. The first option based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. They defined an ellipsoid to represent what they call is the displacement zone in front of the building. The length of the displacement zone, $L_F$, is defined by Eq. \ref{eq:lf}. The shape of the ellipsoid is estimated by Eq. \ref{eq:upwind}. Finally, the initial velocity components in the displacement zone are set to zero.
+\begin{lstlisting}[language=XML]
+<buildingsParams>
+    <wallRoughness>0.01</wallRoughness>  
+    <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
+    <rooftopFlag> 2 </rooftopFlag> 
+    <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
+    <upwindCavityFlag> 2 </upwindCavityFlag> 	
+    <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->		
+    <streetCanyonFlag> 1 </streetCanyonFlag> 	
+    <!--Street intersection flag (0-off, 1-on) -->		
+    <streetIntersectionFlag> 0 </streetIntersectionFlag> 
+    <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->		
+    <wakeFlag> 2 </wakeFlag> 					
+	<!-- High-rise flag (0-off (default), 1-on) -->
+    <highRiseFlag> 0 </highRiseFlag> 
+    <!-- Sidewall flag (0-off, 1-on (default)) -->           
+    <sidewallFlag> 0 </sidewallFlag> 				
+    
+    <!-- Address to shapefile location-->
+    <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>	 
+    <!-- Name of building layer in shapefile-->                       
+    <SHPBuildingLayer>slc_cut</SHPBuildingLayer>     
+    <!-- Name of building height field in shapefile -->                     
+    <SHPHeightField>MEANHEIGHT</SHPHeightField>      
+    <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
+    <heightFactor> 1.0 </heightFactor>				        
+  </buildingsParams>
+\end{lstlisting}
 
+\subsection{Upwind Cavity}\label{sec:upwind_cavity}
+
+Upwind cavity as described in \cite{nelson20085,bagal2004improved,gowardhan2010evaluation} is the parameterization representing upwind and stagnation effects of the building on the fluid flow. There are three options available for this type of parameterization in QES-Winds. The first option based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. They defined an ellipsoid to represent what they call is the displacement zone in front of the building. The length of the displacement zone, $L_F$, is defined by: 
 \begin{equation}
 \frac{L_{\mathrm{F}}}{H}=\frac{2(W / H)}{1+0.8 W / H}
 \label{eq:lf}
 \end{equation}
 
+The shape of the ellipsoid is estimated by:
 \begin{equation}
 \frac{X^{2}}{L_{\mathrm{F}}^{2}\left(1-(Z / 0.6 H)^{2}\right)}+\frac{Y^{2}}{W^{2}}=1
 \label{eq:upwind}
 \end{equation}
+where $L$, $H$ and $W$ are length, width and height of the building, receptively.Finally, the initial velocity components in the displacement zone are set to zero.
 
-where $L$, $H$ and $W$ are length, width and height of the building, receptively.
 
 Part (a) of Figure \ref{fig:upwind_1_vert} and Figure \ref{fig:upwind_1_horiz} show cell type contour to represent the area of effect of the R\"{o}ckle upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterizations is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:upwind_1_vert} and Figure \ref{fig:upwind_1_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
@@ -566,25 +597,24 @@ In order to choose between these three upwind models, the user needs to change t
 \subsection{Leeside Cavity and Far-Wake}
 
 The far-wake and cavity parameterization described in \cite{singh2005testing,singh2006testing} are a significant part of the building parameterizations. The one available in QES-Winds is based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. The R\"{o}ckle parameterization defines two ellipsoids to represent the shape of the reversed flow cavity and the far-wake region. The reversed flow cavity extends to the along-wind cavity length
-($L_R$), which is calculated as Eq. \ref{eq:Lr}, and wake is assumed to be approximately $3$ cavity lengths long (i.e., $3L_R$). After calculating $L_R$, the cavity length, $d$ in the stream-wise direction was defined by an ellipsoid shape using Eq. \ref{eq:d}. Finally, the velocity in the reversed cavity zone is defined using Eq. \ref{eq:cavity} and in the wake region, the velocity field is estimated by Eq. \ref{eq:wake}.
-
+($L_R$), which is calculated as:
 \begin{equation}
-\frac{L_{R}}{H}=\frac{1.8 \frac{W}{H}}{\left(\frac{L}{H}\right)^{0.3}\left(1+0.24 \frac{W}{H}\right)}
+\frac{L_{R}}{H}=\frac{1.8 \frac{W}{H}}{\left(\frac{L}{H}\right)^{0.3}\left(1+0.24 \frac{W}{H}\right)},
 \label{eq:Lr}
 \end{equation}
-
+and wake is assumed to be approximately $3$ cavity lengths long (i.e., $3L_R$). After calculating $L_R$, the cavity length, $d$ in the stream-wise direction was defined by an ellipsoid shape using: 
 \begin{equation}
-d=L_{R} \sqrt{\left(1-\left(\frac{z}{H}\right)^{2}\right)\left(1-\left(\frac{y}{W}\right)^{2}\right)}-\frac{L}{2}
+d=L_{R} \sqrt{\left(1-\left(\frac{z}{H}\right)^{2}\right)\left(1-\left(\frac{y}{W}\right)^{2}\right)}-\frac{L}{2}.
 \label{eq:d}
-\end{equation}
-
+\end{equation} 
+Finally, the velocity in the reversed cavity zone is defined using:
 \begin{equation}
 \frac{u(x, y, z)}{U(H)}=-\left(1-\left(\frac{x}{d}\right)^{2}\right)
 \label{eq:cavity}
 \end{equation}
-
+and in the wake region, the velocity field is estimated by: 
 \begin{equation}
-\frac{u(x, y, z)}{U(H)}=\left(1-\left(\frac{d}{x}\right)^{1.5}\right)
+\frac{u(x, y, z)}{U(H)}=\left(1-\left(\frac{d}{x}\right)^{1.5}\right).
 \label{eq:wake}
 \end{equation}
 
@@ -642,15 +672,14 @@ In order to turn on the wake model, the user needs to change the value of "wakeF
 
 \subsection{Street Canyon}
 
-The street canyon parameterization detailed in \cite{singh2008evaluation} represents the effects of two buildings in close vicinity to each other, on the fluid flow. R\"{o}ckle \cite{rockle1990bestimmung} Introduced velocity parameterizations for the stream-wise components as in Eq. \ref{eq:u_can} and the vertical component as in Eq. \ref{eq:w_can}.
-
+The street canyon parameterization detailed in \cite{singh2008evaluation} represents the effects of two buildings in close vicinity to each other, on the fluid flow. R\"{o}ckle \cite{rockle1990bestimmung} introduced velocity parameterizations for the stream-wise components as: 
 \begin{equation}
 \frac{u(x, y, z)}{U(H)}=-\frac{x_{\mathrm{can}}}{(0.5 S)}\left(\frac{S-x_{\mathrm{can}}}{0.5 S}\right)
 \label{eq:u_can}
 \end{equation}
-
+and the vertical component as 
 \begin{equation}
-\frac{w(x, y, z)}{U(H)}=-\left|\frac{1}{2}\left(1-\frac{x_{\text {can }}}{0.5 S}\right)\right|\left(1-\frac{S-x_{\text {can }}}{0.5 S}\right)
+\frac{w(x, y, z)}{U(H)}=-\left|\frac{1}{2}\left(1-\frac{x_{\text {can }}}{0.5 S}\right)\right|\left(1-\frac{S-x_{\text {can }}}{0.5 S}\right).
 \label{eq:w_can}
 \end{equation}
 

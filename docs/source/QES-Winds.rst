@@ -71,6 +71,7 @@ gradient for the Lagrange multipliers (boundary condition) as well as
 providing the neighboring cell for the finite difference method.
 
 .. figure:: Images/staggered_grid_full.png
+   :width: 11cm
 
    Staggered grid representation of the domain and location of each
    variable.
@@ -554,6 +555,39 @@ developed for different areas around the building. This section covers
 available parameterizations in QES-Winds along with their effects on the
 wind field.
 
+test: `1.6.1 <#sec:upwind_cavity>`__
+
+.. code:: xml
+
+   <buildingsParams>
+       <wallRoughness>0.01</wallRoughness>  
+       <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
+       <rooftopFlag> 2 </rooftopFlag> 
+       <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
+       <upwindCavityFlag> 2 </upwindCavityFlag>    
+       <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->        
+       <streetCanyonFlag> 1 </streetCanyonFlag>    
+       <!--Street intersection flag (0-off, 1-on) -->      
+       <streetIntersectionFlag> 0 </streetIntersectionFlag> 
+       <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->       
+       <wakeFlag> 2 </wakeFlag>                    
+       <!-- High-rise flag (0-off (default), 1-on) -->
+       <highRiseFlag> 0 </highRiseFlag> 
+       <!-- Sidewall flag (0-off, 1-on (default)) -->           
+       <sidewallFlag> 0 </sidewallFlag>                
+       
+       <!-- Address to shapefile location-->
+       <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>  
+       <!-- Name of building layer in shapefile-->                       
+       <SHPBuildingLayer>slc_cut</SHPBuildingLayer>     
+       <!-- Name of building height field in shapefile -->                     
+       <SHPHeightField>MEANHEIGHT</SHPHeightField>      
+       <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
+       <heightFactor> 1.0 </heightFactor>                      
+     </buildingsParams>
+
+.. _`sec:upwind_cavity`:
+
 Upwind Cavity
 ~~~~~~~~~~~~~
 
@@ -566,14 +600,14 @@ parameterization proposed by Röckle :cite:`rockle1990bestimmung` and
 later Kaplan and Dinar :cite:`kaplan1996lagrangian`. They defined an
 ellipsoid to represent what they call is the displacement zone in front
 of the building. The length of the displacement zone, :math:`L_F`, is
-defined by Eq. `[eq:lf] <#eq:lf>`__. The shape of the ellipsoid is
-estimated by Eq. `[eq:upwind] <#eq:upwind>`__. Finally, the initial
-velocity components in the displacement zone are set to zero.
+defined by:
 
 .. math::
 
    \frac{L_{\mathrm{F}}}{H}=\frac{2(W / H)}{1+0.8 W / H}
    \label{eq:lf}
+
+The shape of the ellipsoid is estimated by:
 
 .. math::
 
@@ -581,7 +615,8 @@ velocity components in the displacement zone are set to zero.
    \label{eq:upwind}
 
 where :math:`L`, :math:`H` and :math:`W` are length, width and height of
-the building, receptively.
+the building, receptively.Finally, the initial velocity components in
+the displacement zone are set to zero.
 
 Part (a) of Figure `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and
 Figure `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ show cell type
@@ -743,32 +778,35 @@ later Kaplan and Dinar :cite:`kaplan1996lagrangian`. The Röckle
 parameterization defines two ellipsoids to represent the shape of the
 reversed flow cavity and the far-wake region. The reversed flow cavity
 extends to the along-wind cavity length (:math:`L_R`), which is
-calculated as Eq. `[eq:Lr] <#eq:Lr>`__, and wake is assumed to be
-approximately :math:`3` cavity lengths long (i.e., :math:`3L_R`). After
-calculating :math:`L_R`, the cavity length, :math:`d` in the stream-wise
-direction was defined by an ellipsoid shape using Eq.
-`[eq:d] <#eq:d>`__. Finally, the velocity in the reversed cavity zone is
-defined using Eq. `[eq:cavity] <#eq:cavity>`__ and in the wake region,
-the velocity field is estimated by Eq. `[eq:wake] <#eq:wake>`__.
+calculated as:
 
 .. math::
 
-   \frac{L_{R}}{H}=\frac{1.8 \frac{W}{H}}{\left(\frac{L}{H}\right)^{0.3}\left(1+0.24 \frac{W}{H}\right)}
+   \frac{L_{R}}{H}=\frac{1.8 \frac{W}{H}}{\left(\frac{L}{H}\right)^{0.3}\left(1+0.24 \frac{W}{H}\right)},
    \label{eq:Lr}
 
+and wake is assumed to be approximately :math:`3` cavity lengths long
+(i.e., :math:`3L_R`). After calculating :math:`L_R`, the cavity length,
+:math:`d` in the stream-wise direction was defined by an ellipsoid shape
+using:
+
 .. math::
 
-   d=L_{R} \sqrt{\left(1-\left(\frac{z}{H}\right)^{2}\right)\left(1-\left(\frac{y}{W}\right)^{2}\right)}-\frac{L}{2}
+   d=L_{R} \sqrt{\left(1-\left(\frac{z}{H}\right)^{2}\right)\left(1-\left(\frac{y}{W}\right)^{2}\right)}-\frac{L}{2}.
    \label{eq:d}
+
+Finally, the velocity in the reversed cavity zone is defined using:
 
 .. math::
 
    \frac{u(x, y, z)}{U(H)}=-\left(1-\left(\frac{x}{d}\right)^{2}\right)
    \label{eq:cavity}
 
+and in the wake region, the velocity field is estimated by:
+
 .. math::
 
-   \frac{u(x, y, z)}{U(H)}=\left(1-\left(\frac{d}{x}\right)^{1.5}\right)
+   \frac{u(x, y, z)}{U(H)}=\left(1-\left(\frac{d}{x}\right)^{1.5}\right).
    \label{eq:wake}
 
 where :math:`L`, :math:`H` and :math:`W` are length, width and height of
@@ -828,18 +866,19 @@ Street Canyon
 The street canyon parameterization detailed in
 :cite:`singh2008evaluation` represents the effects of two buildings in
 close vicinity to each other, on the fluid flow. Röckle
-:cite:`rockle1990bestimmung` Introduced velocity parameterizations for
-the stream-wise components as in Eq. `[eq:u_can] <#eq:u_can>`__ and the
-vertical component as in Eq. `[eq:w_can] <#eq:w_can>`__.
+:cite:`rockle1990bestimmung` introduced velocity parameterizations for
+the stream-wise components as:
 
 .. math::
 
    \frac{u(x, y, z)}{U(H)}=-\frac{x_{\mathrm{can}}}{(0.5 S)}\left(\frac{S-x_{\mathrm{can}}}{0.5 S}\right)
    \label{eq:u_can}
 
+and the vertical component as
+
 .. math::
 
-   \frac{w(x, y, z)}{U(H)}=-\left|\frac{1}{2}\left(1-\frac{x_{\text {can }}}{0.5 S}\right)\right|\left(1-\frac{S-x_{\text {can }}}{0.5 S}\right)
+   \frac{w(x, y, z)}{U(H)}=-\left|\frac{1}{2}\left(1-\frac{x_{\text {can }}}{0.5 S}\right)\right|\left(1-\frac{S-x_{\text {can }}}{0.5 S}\right).
    \label{eq:w_can}
 
 where :math:`S` is the spacing between two buildings and :math:`x_{can}`
