@@ -18,6 +18,93 @@ The fast-response three-dimensional diagnostic wind model written in C++, QES-Wi
 \caption{Flowchart for the QES-Winds wind solver}
 \end{figure}
 
+
+\section{Mass Consistent Solver}
+
+\subsection{Staggered Grid}
+
+QES-Winds discretizes the computational domain using a staggered grid as shown in figure below.
+
+\begin{figure}[h!]
+\includegraphics[width=11cm]{Images/staggered_grid_full.png}
+\caption{Staggered grid representation of the domain and location of each variable.}
+\end{figure}
+
+The velocity components ($u$, $v$ and $w$) are face-centered values and Lagrange multipliers ($\lambda$), divergence of the initial wind field ($R$) and solver coefficients ($e$, $f$, $g$, $h$, $m$ and $n$) are cell-centered variables. Because of nature of the finite difference method (depending on neighboring cells values), the first and last cells in $x$ and $y$ directions and the last cell in $z$ direction, are not updated in the solving process (their velocity remains as the same as the initial velocity field). For the same reason, there is a layer of ghost cells under the bottom surface to make velocity calculation in the first layer above the bottom surface possible. The values of the Lagrange multipliers for the ghost cells are set to the ones for the layer above the bottom surface to create a zero gradient for the Lagrange multipliers (boundary condition) as well as providing the neighboring cell for the finite difference method.
+
+\subsection{Poisson Equation}
+
+QES-Winds have mass conserving wind field solvers that rapidly compute wind fields using a variational method rather than slower yet more physics based solvers that include conservation of momentum \cite{kim2014effects}. While the QES-Winds method uses reduced order physics in the numerical solution of urban flow problems, the solutions are rapid and compare quite well higher order physics-based models in both idealized \cite{hayati2017comprehensive} and realistic urban cities \cite{neophytou2011inter}. The method minimizes the difference between an initial wind field that is specified using empirical parameterizations \cite{singh2008evaluation} and the final wind fields. The empirical parameterizations account for complex wind fields around buildings such as wake cavities downstream of a building. To obtain a quasi-time-averaged velocity field, QES-Winds uses a variational analysis technique \cite{singh2008evaluation}. This method requires the solution of a Poisson equation for Lagrange multipliers, $\lambda$ in the following form:
+
+\begin{equation} \label{poisson}
+\frac{\partial^2\lambda}{\partial x^2} + \frac{\partial^2\lambda}{\partial y^2} + (\frac{\alpha_1}{\alpha_2})^2\:  \frac{\partial^2\lambda}{\partial z^2} = R
+\end{equation}
+
+Where R is divergence of the initial wind field and is defined as:
+
+\begin{equation} \label{divergence}
+ R = -2\,\alpha_1^2\,\Bigg[\frac{u_{i+1/2}^0-u_{i-1/2}^0}{\Delta x} + \frac{v_{j+1/2}^0-v_{j-1/2}^0}{\Delta y} + \frac{w_{k+1/2}^0-w_{k-1/2}^0}{\Delta z}\Bigg]
+\end{equation}
+
+The final velocity field is updated using Euler-Lagrange equations:
+
+ \begin{equation} \label{eu-lag1}
+ u = u^0 + \frac{1}{2\,\alpha_1^2\,\Delta x}\,[\lambda_{i+1\,,j,\,k}-\lambda_{i,\,j,\,k}]
+\end{equation}
+
+\begin{equation}
+\label{eu-lag2}
+ v = v^0 + \frac{1}{2\,\alpha_1^2\,\Delta y}\,[\lambda_{i,\,j+1,\,k}-\lambda_{i,\,j,\,k}]
+\end{equation}
+
+\begin{equation}
+\label{eu-lag3}
+ w = w^0 + \frac{1}{2\,\alpha_2^2\,\Delta z}\,[\lambda_{i,\,j,\,k+1}-\lambda_{i,\,j,\,k}]
+\end{equation}
+
+The Poisson equation is solved using the Successive Over-Relaxation (SOR) method which is a variant of Gauss-Seidel method with faster convergence. Applying SOR to Equation \ref{poisson} results in:
+\begin{equation}
+\label{SOR}
+\begin{split}
+ \lambda_{i,\,j,\,k} & = \frac{\omega\Bigg[(\Delta x)^2 R_{i,\,j,\,k}+e\,\lambda_{i+1}+f\, \lambda_{i-1}+A(g\,\lambda_{j+1}+h\, \lambda_{j-1}) + B(m\,\lambda_{k+1}+n\, \lambda_{k-1})\Bigg]}{e+f+g+h+m+n}\\
+ & +(1-\omega)\lambda_{i,\,j,\,k}
+ \end{split}
+\end{equation}
+
+Where e,f,g,h,m,n are boundary condition coefficients and A and B are domain constants. $\omega = 1.78$ is the SOR relaxation factor. The boundary condition for solid surfaces is ($\frac{\partial \lambda}{\partial n}=0$) and for inlet/outlet surfaces it is $\lambda=0$.
+
+
+\subsection{Solver Types}
+
+QES-Winds has four options for solving the SOR equation discussed above, the first option is to solve the equation on the CPU and the rest use the GPU for computations. The GPU solvers are called: the dynamic parallel, the global memory and the shared memory. The CPU solver is quite rapid, but slow in comparison to the GPU solvers since it is a serial solver and does not have parallel computing capabilities, especially for large domains. For more information regarding different types of solvers available in QES-Winds, read \cite{Bozorgmehr2021}.
+
+\section{XML structure}
+
+\begin{lstlisting}[language=XML]
+<QESWindsParameters>
+	<simulationParameters>
+		<!-- ... -->
+	</simulationParameters>
+		
+	<metParams>
+		<!-- ... -->
+	</metParams>
+	
+	<buildingsParams>
+		<!-- ... -->
+	</buildingsParams>
+	
+	<turbParams>
+		<!-- ... -->
+	</turbParams>							
+	
+	<fileOptions>
+		<!-- ... -->
+	</fileOptions>
+</QESWindsParameters>
+\end{lstlisting}
+
+
 \section{QES-Winds Domain}
 
 The first step in every computational code or package is to define the computational domain. The user can define the domain by specifying the number of cells in $x$, $y$ and $z$ directions as well as the cell size in each direction in the input file (XML file).
@@ -32,15 +119,6 @@ The domain information (number of cells and cell size) are defined under the <si
   	<cellSize> 2.0 2.0 2.0 </cellSize> 				<!-- Mesh resolution (meters)-->
 </simulationParameters>
 \end{lstlisting}
-
-\section{Staggered Grid}
-
-QES-Winds discretizes the computational domain using a staggered grid as shown in Figure \ref{fig:staggered_grid}. The velocity components ($u$, $v$ and $w$) are face-centered values and Lagrange multipliers ($\lambda$), divergence of the initial wind field ($R$) and solver coefficients ($e$, $f$, $g$, $h$, $m$ and $n$) are cell-centered variables. Because of nature of the finite difference method (depending on neighboring cells values), the first and last cells in $x$ and $y$ directions and the last cell in $z$ direction, are not updated in the solving process (their velocity remains as the same as the initial velocity field). For the same reason, there is a layer of ghost cells under the bottom surface to make velocity calculation in the first layer above the bottom surface possible. The values of the Lagrange multipliers for the ghost cells are set to the ones for the layer above the bottom surface to create a zero gradient for the Lagrange multipliers (boundary condition) as well as providing the neighboring cell for the finite difference method.
-
-\begin{figure}[h!]
-\includegraphics[width=11cm]{Images/staggered_grid_full.png}
-\caption{Staggered grid representation of the domain and location of each variable.}
-\end{figure}
 
 \subsection{Halo Region}
 
@@ -61,6 +139,8 @@ In order to define length of the halo zone in $x$ and $y$ direction, the user ca
 </simulationParameters>
 \end{lstlisting}
 
+
+
 \section{Digital Elevation Model (DEM) and ESRI Shapefile}
 
 The current version of QES-Winds has been written to allow commonly available terrain and building geometry datasets to be used for simulations. In this section, various input file formats for QES-Winds will be covered.
@@ -71,17 +151,9 @@ Using the Geospatial Data Abstraction Library (GDAL; \href{https://www.gdal.org}
 
 Using the Digital Elevation Model (DEM) file loaders in our code base, we have loaded and tested multiple different terrain data sets. As a first test, we loaded a DEM of Askervein Hill. This is an isolated hill in Scotland where field experiments have been conducted and data for testing and evaluation exists (\cite{taylor1987askervein,mickle1988askervein}). The simulation with Askervein Hill was run without any complex terrain flow parameterizations. The Askervein Hill dataset is $6023.43$ m by $6023.43$ m. The hill height is approximately $124$ m tall. Figure \ref{fig:askervein} indicates the cell type contour for the Askervin hill test case in a vertical plane at $y = 3000$ m (part (a)), and a horizontal plane at $z=20$ m (part (b)). These plots show the ability of QES-Winds to read in and process DEM files. The cell type value $1$ (blue) represents the air cells while value $2$ (red) indicates the terrain cells.
 
-\begin{figure}[H]
-    \begin{subfigure}{\textwidth}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=13.0cm,keepaspectratio]{Images/askervein_y_3000_icell.png}
-    \caption{}
-    \end{subfigure}
-    \begin{subfigure}{\textwidth}
-    \centering
-    \includegraphics[width=13.0cm,keepaspectratio]{Images/askervein_z_20_icell.png}
-    \caption{}
-    \end{subfigure}
+    \includegraphics[width=\textwidth]{Images/askervein.pdf}
     \caption{Cell type contour for the Askervin hill test case in a (a) vertical plane at $y=3000$ m, (b) horizontal plane at $z=20$ m. The cell type value $1$ (blue) represents the air cells while value $2$ (red) indicates the terrain cells.}
 \end{figure}
 
@@ -128,51 +200,6 @@ There are two options to determine the location of the origin of QES domain insi
 
 \end{enumerate}
 
-\subsection{Automated City Building}
-
-A new shapefile reader function has been added to QES-Winds, which provides the capacity to load the ESRI shapefiles using GDAL (Geospatial Data Abstraction Library) libraries. After the building footprints and heights are loaded from ESRI shapefiles, QES-Winds creates polygon buildings and applies appropriate parameterization to them. Figure \ref{fig:okc_qgis} shows an example ESRI shapefile can be read into QES-Winds, Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS (\href{https://qgis.org}{https://qgis.orgg}). The cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m is shown in Figure \ref{fig:okc_icell}. This plot indicates the ability of QES-Winds to read in and process ESRI shapefiles. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=13.0cm,keepaspectratio]{Images/OKC.png}
-\caption{Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS.}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,keepaspectratio]{Images/oklahoma_z_3_icell.png}
-\caption{Cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.}
-\end{figure}
-
-The user can define the address to the shapefile using <SHP> variable as well as the name of the shapefile using the <SHPBuildingLayer> and the correlation factor between the height field of the shapefile and the actual height of the buildings using the <heightFactor> under <simulationParameters> part in the XML file:
-
-\begin{lstlisting}[language=XML]
-<simulationParameters>
-  	<SHP>../data/GISFiles/OKCSmallDomain/OKCSmallDomainJU2003.shp</SHP>	<!-- Address to shapefile location-->
-  	<SHPBuildingLayer>OKCSmallDomainJU2003</SHPBuildingLayer>
-  	<heightFactor> 1.0 </heightFactor>				<!-- Height factor multiplied by the building height read in from the shapefile (default = 1.0)-->
-</simulationParameters>
-\end{lstlisting}
-
-\subsection{Import Building From XML}
-\label{sec:building}
-
-Instead of reading in a ESRI shapefile, the user can import building information manually through the XML file. This can be done by using the <buildings> section of the XML file. The only option available for now is the rectangular building. Information required for defining a rectangular building are height, base height, length, width, location of the closest corner to the origin of domain and building rotational angle. Following is an example of a rectangular building with $40$ m as height, $0$ m as base height, $20$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. Also, $0.1$ m is defined as the surface roughness for all the building walls.
-
-\begin{lstlisting}[language=XML]
-<buildings>
-	<wallRoughness> 0.1 </wallRoughness>
-	<rectangularBuilding>
-		<height> 40.0 </height>
-		<baseHeight> 0 </baseHeight>
-		<xStart> 90.0 </xStart>
-		<yStart> 90.0 </yStart>
-		<length> 20.0 </length>
-		<width> 20.0 </width>
-		<buildingRotation> 0.0 </buildingRotation>
-	</rectangularBuilding>
-</buildings>
-\end{lstlisting}
 
 \section{Initial Wind Field}
 
@@ -404,7 +431,7 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 
 \end{enumerate}
 
-\section{Empirical Parameterizations}
+\section{Building Parameters}
 
 QES-Winds only conserves mass and no momentum equation is solved. As a result, the solution is a potential-flow solution (no shear effects). In order to add shear effects to our solution, empirical parameterizations are needed. These parameterizations are designed using results of experiments and computational simulations (e.g. \cite{singh2008evaluation,brown2013quic}). Buildings are the most important elements in urban areas. There are several parameterizations developed for different areas around the building. This section covers available parameterizations in QES-Winds along with their effects on the wind field.
 
@@ -412,22 +439,6 @@ test: \autoref{upwind-cavity} \autoref{leeside-cavity-and-far-wake}
 
 \begin{lstlisting}[language=XML]
 <buildingsParams>
-    <wallRoughness>0.01</wallRoughness>  
-    <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
-    <rooftopFlag> 2 </rooftopFlag> 
-    <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
-    <upwindCavityFlag> 2 </upwindCavityFlag> 	
-    <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->		
-    <streetCanyonFlag> 1 </streetCanyonFlag> 	
-    <!--Street intersection flag (0-off, 1-on) -->		
-    <streetIntersectionFlag> 0 </streetIntersectionFlag> 
-    <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->		
-    <wakeFlag> 2 </wakeFlag> 					
-	<!-- High-rise flag (0-off (default), 1-on) -->
-    <highRiseFlag> 0 </highRiseFlag> 
-    <!-- Sidewall flag (0-off, 1-on (default)) -->           
-    <sidewallFlag> 0 </sidewallFlag> 				
-    
     <!-- Address to shapefile location-->
     <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>	 
     <!-- Name of building layer in shapefile-->                       
@@ -435,8 +446,71 @@ test: \autoref{upwind-cavity} \autoref{leeside-cavity-and-far-wake}
     <!-- Name of building height field in shapefile -->                     
     <SHPHeightField>MEANHEIGHT</SHPHeightField>      
     <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
-    <heightFactor> 1.0 </heightFactor>				        
-  </buildingsParams>
+    <heightFactor> 1.0 </heightFactor>	
+    
+    <wallRoughness>0.01</wallRoughness>
+    
+    <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
+    <upwindCavityFlag> 2 </upwindCavityFlag> 	
+    <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->		
+    <wakeFlag> 2 </wakeFlag>
+    <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->		
+    <streetCanyonFlag> 1 </streetCanyonFlag> 	   
+    <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
+    <rooftopFlag> 2 </rooftopFlag> 
+    <!-- Sidewall flag (0-off, 1-on (default)) -->           
+    <sidewallFlag> 0 </sidewallFlag> 		
+    <!--Street intersection flag (0-off, 1-on) -->		
+    <streetIntersectionFlag> 0 </streetIntersectionFlag> 					
+	<!-- High-rise flag (0-off (default), 1-on) -->
+    <highRiseFlag> 0 </highRiseFlag> 
+</buildingsParams>
+\end{lstlisting}
+
+\subsection{Automated City Building}
+
+A new shapefile reader function has been added to QES-Winds, which provides the capacity to load the ESRI shapefiles using GDAL (Geospatial Data Abstraction Library) libraries. After the building footprints and heights are loaded from ESRI shapefiles, QES-Winds creates polygon buildings and applies appropriate parameterization to them. Figure \ref{fig:okc_qgis} shows an example ESRI shapefile can be read into QES-Winds, Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS (\href{https://qgis.org}{https://qgis.orgg}). The cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m is shown in Figure \ref{fig:okc_icell}. This plot indicates the ability of QES-Winds to read in and process ESRI shapefiles. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13.0cm,keepaspectratio]{Images/OKC.png}
+\caption{Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,keepaspectratio]{Images/oklahoma_z_3_icell.png}
+\caption{Cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.}
+\end{figure}
+
+The user can define the address to the shapefile using <SHP> variable as well as the name of the shapefile using the <SHPBuildingLayer> and the correlation factor between the height field of the shapefile and the actual height of the buildings using the <heightFactor> under <simulationParameters> part in the XML file:
+
+\begin{lstlisting}[language=XML]
+<simulationParameters>
+  	<SHP>../data/GISFiles/OKCSmallDomain/OKCSmallDomainJU2003.shp</SHP>	<!-- Address to shapefile location-->
+  	<SHPBuildingLayer>OKCSmallDomainJU2003</SHPBuildingLayer>
+  	<heightFactor> 1.0 </heightFactor>				<!-- Height factor multiplied by the building height read in from the shapefile (default = 1.0)-->
+</simulationParameters>
+\end{lstlisting}
+
+\subsection{Import Building From XML}
+\label{sec:building}
+
+Instead of reading in a ESRI shapefile, the user can import building information manually through the XML file. This can be done by using the <buildings> section of the XML file. The only option available for now is the rectangular building. Information required for defining a rectangular building are height, base height, length, width, location of the closest corner to the origin of domain and building rotational angle. Following is an example of a rectangular building with $40$ m as height, $0$ m as base height, $20$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. Also, $0.1$ m is defined as the surface roughness for all the building walls.
+
+\begin{lstlisting}[language=XML]
+<buildings>
+	<wallRoughness> 0.1 </wallRoughness>
+	<rectangularBuilding>
+		<height> 40.0 </height>
+		<baseHeight> 0 </baseHeight>
+		<xStart> 90.0 </xStart>
+		<yStart> 90.0 </yStart>
+		<length> 20.0 </length>
+		<width> 20.0 </width>
+		<buildingRotation> 0.0 </buildingRotation>
+	</rectangularBuilding>
+</buildings>
 \end{lstlisting}
 
 \subsection{Upwind Cavity}\label{upwind-cavity}
@@ -677,49 +751,3 @@ In order to turn the algorithm on, the user needs to change the value of "sidewa
   	<sidewallFlag> 1 </sidewallFlag> 				<!-- Sidewall flag (0-off, 1-on (default)) -->
 </simulationParameters>
 \end{lstlisting}
-
-\section{Mass Consistent Solver}
-
-QES-Winds have mass conserving wind field solvers that rapidly compute wind fields using a variational method rather than slower yet more physics based solvers that include conservation of momentum \cite{kim2014effects}. While the QES-Winds method uses reduced order physics in the numerical solution of urban flow problems, the solutions are rapid and compare quite well higher order physics-based models in both idealized \cite{hayati2017comprehensive} and realistic urban cities \cite{neophytou2011inter}. The method minimizes the difference between an initial wind field that is specified using empirical parameterizations \cite{singh2008evaluation} and the final wind fields. The empirical parameterizations account for complex wind fields around buildings such as wake cavities downstream of a building. To obtain a quasi-time-averaged velocity field, QES-Winds uses a variational analysis technique \cite{singh2008evaluation}. This method requires the solution of a Poisson equation for Lagrange multipliers, $\lambda$ (Equation \ref{poisson}) in the following form:
-
-\begin{equation} \label{poisson}
-\frac{\partial^2\lambda}{\partial x^2} + \frac{\partial^2\lambda}{\partial y^2} + (\frac{\alpha_1}{\alpha_2})^2\:  \frac{\partial^2\lambda}{\partial z^2} = R
-\end{equation}
-
-Where R is divergence of the initial wind field and is defined as:
-
-\begin{equation} \label{divergence}
- R = -2\,\alpha_1^2\,\Bigg[\frac{u_{i+1/2}^0-u_{i-1/2}^0}{\Delta x} + \frac{v_{j+1/2}^0-v_{j-1/2}^0}{\Delta y} + \frac{w_{k+1/2}^0-w_{k-1/2}^0}{\Delta z}\Bigg]
-\end{equation}
-
-The final velocity field is updated using Euler-Lagrange equations:
-
- \begin{equation} \label{eu-lag1}
- u = u^0 + \frac{1}{2\,\alpha_1^2\,\Delta x}\,[\lambda_{i+1\,,j,\,k}-\lambda_{i,\,j,\,k}]
-\end{equation}
-
-\begin{equation}
-\label{eu-lag2}
- v = v^0 + \frac{1}{2\,\alpha_1^2\,\Delta y}\,[\lambda_{i,\,j+1,\,k}-\lambda_{i,\,j,\,k}]
-\end{equation}
-
-\begin{equation}
-\label{eu-lag3}
- w = w^0 + \frac{1}{2\,\alpha_2^2\,\Delta z}\,[\lambda_{i,\,j,\,k+1}-\lambda_{i,\,j,\,k}]
-\end{equation}
-
-The Poisson equation is solved using the Successive Over-Relaxation (SOR) method which is a variant of Gauss-Seidel method with faster convergence. Applying SOR to Equation \ref{poisson} results in:
-\begin{equation}
-\label{SOR}
-\begin{split}
- \lambda_{i,\,j,\,k} & = \frac{\omega\Bigg[(\Delta x)^2 R_{i,\,j,\,k}+e\,\lambda_{i+1}+f\, \lambda_{i-1}+A(g\,\lambda_{j+1}+h\, \lambda_{j-1}) + B(m\,\lambda_{k+1}+n\, \lambda_{k-1})\Bigg]}{e+f+g+h+m+n}\\
- & +(1-\omega)\lambda_{i,\,j,\,k}
- \end{split}
-\end{equation}
-
-Where e,f,g,h,m,n are boundary condition coefficients and A and B are domain constants. $\omega = 1.78$ is the SOR relaxation factor. The boundary condition for solid surfaces is ($\frac{\partial \lambda}{\partial n}=0$) and for inlet/outlet surfaces it is $\lambda=0$.
-
-
-\subsection{Solver Types}
-
-QES-Winds has four options for solving the SOR equation discussed above, the first option is to solve the equation on the CPU and the rest use the GPU for computations. The GPU solvers are called: the dynamic parallel, the global memory and the shared memory. The CPU solver is quite rapid, but slow in comparison to the GPU solvers since it is a serial solver and does not have parallel computing capabilities, especially for large domains. For more information regarding different types of solvers available in QES-Winds, read \cite{Bozorgmehr2021}.
