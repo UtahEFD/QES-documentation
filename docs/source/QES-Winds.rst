@@ -137,30 +137,34 @@ serial solver and does not have parallel computing capabilities,
 especially for large domains. For more information regarding different
 types of solvers available in QES-Winds, read :cite:`Bozorgmehr2021`.
 
-XML structure
--------------
+Parameter Files
+---------------
 
 .. code:: xml
 
    <QESWindsParameters>
        <simulationParameters>
-           <!-- ... -->
+           <!-- HERE COMES THE SIMULATION PARAMETERS -->
        </simulationParameters>
            
        <metParams>
-           <!-- ... -->
+           <!-- HERE COMES THE MET PARAMETERS -->
        </metParams>
        
        <buildingsParams>
-           <!-- ... -->
+           <!-- HERE COMES THE BUILDING PARAMETERS -->
        </buildingsParams>
+
+       <vegetationParams>
+           <!-- HERE COMES THE VEGETATION PARAMETERS -->
+       </vegetationParams> 
        
        <turbParams>
-           <!-- ... -->
+           <!-- HERE COMES THE TURBULENCE PARAMETERS -->
        </turbParams>                           
        
        <fileOptions>
-           <!-- ... -->
+           <!-- HERE COMES THE FILE PARAMETERS -->
        </fileOptions>
    </QESWindsParameters>
 
@@ -183,8 +187,10 @@ resolution of :math:`2` m by :math:`2` m by :math:`2` m:
 .. code:: xml
 
    <simulationParameters>
-       <domain> 1000 1000 100 </domain>                    <!-- Number of cells in x,y and z directions-->
-       <cellSize> 2.0 2.0 2.0 </cellSize>              <!-- Mesh resolution (meters)-->
+       <!-- Number of cells in x,y and z directions-->
+       <domain> 1000 1000 100 </domain>    
+       <!-- Mesh resolution (meters)-->                
+       <cellSize> 2.0 2.0 2.0 </cellSize>              
    </simulationParameters>
 
 Halo Region
@@ -213,12 +219,14 @@ length of the halo in :math:`x` and :math:`y` directions, respectively.
 .. code:: xml
 
    <simulationParameters>
-       <halo_x> 20.0 </halo_x>                     <!-- Halo region added to x-direction of domain (at the beginning and the end of domain) (meters)-->
-       <halo_y> 30.0 </halo_y>                     <!-- Halo region added to y-direction of domain (at the beginning and the end of domain) (meters)-->
+       <!-- Halo region added to x-direction of domain (at the beginning and the end of domain) (meters)-->
+       <halo_x> 20.0 </halo_x>
+       <!-- Halo region added to y-direction of domain (at the beginning and the end of domain) (meters)-->
+       <halo_y> 30.0 </halo_y>                     
    </simulationParameters>
 
-Digital Elevation Model (DEM) and ESRI Shapefile
-------------------------------------------------
+Digital Elevation Model (DEM)
+-----------------------------
 
 The current version of QES-Winds has been written to allow commonly
 available terrain and building geometry datasets to be used for
@@ -263,7 +271,8 @@ the <simulationParameters> part in the XML file:
 .. code:: xml
 
    <simulationParameters>
-       <DEM>../scratch/DEM/askervein.tif</DEM>             <!-- Address to DEM location-->
+       <!-- Address to DEM location-->
+       <DEM>../scratch/DEM/askervein.tif</DEM>             
    </simulationParameters>
 
 Process Part of DEM
@@ -293,9 +302,12 @@ domain inside the DEM borders:
    .. code:: xml
 
       <simulationParameters>
-          <originFlag> 0 </originFlag>                    <!-- Origin flag (0- DEM coordinates (default), 1- UTM coordinates) -->
-            <DEMDistancex> 1000.0 </DEMDistancex>                 <!-- x component (m) of origin in DEM coordinates (if originFlag = 0) -->
-            <DEMDistancey> 1000.0 </DEMDistancey>                 <!-- y component (m) of origin in DEM coordinates (if originFlag = 0) -->
+          <!-- Origin flag (0- DEM coordinates (default), 1- UTM coordinates) -->
+          <originFlag> 0 </originFlag>        
+          <!-- x component (m) of origin in DEM coordinates (if originFlag = 0) -->       
+          <DEMDistancex> 1000.0 </DEMDistancex>       
+          <!-- y component (m) of origin in DEM coordinates (if originFlag = 0) -->   
+          <DEMDistancey> 1000.0 </DEMDistancey>               
       </simulationParameters>
 
 #. Defining the location of the QES domain origin in the Universal
@@ -306,9 +318,12 @@ domain inside the DEM borders:
    .. code:: xml
 
       <simulationParameters>
-          <originFlag> 1 </originFlag>                    <!-- Origin flag (0- DEM coordinates (default), 1- UTM coordinates) -->
-            <UTMx> 595469.6122881 </UTMx>                     <!-- x component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->
-            <UTMy> 6336281.9538635 </UTMy>                    <!-- y component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->
+          <!-- Origin flag (0- DEM coordinates (default), 1- UTM coordinates) -->
+          <originFlag> 1 </originFlag>    
+          <!-- x component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->                
+          <UTMx> 595469.6122881 </UTMx>
+          <!-- y component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->            
+          <UTMy> 6336281.9538635 </UTMy>                  
       </simulationParameters>
 
 Initial Wind Field
@@ -378,8 +393,10 @@ There are two options available for defining sensor information:
    .. code:: xml
 
       <metParams>
-          <z0_domain_flag> 0 </z0_domain_flag>                    <!-- Distribution of surface roughness for domain (0-uniform (default), 1-custom -->
-          <sensorName>../data/InputFiles/sensor.xml</sensorName>  <!-- Name of the sensor file with information for the sensor included -->
+          <!-- Distribution of surface roughness for domain (0-uniform (default), 1-custom -->
+          <z0_domain_flag> 0 </z0_domain_flag>        
+          <!-- Name of the sensor file with information for the sensor included -->               
+          <sensorName>../data/InputFiles/sensor.xml</sensorName>  
       </metParams>
 
 #. The user can define all information required for creating a sensor by
@@ -394,9 +411,12 @@ There are two options available for defining sensor information:
 
       <metParams>
           <sensor>
-              <site_coord_flag> 1 </site_coord_flag>          <!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-            <site_xcoord> 1.0  </site_xcoord>                 <!-- x component of site location in QES domain (m) (if site_coord_flag = 1) -->
-            <site_ycoord> 1.0 </site_ycoord>              <!-- y component of site location in QES domain (m) (if site_coord_flag = 1)-->
+              <!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
+              <site_coord_flag> 1 </site_coord_flag>          
+              <!-- x component of site location in QES domain (m) (if site_coord_flag = 1) -->
+              <site_xcoord> 1.0  </site_xcoord> 
+              <!-- y component of site location in QES domain (m) (if site_coord_flag = 1)-->
+              <site_ycoord> 1.0 </site_ycoord>
           </sensor>
       </metParams>
 
@@ -407,19 +427,26 @@ There are two options available for defining sensor information:
    .. code:: xml
 
       <simulationParameters>
-        <UTMx> 634173 </UTMx>                         <!-- x component (m) of origin in UTM -->
-          <UTMy> 3925360 </UTMy>                      <!-- y component (m) of origin in UTM -->
-          <UTMZone> 14 </UTMZone>                         <!-- UTM zone that domain located -->
+          <!-- x component (m) of origin in UTM -->
+          <UTMx> 634173 </UTMx>   
+          <!-- y component (m) of origin in UTM -->                   
+          <UTMy> 3925360 </UTMy>
+          <!-- UTM zone that domain located -->                       
+          <UTMZone> 14 </UTMZone>                         
       </simulationParameters>
 
    .. code:: xml
 
       <metParams>
           <sensor>
-              <site_coord_flag> 2 </site_coord_flag>          <!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-            <site_UTM_x> 634175 </site_UTM_x>                 <!-- x components of site coordinate in UTM (if site_coord_flag = 2) -->
-            <site_UTM_y> 3925362 </site_UTM_y>                <!-- y components of site coordinate in UTM (if site_coord_flag = 2)-->
-            <site_UTM_zone> 14 </site_UTM_zone>               <!-- UTM zone of the sensor site (if site_coord_flag = 2)-->
+          <!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
+          <site_coord_flag> 2 </site_coord_flag>      
+          <!-- x components of site coordinate in UTM (if site_coord_flag = 2) -->    
+          <site_UTM_x> 634175 </site_UTM_x> 
+          <!-- y components of site coordinate in UTM (if site_coord_flag = 2)-->     
+          <site_UTM_y> 3925362 </site_UTM_y>
+          <!-- UTM zone of the sensor site (if site_coord_flag = 2)-->                
+          <site_UTM_zone> 14 </site_UTM_zone>                 
           </sensor>
       </metParams>
 
@@ -430,18 +457,24 @@ There are two options available for defining sensor information:
    .. code:: xml
 
       <simulationParameters>
-        <UTMx> 634173 </UTMx>                         <!-- x component (m) of origin in UTM -->
-          <UTMy> 3925360 </UTMy>                      <!-- y component (m) of origin in UTM -->
-          <UTMZone> 14 </UTMZone>                         <!-- UTM zone that domain located -->
+          <!-- x component (m) of origin in UTM -->
+          <UTMx> 634173 </UTMx>
+          <!-- y component (m) of origin in UTM -->                       
+          <UTMy> 3925360 </UTMy>  
+          <!-- UTM zone that domain located -->                   
+          <UTMZone> 14 </UTMZone>                         
       </simulationParameters>
 
    .. code:: xml
 
       <metParams>
           <sensor>
-              <site_coord_flag> 3 </site_coord_flag>          <!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-            <site_lat> 35.46270 </site_lat>               <!-- x components of site coordinate in Latitude (if site_coord_flag = 3) -->
-            <site_lat> -97.52130 </site_lat>              <!-- y components of site coordinate in Longitude (if site_coord_flag = 3)-->
+              <!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
+              <site_coord_flag> 3 </site_coord_flag>      
+              <!-- x components of site coordinate in Latitude (if site_coord_flag = 3) -->   
+              <site_lat> 35.46270 </site_lat>         
+              <!-- y components of site coordinate in Longitude (if site_coord_flag = 3)-->       
+              <site_lat> -97.52130 </site_lat>                
           </sensor>
       </metParams>
 
@@ -458,14 +491,21 @@ QES-Winds:
 
       <metParams>
           <sensor>
-              <timeSeries>                        <!-- Start of timestep informastion for a sensor -->
-                  <boundaryLayerFlag> 1 </boundaryLayerFlag>      <!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
-                  <siteZ0> 0.1 </siteZ0>                  <!-- Site z0 -->
-                  <reciprocal> 0.0 </reciprocal>              <!-- Reciprocal Monin-Obukhov Length (1/m) -->
-                  <height> 20.0 </height>                 <!-- Height of the sensor -->
-                  <speed> 5.0 </speed>                    <!-- Measured speed at the sensor height -->
-                  <direction> 270.0 </direction>              <!-- Wind direction of sensor -->
-               </timeSeries>
+              <!-- Start of timestep informastion for a sensor -->    
+              <timeSeries>
+                  <!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->                        
+                  <boundaryLayerFlag> 1 </boundaryLayerFlag> 
+                  <!-- Site z0 -->
+                  <siteZ0> 0.1 </siteZ0>                  
+                  <!-- Reciprocal Monin-Obukhov Length (1/m) -->          
+                  <reciprocal> 0.0 </reciprocal>              
+                  <!-- Height of the sensor -->           
+                  <height> 20.0 </height>                 
+                  <!-- Measured speed at the sensor height -->            
+                  <speed> 5.0 </speed>                    
+                  <!-- Wind direction of sensor -->           
+                  <direction> 270.0 </direction>              
+              </timeSeries>
           </sensor>
       </metParams>
 
@@ -487,14 +527,21 @@ QES-Winds:
 
       <metParams>
           <sensor>
-              <timeSeries>                        <!-- Start of timestep informastion for a sensor -->
-                  <boundaryLayerFlag> 2 </boundaryLayerFlag>      <!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
-                  <siteZ0> 0.1 </siteZ0>                  <!-- Site z0 -->
-                  <reciprocal> 0.0 </reciprocal>              <!-- Reciprocal Monin-Obukhov Length (1/m) -->
-                  <height> 20.0 </height>                 <!-- Height of the sensor -->
-                  <speed> 5.0 </speed>                    <!-- Measured speed at the sensor height -->
-                  <direction> 270.0 </direction>              <!-- Wind direction of sensor -->
-               </timeSeries>
+              <!-- Start of timestep informastion for a sensor -->    
+              <timeSeries>
+                  <!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->                        
+                  <boundaryLayerFlag> 2 </boundaryLayerFlag> 
+                  <!-- Site z0 -->
+                  <siteZ0> 0.1 </siteZ0>                  
+                  <!-- Reciprocal Monin-Obukhov Length (1/m) -->          
+                  <reciprocal> 0.0 </reciprocal>              
+                  <!-- Height of the sensor -->           
+                  <height> 20.0 </height>                 
+                  <!-- Measured speed at the sensor height -->            
+                  <speed> 5.0 </speed>                    
+                  <!-- Wind direction of sensor -->           
+                  <direction> 270.0 </direction>              
+              </timeSeries>
           </sensor>
       </metParams>
 
@@ -516,16 +563,23 @@ QES-Winds:
 
       <metParams>
           <sensor>
-              <timeSeries>                        <!-- Start of timestep informastion for a sensor -->
-                  <boundaryLayerFlag> 3 </boundaryLayerFlag>      <!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
-                  <siteZ0> 0.1 </siteZ0>                  <!-- Site z0 -->
-                  <reciprocal> 0.0 </reciprocal>              <!-- Reciprocal Monin-Obukhov Length (1/m) -->
-                  <height> 20.0 </height>                 <!-- Height of the sensor -->
-                  <speed> 5.0 </speed>                    <!-- Measured speed at the sensor height -->
-                  <direction> 270.0 </direction>              <!-- Wind direction of sensor -->
-                    <canopyHeight> 10.0 </canopyHeight>
-                    <attenuationCoefficient> 1.0 </attenuationCoefficient>
-               </timeSeries>
+              <!-- Start of timestep informastion for a sensor -->    
+              <timeSeries>
+                  <!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->                        
+                  <boundaryLayerFlag> 3 </boundaryLayerFlag>      
+                  <!-- Site z0 -->
+                  <siteZ0> 0.1 </siteZ0>
+                  <!-- Reciprocal Monin-Obukhov Length (1/m) -->                  
+                  <reciprocal> 0.0 </reciprocal>
+                  <!-- Height of the sensor -->               
+                  <height> 20.0 </height>
+                  <!-- Measured speed at the sensor height -->            
+                  <speed> 5.0 </speed>
+                  <!-- Wind direction of sensor -->               
+                  <direction> 270.0 </direction>              
+                  <canopyHeight> 10.0 </canopyHeight>
+                  <attenuationCoefficient> 1.0 </attenuationCoefficient>
+              </timeSeries>
           </sensor>
       </metParams>
 
@@ -550,15 +604,14 @@ QES-Winds:
           <sensor>
               <!-- Start of timestep information for a sensor -->
               <timeSeries>                        
-                  <!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->       
-                  <boundaryLayerFlag> 4 </boundaryLayerFlag>          
-                  <!-- Site z0 -->            
+                  <!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->    
+                  <boundaryLayerFlag> 4 </boundaryLayerFlag>
+                  <!-- Site z0 -->
                   <siteZ0> 0.1 </siteZ0>
                   <!-- Reciprocal Monin-Obukhov Length (1/m) -->                                  
                   <reciprocal> 0.0 </reciprocal>
-                
                   <!-- Height of the sensor -->
-                  <height> 30.7015 </height>                          
+                  <height> 30.7015 </height>
                   <height> 74.4169 </height>
                   <height> 144.644 </height>
                   <height> 197.455 </height>
@@ -575,7 +628,7 @@ QES-Winds:
                   <direction> 332.676 </direction>
                   <direction> 337.649 </direction>
                   <direction> 344.273 </direction>
-                  </timeSeries>
+              </timeSeries>
           </sensor>
       </metParams>
 
@@ -617,10 +670,10 @@ test: `[upwind-cavity] <#upwind-cavity>`__
        <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->        
        <streetCanyonFlag> 1 </streetCanyonFlag>       
        <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
-       <rooftopFlag> 2 </rooftopFlag> 
+       <rooftopFlag> 1 </rooftopFlag> 
        <!-- Sidewall flag (0-off, 1-on (default)) -->           
-       <sidewallFlag> 0 </sidewallFlag>        
-       <!--Street intersection flag (0-off, 1-on) -->      
+       <sidewallFlag> 1 </sidewallFlag>        
+       <!--Street intersection flag (0-off (default), 1-on) -->        
        <streetIntersectionFlag> 0 </streetIntersectionFlag>                    
        <!-- High-rise flag (0-off (default), 1-on) -->
        <highRiseFlag> 0 </highRiseFlag> 
@@ -667,11 +720,15 @@ actual height of the buildings using the <heightFactor> under
 
 .. code:: xml
 
-   <simulationParameters>
-       <SHP>../data/GISFiles/OKCSmallDomain/OKCSmallDomainJU2003.shp</SHP> <!-- Address to shapefile location-->
+   <buildingsParams>
+       ...
+       <!-- Address to shapefile location-->
+       <SHP>../data/GISFiles/OKCSmallDomain/OKCSmallDomainJU2003.shp</SHP>
        <SHPBuildingLayer>OKCSmallDomainJU2003</SHPBuildingLayer>
-       <heightFactor> 1.0 </heightFactor>              <!-- Height factor multiplied by the building height read in from the shapefile (default = 1.0)-->
-   </simulationParameters>
+       <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->
+       <heightFactor> 1.0 </heightFactor>
+       ...                 
+   <buildingsParams>
 
 .. _`sec:building`:
 
@@ -688,13 +745,14 @@ angle. Following is an example of a rectangular building with :math:`40`
 m as height, :math:`0` m as base height, :math:`20` m as length and
 width, closest corner to the origin located at :math:`90` m in :math:`x`
 and :math:`y` directions, and :math:`0^{\circ}` as rotation angle with
-respect to the North-South line. Also, :math:`0.1` m is defined as the
+respect to the North-South line. Also, :math:`0.01` m is defined as the
 surface roughness for all the building walls.
 
 .. code:: xml
 
-   <buildings>
-       <wallRoughness> 0.1 </wallRoughness>
+   <buildingsParams>
+       ...
+       <wallRoughness> 0.01 </wallRoughness>
        <rectangularBuilding>
            <height> 40.0 </height>
            <baseHeight> 0 </baseHeight>
@@ -704,7 +762,8 @@ surface roughness for all the building walls.
            <width> 20.0 </width>
            <buildingRotation> 0.0 </buildingRotation>
        </rectangularBuilding>
-   </buildings>
+       ...                 
+   <buildingsParams>
 
 Upwind Cavity
 ~~~~~~~~~~~~~
@@ -713,12 +772,13 @@ Upwind cavity as described in
 :cite:`nelson20085,bagal2004improved,gowardhan2010evaluation` is the
 parameterization representing upwind and stagnation effects of the
 building on the fluid flow. There are three options available for this
-type of parameterization in QES-Winds. The first option based on the
-parameterization proposed by Röckle :cite:`rockle1990bestimmung` and
-later Kaplan and Dinar :cite:`kaplan1996lagrangian`. They defined an
-ellipsoid to represent what they call is the displacement zone in front
-of the building. The length of the displacement zone, :math:`L_F`, is
-defined by:
+type of parameterization in QES-Winds.
+
+The first option based on the parameterization proposed by Röckle
+:cite:`rockle1990bestimmung` and later Kaplan and Dinar
+:cite:`kaplan1996lagrangian`. They defined an ellipsoid to represent
+what they call is the displacement zone in front of the building. The
+length of the displacement zone, :math:`L_F`, is defined by:
 
 .. math::
 
@@ -736,15 +796,13 @@ where :math:`L`, :math:`H` and :math:`W` are length, width and height of
 the building, receptively.Finally, the initial velocity components in
 the displacement zone are set to zero.
 
-Part (a) of Figure `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and
-Figure `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ show cell type
-contour to represent the area of effect of the Röckle upwind cavity
-parameterization in a vertical plane at :math:`y=100` m and a horizontal
-plane at :math:`z=5` m, respectively. The upwind parameterizations is
-applied to a rectangular building defined in Section
-`1.7.2 <#sec:building>`__. The initial guess field is constructed using
-a single sensor with logarithmic profile as defined in
-`1.6.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+Part (a) of figures below show cell type contour to represent the area
+of effect of the Röckle upwind cavity parameterization in a vertical
+plane at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
+respectively. The upwind parameterizations is applied to a rectangular
+building defined in Section `1.7.2 <#sec:building>`__. The initial guess
+field is constructed using a single sensor with logarithmic profile as
+defined in `1.6.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and Figure
 `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
@@ -785,15 +843,13 @@ building height.
 where :math:`L`, :math:`H` and :math:`W` are length, width and height of
 the building, receptively.
 
-Part (a) of Figure `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and
-Figure `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ show cell type
-contour to represent the area of effect of the MVP upwind cavity
-parameterization in a vertical plane at :math:`y=100` m and a horizontal
-plane at :math:`z=5` m, respectively. The upwind parameterizations is
-applied to a rectangular building defined in Section
-`1.7.2 <#sec:building>`__. The initial guess field is constructed using
-a single sensor with logarithmic profile as defined in
-`1.6.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+Part (a) of figures below show cell type contour to represent the area
+of effect of the MVP upwind cavity parameterization in a vertical plane
+at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
+respectively. The upwind parameterizations is applied to a rectangular
+building defined in Section `1.7.2 <#sec:building>`__. The initial guess
+field is constructed using a single sensor with logarithmic profile as
+defined in `1.6.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and Figure
 `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
@@ -827,15 +883,13 @@ algorithm linearly reduces the velocities in the outer region from their
 upwind values at the outer surface to :math:`40\%` of the initial values
 on the inner region.
 
-Part (a) of Figure `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and
-Figure `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ show cell type
-contour to represent the area of effect of the HMVP upwind cavity
-parameterization in a vertical plane at :math:`y=100` m and a horizontal
-plane at :math:`z=5` m, respectively. The upwind parameterization is
-applied to a rectangular building defined in Section
-`1.7.2 <#sec:building>`__. The initial guess field is constructed using
-a single sensor with logarithmic profile as defined in
-`1.6.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
+Part (a) of figures below show cell type contour to represent the area
+of effect of the HMVP upwind cavity parameterization in a vertical plane
+at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
+respectively. The upwind parameterization is applied to a rectangular
+building defined in Section `1.7.2 <#sec:building>`__. The initial guess
+field is constructed using a single sensor with logarithmic profile as
+defined in `1.6.1 <#sec:sensor_xml>`__. Parts (b) and (c) of Figure
 `[fig:upwind_1_vert] <#fig:upwind_1_vert>`__ and Figure
 `[fig:upwind_1_horiz] <#fig:upwind_1_horiz>`__ indicate velocity
 magnitude contour with overlaying velocity vectors of initial (part (b))
@@ -863,9 +917,12 @@ change the value of "upwindCavityFlag" in the XML file.
 
 .. code:: xml
 
-   <simulationParameters>
-       <upwindCavityFlag> 2 </upwindCavityFlag>            <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
-   </simulationParameters>
+   <buildingsParams>
+       ...
+       <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
+       <upwindCavityFlag> 2 </upwindCavityFlag>    
+       ...     
+   </buildingsParams>
 
 Leeside Cavity and Far-Wake
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -950,9 +1007,12 @@ of "wakeFlag" in the XML file.
 
 .. code:: xml
 
-   <simulationParameters>
-       <wakeFlag> 1 </wakeFlag>                <!-- Wake flag (0-none, 1-Rockle (default)) -->
-   </simulationParameters>
+   <buildingsParams>
+       ...
+       <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->
+       <wakeFlag> 2 </wakeFlag>    
+       ...                 
+   <buildingsParams>
 
 Street Canyon
 ~~~~~~~~~~~~~
@@ -981,16 +1041,15 @@ is the distance from the backwall of the upwind building.
 In order to identify the criteria to determine the existence of a street
 canyon, Singh et al. :cite:`singh2008evaluation` utilized the cavity
 length, :math:`L_R` (Eq. `[eq:Lr] <#eq:Lr>`__), for the upwind building.
-If :math:`S \textless L_R`, the street canyon parameterization is
-applied, otherwise, the upwind building is considered as an isolated
-building.
+If :math:`S < L_R`, the street canyon parameterization is applied,
+otherwise, the upwind building is considered as an isolated building.
 
 Part (a) of Figure `[fig:street_vert] <#fig:street_vert>`__ and Figure
 `[fig:street_horiz] <#fig:street_horiz>`__ show cell type contour to
 represent the area of effect of the street canyon parameterization in a
 vertical plane at :math:`y=100` m and a horizontal plane at :math:`z=5`
 m, respectively. The street canyon parameterization is applied to an
-area between two rectangular buildings. The upwind building is same as
+area between two rectanßgular buildings. The upwind building is same as
 the one defined in Section `1.7.2 <#sec:building>`__. The downwind
 building is a rectangular building with :math:`20` m as height,
 :math:`0` m as base height, :math:`20` m as length and width, closest
@@ -1026,9 +1085,12 @@ the value of "streetCanyonFlag" in the XML file.
 
 .. code:: xml
 
-   <simulationParameters>
-       <streetCanyonFlag> 1 </streetCanyonFlag>            <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->
-   </simulationParameters>
+   <buildingsParams>
+       ...
+       <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->
+       <streetCanyonFlag> 1 </streetCanyonFlag>    
+       ...                 
+   <buildingsParams>
 
 Rooftop Recirculation
 ~~~~~~~~~~~~~~~~~~~~~
@@ -1090,12 +1152,15 @@ To turn the parameterization on, the user needs to change the value of
 
 .. code:: xml
 
-   <simulationParameters>
-       <rooftopFlag> 1 </rooftopFlag>                  <!-- Rooftop flag (0-none, 1-log profile (default)) -->
-   </simulationParameters>
+   <buildingsParams>
+       ...
+       <!-- Rooftop flag (0-none, 1-log profile (default)) -->
+       <rooftopFlag> 1 </rooftopFlag> 
+       ...                 
+   <buildingsParams>
 
-Sidewall Recirculation Zone
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Sidewall Recirculation
+~~~~~~~~~~~~~~~~~~~~~~
 
 The sidewall parameterization is designed to represent the effects of
 the edge of the building on the upwind field
@@ -1145,6 +1210,43 @@ In order to turn the algorithm on, the user needs to change the value of
 
 .. code:: xml
 
-   <simulationParameters>
-       <sidewallFlag> 1 </sidewallFlag>                <!-- Sidewall flag (0-off, 1-on (default)) -->
-   </simulationParameters>
+   <buildingsParams>
+       ...
+       <!-- Sidewall flag (0-off, 1-on (default)) -->
+       <sidewallFlag> 1 </sidewallFlag>
+       ...                 
+   <buildingsParams>
+
+Street Intersection
+~~~~~~~~~~~~~~~~~~~
+
+**This parameterization is in developpement**
+
+In order to turn the parameterization on, the user needs to change the
+value of "streetIntersectionFlag" in the XML file.
+
+.. code:: xml
+
+   <buildingsParams>
+       ...
+       <!--Street intersection flag (0-off (default), 1-on) -->        
+       <streetIntersectionFlag> 0 </streetIntersectionFlag>
+       ...                 
+   <buildingsParams>
+
+High-rise Parameterization
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**This parameterization is in developpement**
+
+In order to turn the parameterization on, the user needs to change the
+value of "highRiseFlag" in the XML file.
+
+.. code:: xml
+
+   <buildingsParams>
+       ...
+       <!-- High-rise flag (0-off (default), 1-on) -->
+       <highRiseFlag> 0 </highRiseFlag> 
+       ...                 
+   <buildingsParams>
