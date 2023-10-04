@@ -4,6 +4,23 @@
 
 \section{The XML file}
 
+\begin{lstlisting}[language=XML]
+<QESPlumeParameters>
+  <plumeParameters>
+    <!--....-->
+  </plumeParameters>
+  <collectionParameters>
+    <!--....-->
+  </collectionParameters>
+  <sourceParameters>
+   <!--....-->
+  </sourceParameters>
+  <boundaryConditions>
+    <!--....-->
+  </boundaryConditions>
+</QESPlumeParameters>
+\end{lstlisting}
+
 \subsection{Simulation Parameters}
 
 The parameters below are the parameters used to run the Plume model.
@@ -39,92 +56,108 @@ The parameters below are the parameters used to calculate the concentration of p
 </collectionParameters>
 \end{lstlisting}
 
-\subsection{Sources}
+\subsection{Source Parameters}
 \begin{lstlisting}[language=XML]
-<sources>
-    <numSources> 1 </numSources> <!-- Number of active sources -->
-    <!-- HERE COME THE SOURCES -->
-</sources>
+<sourceParameters>
+  <source>
+    <sourceStrength> 10 </sourceStrength>
+    <!-- HERE COME THE GEOMETRY -->
+    <!-- HERE COME THE RELEASE TYPE -->
+    <!-- HERE COME THE PARTICLE TYPE -->
+  </sources>
+</sourceParameters>
 \end{lstlisting}
 
-\subsubsection{Source types}
+\subsubsection{Source Geometry}
 \begin{lstlisting}[language=XML]
-<SourcePoint>
-    <!-- HERE COMES THE RELEASE TYPE -->
+<sourceGeometry_Point>
     <posX> 40.0 </posX>
     <posY> 80.0 </posY>
     <posZ> 30.0 </posZ>
-</SourcePoint>
+</sourceGeometry_Point>
 \end{lstlisting}
 
 \begin{lstlisting}[language=XML]
-<SourceLine>
-    <!-- HERE COMES THE RELEASE TYPE -->
+<sourceGeometry_Line>
     <posX_0> 25.0 </posX_0>
     <posY_0> 175.0 </posY_0>
     <posZ_0> 40.0 </posZ_0>
     <posX_1> 50.0 </posX_1>
     <posY_1> 25.0 </posY_1>
     <posZ_1> 40.0 </posZ_1>
-</SourceLine>
+</sourceGeometry_Line>
 \end{lstlisting}
 
 \begin{lstlisting}[language=XML]
-<SourceCube>
-    <!-- HERE COMES THE RELEASE TYPE -->
+<sourceGeometry_Cube>
     <minX> 75.0 </minX>
     <minY> 25.0 </minY>
     <minZ> 70.0 </minZ>
     <maxX> 80.0 </maxX>
     <maxY> 35.0 </maxY>
     <maxZ> 80.0 </maxZ>
-</SourceCube>
+</sourceGeometry_Cube>
 \end{lstlisting}
 
 \begin{lstlisting}[language=XML]
-<SourceCircle>
-    <!-- HERE COMES THE RELEASE TYPE -->
+<sourceGeometry_SphereShell>
     <posX> 40.0 </posX>
     <posY> 80.0 </posY>
     <posZ> 30.0 </posZ>
     <radius> 30.0 </radius>
-</SourceCircle>
+</sourceGeometry_SphereShell>
 \end{lstlisting}
 
 \begin{lstlisting}[language=XML]
-<SourceFullDomain>
-    <!-- HERE COMES THE RELEASE TYPE -->
-</SourceFullDomain>
+<sourceGeometry_FullDomain>
+</sourceGeometry_FullDomain>
 \end{lstlisting}
 
 \subsubsection{Release types}
 \begin{lstlisting}[language=XML]
-<ReleaseType_continuous>
-    <parPerTimestep>10</parPerTimestep>
-</ReleaseType_continuous>
+<releaseType_continuous>
+  <parPerTimestep>10</parPerTimestep>
+</releaseType_continuous>
 \end{lstlisting}
 
 \begin{lstlisting}[language=XML]
-<ReleaseType_duration>
-    <releaseEndTime>0</releaseEndTime>
-    <releaseEndTime>5</releaseEndTime>
-    <parPerTimestep>10</parPerTimestep>
-</ReleaseType_duration>
+<releaseType_duration>
+  <releaseEndTime>0</releaseEndTime>
+  <releaseEndTime>5</releaseEndTime>
+  <parPerTimestep>10</parPerTimestep>
+</releaseType_duration>
 \end{lstlisting}
 
 \begin{lstlisting}[language=XML]
-<ReleaseType_instantaneous>
-    <numPar>100000</numPar>
-</ReleaseType_instantaneous>
+<releaseType_instantaneous>
+  <numPar>100000</numPar>
+</releaseType_instantaneous>
 \end{lstlisting}
+
+\subsubsection{Particle types}
+
+\begin{lstlisting}[language=XML]
+<particleTracer>
+</particleTracer>
+\end{lstlisting}
+
+\begin{lstlisting}[language=XML]
+<particleSmall>
+  <particleDensity> 2.0 </particleDensity>
+  <particleDiameter> 5 </particleDiameter>
+  <depositionFlag>false</depositionFlag>
+  <decayConst> 0.0 </decayConst>
+</particleSmall>
+\end{lstlisting}
+
 
 \subsection{Boundary Conditions}
 \begin{lstlisting}[language=XML]
 <boundaryConditions>
-    <xBCtype>exiting</xBCtype>
-    <yBCtype>exiting</yBCtype>
-    <zBCtype>exiting</zBCtype>
-    <wallReflection>stairstepReflection</wallReflection>
+  <xBCtype>exiting</xBCtype>
+  <yBCtype>exiting</yBCtype>
+  <zBCtype>exiting</zBCtype>
+  <wallReflection>stairstepReflection</wallReflection>
 </boundaryConditions>
 \end{lstlisting}
 
@@ -145,16 +178,17 @@ The parameters below are the parameters used to calculate the concentration of p
 
 \subsection{Full XML Example}
 \begin{lstlisting}[language=XML]
-<simulationParameters>
+<QESPlumeParameters>
+  <plumeParameters>
     <simDur> 1000.0 </simDur>
     <timeStep> 0.1 </timeStep>
     <CourantNumber> 1 </CourantNumber>
     <invarianceTol> 1e-10 </invarianceTol>
-    <C_0> 4.0 </C_0>
+    <C_0> 1.0 </C_0>
     <updateFrequency_particleLoop> 10000 </updateFrequency_particleLoop>
     <updateFrequency_timeLoop> 100 </updateFrequency_timeLoop>
-</simulationParameters>
-<collectionParameters>
+  </plumeParameters>
+  <collectionParameters>
     <timeAvgStart> 0.0 </timeAvgStart>
     <timeAvgFreq> 60.0 </timeAvgFreq>
     <boxBoundsX1> 0.0 </boxBoundsX1>
@@ -166,22 +200,24 @@ The parameters below are the parameters used to calculate the concentration of p
     <nBoxesX> 200 </nBoxesX>
     <nBoxesY> 200 </nBoxesY>
     <nBoxesZ> 200 </nBoxesZ>
-</collectionParameters>
-<sources>
-    <numSources> 1 </numSources>
-    <SourcePoint>
-        <ReleaseType_continuous>
-            <parPerTimestep>10</parPerTimestep>
-        </ReleaseType_continuous>
-        <posX> 10.0 </posX>
-        <posY> 100.0 </posY>
-        <posZ> 50.0 </posZ>
-  	</SourcePoint>
-</sources>
-<boundaryConditions>
+  </collectionParameters>
+  <sourceParameters>
+    <source>
+      <releaseType_continuous>
+	    <parPerTimestep> 100 </parPerTimestep>
+      </releaseType_continuous>
+      <sourceGeometry_Point>
+        <posX> 15 </posX>
+        <posY> 30 </posY>
+        <posZ> 1.5 </posZ>
+      </sourceGeometry_Point>
+    </source>
+  </sourceParameters>
+  <boundaryConditions>
     <xBCtype>exiting</xBCtype>
     <yBCtype>exiting</yBCtype>
     <zBCtype>exiting</zBCtype>
     <wallReflection>stairstepReflection</wallReflection>
-</boundaryConditions>
+  </boundaryConditions>
+</QESPlumeParameters>
 \end{lstlisting}
