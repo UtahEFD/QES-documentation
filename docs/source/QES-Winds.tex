@@ -19,9 +19,9 @@ The fast-response three-dimensional diagnostic wind model written in C++, QES-Wi
 \end{figure}
 
 
-\section{Mass Consistent Solver}
+\subsection{Mass Consistent Solver}
 
-\subsection{Staggered Grid}
+\subsubsection{Staggered Grid}
 
 QES-Winds discretizes the computational domain using a staggered grid as shown in figure below.
 
@@ -32,7 +32,7 @@ QES-Winds discretizes the computational domain using a staggered grid as shown i
 
 The velocity components ($u$, $v$ and $w$) are face-centered values and Lagrange multipliers ($\lambda$), divergence of the initial wind field ($R$) and solver coefficients ($e$, $f$, $g$, $h$, $m$ and $n$) are cell-centered variables. Because of nature of the finite difference method (depending on neighboring cells values), the first and last cells in $x$ and $y$ directions and the last cell in $z$ direction, are not updated in the solving process (their velocity remains as the same as the initial velocity field). For the same reason, there is a layer of ghost cells under the bottom surface to make velocity calculation in the first layer above the bottom surface possible. The values of the Lagrange multipliers for the ghost cells are set to the ones for the layer above the bottom surface to create a zero gradient for the Lagrange multipliers (boundary condition) as well as providing the neighboring cell for the finite difference method.
 
-\subsection{Poisson Equation}
+\subsubsection{Poisson Equation}
 
 QES-Winds have mass conserving wind field solvers that rapidly compute wind fields using a variational method rather than slower yet more physics based solvers that include conservation of momentum \cite{kim2014effects}. While the QES-Winds method uses reduced order physics in the numerical solution of urban flow problems, the solutions are rapid and compare quite well higher order physics-based models in both idealized \cite{hayati2017comprehensive} and realistic urban cities \cite{neophytou2011inter}. The method minimizes the difference between an initial wind field that is specified using empirical parameterizations \cite{singh2008evaluation} and the final wind fields. The empirical parameterizations account for complex wind fields around buildings such as wake cavities downstream of a building. To obtain a quasi-time-averaged velocity field, QES-Winds uses a variational analysis technique \cite{singh2008evaluation}. This method requires the solution of a Poisson equation for Lagrange multipliers, $\lambda$ in the following form:
 
@@ -74,7 +74,7 @@ The Poisson equation is solved using the Successive Over-Relaxation (SOR) method
 Where e,f,g,h,m,n are boundary condition coefficients and A and B are domain constants. $\omega = 1.78$ is the SOR relaxation factor. The boundary condition for solid surfaces is ($\frac{\partial \lambda}{\partial n}=0$) and for inlet/outlet surfaces it is $\lambda=0$.
 
 
-\subsection{Solver Types}
+\subsubsection{Solver Types}
 
 QES-Winds has four options for solving the SOR equation discussed above, the first option is to solve the equation on the CPU and the rest use the GPU for computations. The GPU solvers are called: the dynamic parallel, the global memory and the shared memory. The CPU solver is quite rapid, but slow in comparison to the GPU solvers since it is a serial solver and does not have parallel computing capabilities, especially for large domains. For more information regarding different types of solvers available in QES-Winds, read \cite{Bozorgmehr2021}.
 
@@ -109,7 +109,7 @@ QES-Winds has four options for solving the SOR equation discussed above, the fir
 \end{lstlisting}
 
 
-\section{QES-Winds Domain}
+\section{QES-Winds Domain (simulationParameters)}
 
 The first step in every computational code or package is to define the computational domain. The user can define the domain by specifying the number of cells in $x$, $y$ and $z$ directions as well as the cell size in each direction in the input file (XML file).
 
@@ -148,11 +148,11 @@ In order to define length of the halo zone in $x$ and $y$ direction, the user ca
 \end{lstlisting}
 
 
-\section{Digital Elevation Model (DEM)}
+\subsection{Digital Elevation Model (DEM)}
 
 The current version of QES-Winds has been written to allow commonly available terrain and building geometry datasets to be used for simulations. In this section, various input file formats for QES-Winds will be covered.
 
-\subsection{Terrain Features}
+\subsubsection{Terrain Features}
 
 Using the Geospatial Data Abstraction Library (GDAL; \href{https://www.gdal.org}{https://www.gdal.org}), we are able to load geo-referenced datasets of terrain so that the simulations can include the effects of hills, valleys, and mountains. In the current version of the code, we can load Digital Elevation Model (DEM) files for different physical locations.
 
@@ -215,7 +215,7 @@ There are two options to determine the location of the origin of QES domain insi
 \end{enumerate}
 
 
-\section{Initial Wind Field}
+\section{Initial Wind Field (metParams)}
 
 QES-Winds can read a single or multiple sensors for a specific test case. In this context, sensor means the velocity magnitude and direction at a single point or a single velocity profile to initialize the wind field. If there is only the wind velocity and direction at a single point, the user should specify what type of velocity profile they want to build from the measurement. There are three options available for the type of profile:
 
@@ -483,7 +483,7 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 
 \end{enumerate}
 
-\section{Building Parameters}
+\section{Building Parameters (buildingsParams)}
 
 QES-Winds only conserves mass and no momentum equation is solved. As a result, the solution is a potential-flow solution (no shear effects). In order to add shear effects to our solution, empirical parameterizations are needed. These parameterizations are designed using results of experiments and computational simulations (e.g. \cite{singh2008evaluation,brown2013quic}). Buildings are the most important elements in urban areas. There are several parameterizations developed for different areas around the building. This section covers available parameterizations in QES-Winds along with their effects on the wind field.
 
@@ -854,3 +854,7 @@ In order to turn the parameterization on, the user needs to change the value of 
 	... 				
 <buildingsParams>
 \end{lstlisting}
+
+\section{Vegetation Parameters (vegetationParams)}
+
+Coming soon ...
