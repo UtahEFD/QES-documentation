@@ -6,8 +6,8 @@ project = 'QES'
 copyright = '2023, University of Utah'
 author = 'Fabien Margairaz'
 
-release = '1.0'
-version = '1.0.0'
+#release = '1.0'
+#version = '1.0.0'
 
 # -- General configuration
 
