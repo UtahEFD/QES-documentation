@@ -34,7 +34,7 @@ do pandoc $f -f latex -t rst --lua-filter latex-cite.lua -o ${f/tex/rst}
 done
 ```
 
-###Editing workflow
+### Editing workflow
 
 To edit the documentation sources:
 * Use git as normal: clone/update (pull) the repo to you machine,
