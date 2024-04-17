@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'QES'
-copyright = '2023, University of Utah'
-author = 'Fabien Margairaz'
+project = 'QES - Documentations'
+copyright = '2024, University of Utah'
+author = 'UTAH EFD'
 
 #release = '1.0'
 #version = '1.0.0'
@@ -39,3 +39,9 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+# -- Options for LaTeX output
+latex_documents = [
+    (root_doc, 'latex/main.tex', 'test Documentation',
+     'test', 'manual'),
+]
