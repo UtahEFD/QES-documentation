@@ -140,6 +140,11 @@ types of solvers available in QES-Winds, read :cite:`Bozorgmehr2021`.
 Parameter Files
 ---------------
 
+The XML parameter file has the following structure, with the XML
+elements corresponding different section of the model. Each of them are
+presented in the sections below (expect <turbParams> which is presented
+in QES-Turb).
+
 .. code:: xml
 
    <QESWindsParameters>
@@ -176,8 +181,8 @@ computational domain. The user can define the domain by specifying the
 number of cells in :math:`x`, :math:`y` and :math:`z` directions as well
 as the cell size in each direction in the input file (XML file).
 
-XML Example
-~~~~~~~~~~~
+Basic Parameters
+~~~~~~~~~~~~~~~~
 
 The domain information (number of cells and cell size) are defined under
 the <simulationParameters> part of the XML file. Following is an example

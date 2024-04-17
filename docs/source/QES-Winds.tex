@@ -80,6 +80,8 @@ QES-Winds has four options for solving the SOR equation discussed above, the fir
 
 \section{Parameter Files}
 
+The XML parameter file has the following structure, with the XML elements corresponding different section of the model. Each of them are presented in the sections below (expect <turbParams> which is presented in QES-Turb).
+
 \begin{lstlisting}[language=XML]
 <QESWindsParameters>
 	<simulationParameters>
@@ -113,7 +115,7 @@ QES-Winds has four options for solving the SOR equation discussed above, the fir
 
 The first step in every computational code or package is to define the computational domain. The user can define the domain by specifying the number of cells in $x$, $y$ and $z$ directions as well as the cell size in each direction in the input file (XML file).
 
-\subsection{XML Example}
+\subsection{Basic Parameters}
 
 The domain information (number of cells and cell size) are defined under the <simulationParameters> part of the XML file. Following is an example of a domain with $2$ km by $2$ km by $200$ m and resolution of $2$ m by $2$ m by $2$ m:
 

@@ -25,10 +25,28 @@ using shared memory (determined by ``-s 4``). GPU solvers are much
 faster than CPU solver and are highly recommended especially for large
 domains.
 
-To run QES-Winds, you can take the following slurm template and run on
-CHPC. We’d suggest placing it in a ``run`` folder at the same level as
-your build folder. Make sure you change the various sbatch parameters as
-needed for your access to CHPC.
+Turbulence model can be turned on by using ``-t``.
+
+More info about the arguments supported by QES-Winds can be display
+using:
+
+::
+
+   ./qesWinds/qesWinds -?
+
+More info about the arguments supported by QES-Plume (stand-alone) can
+be display using:
+
+::
+
+   ./qesPlume/qesPlume -?
+
+More info about the arguments supported by QES (QES-Winds – QES-Plume
+dynamic coupling) can be display using:
+
+::
+
+   ./qes/qes -?
 
 Running from the Command Line
 -----------------------------
@@ -39,14 +57,13 @@ QES is run from the terminal using arguments. For exmaple:
 
    ./qesWinds/qesWinds -q ../data/InputFiles/GaussianHill.xml -s 2 -w -o gaussianHill
 
-More info about the arguments supported by QES can be display using:
+slurm Template (for CUDA 11.4 build)
+------------------------------------
 
-::
-
-   ./qesWinds/qesWinds -?
-
-slurm Template (for CUDA 11.4 build
------------------------------------
+To run QES-Winds, you can take the following slurm template and run on
+CHPC. We’d suggest placing it in a ``run`` folder at the same level as
+your build folder. Make sure you change the various sbatch parameters as
+needed for your access to CHPC.
 
 .. code:: bash
 
