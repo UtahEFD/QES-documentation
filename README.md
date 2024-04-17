@@ -34,3 +34,19 @@ do pandoc $f -f latex -t rst --lua-filter latex-cite.lua -o ${f/tex/rst}
 done
 ```
 
+### Editing workflow
+
+To edit the documentation sources:
+* Use git as normal: clone/update/pull the repo to your machine,
+* Edit the .tex files in `docs/source`, you can compile the latex sources into a pdf using the main.tex `in docs/latex`, figures need to be place in `doc/figures`. 
+* PAY ATTENTION TO RULES ABOVE otherwise the conversion to rst will not work.
+* run pandoc to convert the .tex the .rst (see command above).
+* then commit/push as normal.
+
+To update the Read-the-Doc:
+* on the build page, select build the latest
+* check that the webpage was updated correlcty (some times, changes can take a few minutes to take effect)
+
+Note:
+* When releasing a new version of QES, the relase number needs to be updated. The release is 'definitive' ie documentation of the relase number (ex v2.1.0) will not changes anymore. This need to be synced with public release of QES. 
+

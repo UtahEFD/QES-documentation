@@ -45,9 +45,14 @@ The modules are the following:
 
 * **QES-Transport** is a transport model (to be implemented)
 
-.. note::
-
+.. warning::
    **QES requires a NVIDIA GPU with Compute Capability of 7.0 (or higher)**.
+
+
+.. note::
+   * the latest version of the document corresponds to the private version of QES.
+   * if using the public version of QES, please select the corresponding release version in the bottom left corner (ex. v2.1.0).
+
 
 .. toctree::
    :maxdepth: 2
