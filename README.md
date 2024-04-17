@@ -37,10 +37,11 @@ done
 ### Editing workflow
 
 To edit the documentation sources:
-* Use git as normal: clone/update (pull) the repo to you machine,
-* Edit the .tex files in `docs/source`, you can compile to a pdf using the main.tex `in docs/latex`, figure need to be place in `doc/figures` 
-* run pandoc to convert the .tex the .rst (see command above)
-* then commit/push as normal
+* Use git as normal: clone/update/pull the repo to your machine,
+* Edit the .tex files in `docs/source`, you can compile the latex sources into a pdf using the main.tex `in docs/latex`, figures need to be place in `doc/figures`. 
+* PAY ATTENTION TO RULES ABOVE otherwise the conversion to rst will not work.
+* run pandoc to convert the .tex the .rst (see command above).
+* then commit/push as normal.
 
 To update the Read-the-Doc:
 * on the build page, select build the latest
