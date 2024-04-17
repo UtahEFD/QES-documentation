@@ -724,7 +724,7 @@ where $S$ is the spacing between two buildings and $x_{can}$ is the distance fro
 
 In order to identify the criteria to determine the existence of a street canyon, Singh et al. \cite{singh2008evaluation} utilized the cavity length, $L_R$ (Eq. \ref{eq:Lr}), for the upwind building. If $S < L_R$, the street canyon parameterization is applied, otherwise, the upwind building is considered as an isolated building.
 
-Part (a) of Figure \ref{fig:street_vert} and Figure \ref{fig:street_horiz} show cell type contour to represent the area of effect of the street canyon parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The street canyon parameterization is applied to an area between two rectanßgular buildings. The upwind building is same as the one defined in Section \ref{sec:building}. The downwind building is a rectangular building with $20$ m as height, $0$ m as base height, $20$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $120$ m in $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:street_vert} and Figure \ref{fig:street_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
+Part (a) of Figure \ref{fig:street_vert} and Figure \ref{fig:street_horiz} show cell type contour to represent the area of effect of the street canyon parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The street canyon parameterization is applied to an area between two rectangular buildings. The upwind building is same as the one defined in Section \ref{sec:building}. The downwind building is a rectangular building with $20$ m as height, $0$ m as base height, $20$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $120$ m in $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:street_vert} and Figure \ref{fig:street_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
 \begin{figure}[H]
     \centering
@@ -859,4 +859,11 @@ In order to turn the parameterization on, the user needs to change the value of 
 
 \section{Vegetation Parameters (vegetationParams)}
 
-Coming soon ...
+\subsection{Row-organized canopy (ROC) model}
+The ROC model adjusts the mean wind field to account for drag in sparse, structured row crops (e.g., grape vineyards, carrots, and some orchards). It is comprised of several parameterizations that alter the flow in specific regions around each row in the ROC. These zones are pictured in Figure \ref{fig:ROCmodel}.
+
+\begin{figure}[H]\label{fig:ROCmodel}
+    \centering
+    \includegraphics[width=\textwidth]{Images/vineyard_schematic.eps}
+    \caption{VINEYARD MODEL}
+\end{figure}

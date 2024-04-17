@@ -1054,7 +1054,7 @@ Part (a) of Figure `[fig:street_vert] <#fig:street_vert>`__ and Figure
 represent the area of effect of the street canyon parameterization in a
 vertical plane at :math:`y=100` m and a horizontal plane at :math:`z=5`
 m, respectively. The street canyon parameterization is applied to an
-area between two rectanßgular buildings. The upwind building is same as
+area between two rectangular buildings. The upwind building is same as
 the one defined in Section `1.5.2 <#sec:building>`__. The downwind
 building is a rectangular building with :math:`20` m as height,
 :math:`0` m as base height, :math:`20` m as length and width, closest
@@ -1259,4 +1259,16 @@ value of "highRiseFlag" in the XML file.
 Vegetation Parameters (vegetationParams)
 ----------------------------------------
 
-Coming soon ...
+Row-organized canopy (ROC) model
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ROC model adjusts the mean wind field to account for drag in sparse,
+structured row crops (e.g., grape vineyards, carrots, and some
+orchards). It is comprised of several parameterizations that alter the
+flow in specific regions around each row in the ROC. These zones are
+pictured in Figure `1.1 <#fig:ROCmodel>`__.
+
+.. figure:: Images/vineyard_schematic.eps
+   name: fig:ROCmodel
+
+   VINEYARD MODEL
