@@ -42,6 +42,7 @@ html_theme = 'sphinx_rtd_theme'
 epub_show_urls = 'footnote'
 
 # -- Options for LaTeX output
-latex_documents = ('main', 'main.tex',
-    'QES Documentation', 'UTAH EFD',
-    'howto')
+latex_documents = [
+    ('main', 'main.tex', 'QES Documentation',
+     'UTAH EFD', 'howto', true),
+]
