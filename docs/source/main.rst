@@ -2,14 +2,25 @@
 
 .. toctree::
    :maxdepth: 2
+   :caption: User Guide
+
    GettingStarted
-   Publications
    Installation
    Usage
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Technical Guide
+
    QES-Winds
    QES-Turb
    QES-Plume
 
+.. toctree::
+   :maxdepth: 2
+   :caption: References
+
+   Publications
    References
 
 
