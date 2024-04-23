@@ -1,3 +1,19 @@
+
+
+.. toctree::
+   :maxdepth: 2
+   GettingStarted
+   Publications
+   Installation
+   Usage
+   QES-Winds
+   QES-Turb
+   QES-Plume
+
+   References
+
+
+
 Welcome to QES's documentation!
 ===================================
 
@@ -48,18 +64,6 @@ The modules are the following:
    * the latest version of the document corresponds to the private version of QES.
    * if using the public version of QES, please select the corresponding release version in the bottom left corner (ex. v2.1.0).
 
-
-.. toctree::
-   :maxdepth: 2
-   GettingStarted
-   Publications
-   Installation
-   Usage
-   QES-Winds
-   QES-Turb
-   QES-Plume
-
-   References
 
 
 Acknowledgements
