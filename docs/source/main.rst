@@ -1,13 +1,6 @@
 Welcome to QES's documentation!
 ===================================
 
-.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg?style=svg
-   :target: https://www.gnu.org/licenses/gpl-3.0
-
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.7098279.svg?style=svg
-   :target: https://doi.org/10.5281/zenodo.7098279
-
-
 Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid_fm|, Lucas Ulmer |orcid_lu|,
 Eric R Pardyjak |orcid_ep|, Rob Stoll |orcid_rs|, Pete Willemsen
 
@@ -58,8 +51,8 @@ The modules are the following:
 
 .. toctree::
    :maxdepth: 2
-   Publications
    GettingStarted
+   Publications
    Installation
    Usage
    QES-Winds
