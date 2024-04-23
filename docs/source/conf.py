@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'QES - Documentations'
+project = 'QES'
 copyright = '2024, University of Utah'
 author = 'UTAH EFD'
 # The master toctree document.
@@ -44,6 +44,6 @@ epub_show_urls = 'footnote'
 
 # -- Options for LaTeX output
 latex_documents = [
-    (root_doc, 'test.tex', 'test Documentation',
-     'test', 'manual'),
+    (root_doc, '../latex/main.tex', 'QES Documentation',
+     'QES', 'manual'),
 ]
