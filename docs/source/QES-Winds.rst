@@ -1266,9 +1266,4 @@ The ROC model adjusts the mean wind field to account for drag in sparse,
 structured row crops (e.g., grape vineyards, carrots, and some
 orchards). It is comprised of several parameterizations that alter the
 flow in specific regions around each row in the ROC. These zones are
-pictured in Figure `1.1 <#fig:ROCmodel>`__.
-
-.. figure:: Images/vineyard_schematic.eps
-   name: fig:ROCmodel
-
-   VINEYARD MODEL
+pictured in figure below
