@@ -7,6 +7,9 @@ Welcome to QES's documentation!
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.7098279.svg?style=svg
    :target: https://doi.org/10.5281/zenodo.7098279
 
+   Authors
+   -------
+   
 Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid_fm|, Lucas Ulmer |orcid_lu|, Eric R Pardyjak |orcid_ep|, Rob Stoll |orcid_rs|, Pete Willemsen
 
 .. |orcid_bb| image:: https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png
