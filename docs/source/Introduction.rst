@@ -72,7 +72,7 @@ spread model, a kinematic plume-rise model, and a mass-consistent wind
 solver. The QES-Fire module is currently not publicly available.
 
 Publications
-============
+------------
 
 -  QES-Winds: Dynamic Parallelism Solver
 
