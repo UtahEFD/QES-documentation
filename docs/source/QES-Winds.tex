@@ -87,23 +87,23 @@ The XML parameter file has the following structure, with the XML elements corres
 	<simulationParameters>
 		<!-- HERE COMES THE SIMULATION PARAMETERS -->
 	</simulationParameters>
-		
+
 	<metParams>
 		<!-- HERE COMES THE MET PARAMETERS -->
 	</metParams>
-	
+
 	<buildingsParams>
 		<!-- HERE COMES THE BUILDING PARAMETERS -->
 	</buildingsParams>
 
 	<vegetationParams>
 		<!-- HERE COMES THE VEGETATION PARAMETERS -->
-	</vegetationParams>	
-	
+	</vegetationParams>
+
 	<turbParams>
 		<!-- HERE COMES THE TURBULENCE PARAMETERS -->
-	</turbParams>							
-	
+	</turbParams>
+
 	<fileOptions>
 		<!-- HERE COMES THE FILE PARAMETERS -->
 	</fileOptions>
@@ -122,9 +122,9 @@ The domain information (number of cells and cell size) are defined under the <si
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- Number of cells in x,y and z directions-->
-  	<domain> 1000 1000 100 </domain>	
-  	<!-- Mesh resolution (meters)-->				
-  	<cellSize> 2.0 2.0 2.0 </cellSize> 				
+  	<domain> 1000 1000 100 </domain>
+  	<!-- Mesh resolution (meters)-->
+  	<cellSize> 2.0 2.0 2.0 </cellSize>
 </simulationParameters>
 \end{lstlisting}
 
@@ -145,7 +145,7 @@ In order to define length of the halo zone in $x$ and $y$ direction, the user ca
 	<!-- Halo region added to x-direction of domain (at the beginning and the end of domain) (meters)-->
 	<halo_x> 20.0 </halo_x>
 	<!-- Halo region added to y-direction of domain (at the beginning and the end of domain) (meters)-->
-	<halo_y> 30.0 </halo_y>						
+	<halo_y> 30.0 </halo_y>
 </simulationParameters>
 \end{lstlisting}
 
@@ -171,7 +171,7 @@ The user can define the address to the DEM using <DEM> variable under the <simul
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- Address to DEM location-->
-	<DEM>../scratch/DEM/askervein.tif</DEM>				
+	<DEM>../scratch/DEM/askervein.tif</DEM>
 </simulationParameters>
 \end{lstlisting}
 
@@ -193,11 +193,11 @@ There are two options to determine the location of the origin of QES domain insi
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- Origin flag (0- DEM coordinates (default), 1- UTM coordinates) -->
-	<originFlag> 0 </originFlag>		
-	<!-- x component (m) of origin in DEM coordinates (if originFlag = 0) -->		
-	<DEMDistancex> 1000.0 </DEMDistancex> 		
-	<!-- y component (m) of origin in DEM coordinates (if originFlag = 0) -->	
-	<DEMDistancey> 1000.0 </DEMDistancey> 				
+	<originFlag> 0 </originFlag>
+	<!-- x component (m) of origin in DEM coordinates (if originFlag = 0) -->
+	<DEMDistancex> 1000.0 </DEMDistancex>
+	<!-- y component (m) of origin in DEM coordinates (if originFlag = 0) -->
+	<DEMDistancey> 1000.0 </DEMDistancey>
 </simulationParameters>
 \end{lstlisting}
 
@@ -206,11 +206,11 @@ There are two options to determine the location of the origin of QES domain insi
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- Origin flag (0- DEM coordinates (default), 1- UTM coordinates) -->
-	<originFlag> 1 </originFlag>	
-	<!-- x component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->				
+	<originFlag> 1 </originFlag>
+	<!-- x component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->
 	<UTMx> 595469.6122881 </UTMx>
-	<!-- y component (m) of origin in UTM DEM coordinates (if originFlag = 1)--> 			
-	<UTMy> 6336281.9538635 </UTMy> 					
+	<!-- y component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->
+	<UTMy> 6336281.9538635 </UTMy>
 </simulationParameters>
 \end{lstlisting}
 
@@ -264,9 +264,9 @@ There are two options available for defining sensor information:
 \begin{lstlisting}[language=XML]
 <metParams>
 	<!-- Distribution of surface roughness for domain (0-uniform (default), 1-custom -->
-	<z0_domain_flag> 0 </z0_domain_flag>        
-	<!-- Name of the sensor file with information for the sensor included -->   			
-	<sensorName>../data/InputFiles/sensor.xml</sensorName>	
+	<z0_domain_flag> 0 </z0_domain_flag>
+	<!-- Name of the sensor file with information for the sensor included -->
+	<sensorName>../data/InputFiles/sensor.xml</sensorName>
 </metParams>
 \end{lstlisting}
 \noindent
@@ -279,9 +279,9 @@ The first part of the sensor information is the location of the sensor in domain
 <metParams>
 	<sensor>
 		<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-		<site_coord_flag> 1 </site_coord_flag> 			
+		<site_coord_flag> 1 </site_coord_flag>
 		<!-- x component of site location in QES domain (m) (if site_coord_flag = 1) -->
-		<site_xcoord> 1.0  </site_xcoord> 
+		<site_xcoord> 1.0  </site_xcoord>
 		<!-- y component of site location in QES domain (m) (if site_coord_flag = 1)-->
 		<site_ycoord> 1.0 </site_ycoord>
 	</sensor>
@@ -294,11 +294,11 @@ The first part of the sensor information is the location of the sensor in domain
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- x component (m) of origin in UTM -->
-	<UTMx> 634173 </UTMx> 	
-	<!-- y component (m) of origin in UTM -->					
+	<UTMx> 634173 </UTMx>
+	<!-- y component (m) of origin in UTM -->
 	<UTMy> 3925360 </UTMy>
-	<!-- UTM zone that domain located --> 						
-	<UTMZone> 14 </UTMZone> 						
+	<!-- UTM zone that domain located -->
+	<UTMZone> 14 </UTMZone>
 </simulationParameters>
 \end{lstlisting}
 
@@ -306,13 +306,13 @@ The first part of the sensor information is the location of the sensor in domain
 <metParams>
 	<sensor>
 	<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-	<site_coord_flag> 2 </site_coord_flag> 		
-	<!-- x components of site coordinate in UTM (if site_coord_flag = 2) -->	
-	<site_UTM_x> 634175 </site_UTM_x> 
-	<!-- y components of site coordinate in UTM (if site_coord_flag = 2)-->		
+	<site_coord_flag> 2 </site_coord_flag>
+	<!-- x components of site coordinate in UTM (if site_coord_flag = 2) -->
+	<site_UTM_x> 634175 </site_UTM_x>
+	<!-- y components of site coordinate in UTM (if site_coord_flag = 2)-->
 	<site_UTM_y> 3925362 </site_UTM_y>
-	<!-- UTM zone of the sensor site (if site_coord_flag = 2)--> 				
-	<site_UTM_zone> 14 </site_UTM_zone> 				
+	<!-- UTM zone of the sensor site (if site_coord_flag = 2)-->
+	<site_UTM_zone> 14 </site_UTM_zone>
 	</sensor>
 </metParams>
 \end{lstlisting}
@@ -323,10 +323,10 @@ The first part of the sensor information is the location of the sensor in domain
 <simulationParameters>
 	<!-- x component (m) of origin in UTM -->
 	<UTMx> 634173 </UTMx>
-	<!-- y component (m) of origin in UTM --> 						
-	<UTMy> 3925360 </UTMy> 	
-	<!-- UTM zone that domain located -->					
-	<UTMZone> 14 </UTMZone> 						
+	<!-- y component (m) of origin in UTM -->
+	<UTMy> 3925360 </UTMy>
+	<!-- UTM zone that domain located -->
+	<UTMZone> 14 </UTMZone>
 </simulationParameters>
 \end{lstlisting}
 
@@ -334,11 +334,11 @@ The first part of the sensor information is the location of the sensor in domain
 <metParams>
 	<sensor>
 		<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-		<site_coord_flag> 3 </site_coord_flag> 		
-		<!-- x components of site coordinate in Latitude (if site_coord_flag = 3) -->	
-		<site_lat> 35.46270 </site_lat> 		
-		<!-- y components of site coordinate in Longitude (if site_coord_flag = 3)-->		
-		<site_lat> -97.52130 </site_lat> 				
+		<site_coord_flag> 3 </site_coord_flag>
+		<!-- x components of site coordinate in Latitude (if site_coord_flag = 3) -->
+		<site_lat> 35.46270 </site_lat>
+		<!-- y components of site coordinate in Longitude (if site_coord_flag = 3)-->
+		<site_lat> -97.52130 </site_lat>
 	</sensor>
 </metParams>
 \end{lstlisting}
@@ -353,29 +353,29 @@ The second part of sensor definition is choosing type of profile for different t
 \begin{lstlisting}[language=XML]
 <metParams>
 	<sensor>
-		<!-- Start of timestep informastion for a sensor -->	
+		<!-- Start of timestep informastion for a sensor -->
 		<timeSeries>
-			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->						
-			<boundaryLayerFlag> 1 </boundaryLayerFlag> 
+			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
+			<boundaryLayerFlag> 1 </boundaryLayerFlag>
 			<!-- Site z0 -->
-			<siteZ0> 0.1 </siteZ0> 					
-			<!-- Reciprocal Monin-Obukhov Length (1/m) -->			
-			<reciprocal> 0.0 </reciprocal> 				
-			<!-- Height of the sensor -->			
-			<height> 20.0 </height> 				
-			<!-- Measured speed at the sensor height -->			
-			<speed> 5.0 </speed> 					
-			<!-- Wind direction of sensor -->			
-			<direction> 270.0 </direction> 				
+			<siteZ0> 0.1 </siteZ0>
+			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
+			<reciprocal> 0.0 </reciprocal>
+			<!-- Height of the sensor -->
+			<height> 20.0 </height>
+			<!-- Measured speed at the sensor height -->
+			<speed> 5.0 </speed>
+			<!-- Wind direction of sensor -->
+			<direction> 270.0 </direction>
 		</timeSeries>
 	</sensor>
 </metParams>
 \end{lstlisting}
 
-Figure \ref{fig:log_profile} shows velocity magnitude contour with overlaying velocity vectors of initial velocity field created by the aforementioned example of the logarithmic profile.
+Figure below shows velocity magnitude contour with overlaying velocity vectors of initial velocity field created by the aforementioned example of the logarithmic profile.
 
 \begin{figure}[H]
-\includegraphics[width=\textwidth,keepaspectratio]{Images/log_y_101.png}
+\includegraphics[width=11.0cm,keepaspectratio]{Images/log_y_101.png}
 \caption{Velocity magnitude contour with overlaying velocity vectors in a vertical plane at $y=101$ m for initial velocity field created by the logarithmic profile.}
 \end{figure}
 \noindent
@@ -385,29 +385,29 @@ Figure \ref{fig:log_profile} shows velocity magnitude contour with overlaying ve
 \begin{lstlisting}[language=XML]
 <metParams>
 	<sensor>
-		<!-- Start of timestep informastion for a sensor -->	
+		<!-- Start of timestep informastion for a sensor -->
 		<timeSeries>
-			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->						
-			<boundaryLayerFlag> 2 </boundaryLayerFlag> 
+			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
+			<boundaryLayerFlag> 2 </boundaryLayerFlag>
 			<!-- Site z0 -->
-			<siteZ0> 0.1 </siteZ0> 					
-			<!-- Reciprocal Monin-Obukhov Length (1/m) -->			
-			<reciprocal> 0.0 </reciprocal> 				
-			<!-- Height of the sensor -->			
-			<height> 20.0 </height> 				
-			<!-- Measured speed at the sensor height -->			
-			<speed> 5.0 </speed> 					
-			<!-- Wind direction of sensor -->			
-			<direction> 270.0 </direction> 				
+			<siteZ0> 0.1 </siteZ0>
+			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
+			<reciprocal> 0.0 </reciprocal>
+			<!-- Height of the sensor -->
+			<height> 20.0 </height>
+			<!-- Measured speed at the sensor height -->
+			<speed> 5.0 </speed>
+			<!-- Wind direction of sensor -->
+			<direction> 270.0 </direction>
 		</timeSeries>
 	</sensor>
 </metParams>
 \end{lstlisting}
 
-Figure \ref{fig:exp} shows velocity magnitude contour with overlaying  velocity vectors of the initial velocity field created by the aforementioned example of the exponential (power law) profile.
+Figure below shows velocity magnitude contour with overlaying  velocity vectors of the initial velocity field created by the aforementioned example of the exponential (power law) profile.
 
 \begin{figure}[H]
-\includegraphics[width=\textwidth,keepaspectratio]{Images/exp_y_101.png}
+\includegraphics[width=11.0cm,keepaspectratio]{Images/exp_y_101.png}
 \caption{Velocity magnitude contour with overlaying velocity vectors in a vertical plane at $y=101$ m for initial velocity field created by the exponential (power law) profile.}
 \end{figure}
 \noindent
@@ -418,20 +418,20 @@ Figure \ref{fig:exp} shows velocity magnitude contour with overlaying  velocity 
 \begin{lstlisting}[language=XML]
 <metParams>
 	<sensor>
-		<!-- Start of timestep informastion for a sensor -->	
+		<!-- Start of timestep informastion for a sensor -->
 		<timeSeries>
-			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->						
-			<boundaryLayerFlag> 3 </boundaryLayerFlag> 		
+			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
+			<boundaryLayerFlag> 3 </boundaryLayerFlag>
 			<!-- Site z0 -->
 			<siteZ0> 0.1 </siteZ0>
-			<!-- Reciprocal Monin-Obukhov Length (1/m) --> 					
+			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
 			<reciprocal> 0.0 </reciprocal>
-			<!-- Height of the sensor --> 				
+			<!-- Height of the sensor -->
 			<height> 20.0 </height>
-			<!-- Measured speed at the sensor height -->			
+			<!-- Measured speed at the sensor height -->
 			<speed> 5.0 </speed>
-			<!-- Wind direction of sensor -->				
-			<direction> 270.0 </direction> 				
+			<!-- Wind direction of sensor -->
+			<direction> 270.0 </direction>
 			<canopyHeight> 10.0 </canopyHeight>
 			<attenuationCoefficient> 1.0 </attenuationCoefficient>
 		</timeSeries>
@@ -439,10 +439,10 @@ Figure \ref{fig:exp} shows velocity magnitude contour with overlaying  velocity 
 </metParams>
 \end{lstlisting}
 
-Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  velocity vectors of the initial velocity field created by the aforementioned example of the urban canopy profile.
+Figure below shows velocity magnitude contour with overlaying  velocity vectors of the initial velocity field created by the aforementioned example of the urban canopy profile.
 
 \begin{figure}[H]
-\includegraphics[width=\textwidth,keepaspectratio]{Images/canopy_y_101.png}
+\includegraphics[width=11cm,keepaspectratio]{Images/canopy_y_101.png}
 \caption{Velocity magnitude contour with overlaying velocity vectors in a vertical plane at $y=101$ m for initial velocity field created by the urban canopy profile.}
 \end{figure}
 \noindent
@@ -453,12 +453,12 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 <metParams>
 	<sensor>
 		<!-- Start of timestep information for a sensor -->
-		<timeSeries>						
-			<!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->    
+		<timeSeries>
+			<!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->
 			<boundaryLayerFlag> 4 </boundaryLayerFlag>
 			<!-- Site z0 -->
 			<siteZ0> 0.1 </siteZ0>
-			<!-- Reciprocal Monin-Obukhov Length (1/m) --> 									
+			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
 			<reciprocal> 0.0 </reciprocal>
 			<!-- Height of the sensor -->
 			<height> 30.7015 </height>
@@ -467,13 +467,13 @@ Figure \ref{fig:canopy} shows velocity magnitude contour with overlaying  veloci
 			<height> 197.455 </height>
 			<height> 268.468 </height>
 			<!-- Measured speed at the sensor height -->
-			<speed> 2.56922 </speed> 							
+			<speed> 2.56922 </speed>
 			<speed> 2.55532 </speed>
 			<speed> 2.33319 </speed>
 			<speed> 2.16058 </speed>
 			<speed> 1.98843 </speed>
 			<!-- Wind direction of sensor -->
-			<direction> 323.283 </direction> 					
+			<direction> 323.283 </direction>
 			<direction> 327.377 </direction>
 			<direction> 332.676 </direction>
 			<direction> 337.649 </direction>
@@ -494,46 +494,48 @@ test: \autoref{upwind-cavity} \autoref{leeside-cavity-and-far-wake}
 \begin{lstlisting}[language=XML]
 <buildingsParams>
     <!-- Address to shapefile location-->
-    <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>	 
-    <!-- Name of building layer in shapefile-->                       
-    <SHPBuildingLayer>slc_cut</SHPBuildingLayer>     
-    <!-- Name of building height field in shapefile -->                     
-    <SHPHeightField>MEANHEIGHT</SHPHeightField>      
-    <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->                    
-    <heightFactor> 1.0 </heightFactor>	
-    
+    <SHPFile>SaltLakeCity/slc_cut.shp</SHPFile>
+    <!-- Name of building layer in shapefile-->
+    <SHPBuildingLayer>slc_cut</SHPBuildingLayer>
+    <!-- Name of building height field in shapefile -->
+    <SHPHeightField>MEANHEIGHT</SHPHeightField>
+    <!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->
+    <heightFactor> 1.0 </heightFactor>
+
     <wallRoughness>0.01</wallRoughness>
-    
+
     <!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
-    <upwindCavityFlag> 2 </upwindCavityFlag> 	
-    <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->		
+    <upwindCavityFlag> 2 </upwindCavityFlag>
+    <!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->
     <wakeFlag> 2 </wakeFlag>
-    <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->		
-    <streetCanyonFlag> 1 </streetCanyonFlag> 	   
+    <!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->
+    <streetCanyonFlag> 1 </streetCanyonFlag>
     <!-- Rooftop flag (0-none, 1-log profile (default), 2-vortex) -->
-    <rooftopFlag> 1 </rooftopFlag> 
-    <!-- Sidewall flag (0-off, 1-on (default)) -->           
-    <sidewallFlag> 1 </sidewallFlag> 		
-    <!--Street intersection flag (0-off (default), 1-on) -->		
-    <streetIntersectionFlag> 0 </streetIntersectionFlag> 					
+    <rooftopFlag> 1 </rooftopFlag>
+    <!-- Sidewall flag (0-off, 1-on (default)) -->
+    <sidewallFlag> 1 </sidewallFlag>
+    <!--Street intersection flag (0-off (default), 1-on) -->
+    <streetIntersectionFlag> 0 </streetIntersectionFlag>
 	<!-- High-rise flag (0-off (default), 1-on) -->
-    <highRiseFlag> 0 </highRiseFlag> 
+    <highRiseFlag> 0 </highRiseFlag>
 </buildingsParams>
 \end{lstlisting}
 
 \subsection{Automated City Building}
 
-A new shapefile reader function has been added to QES-Winds, which provides the capacity to load the ESRI shapefiles using GDAL (Geospatial Data Abstraction Library) libraries. After the building footprints and heights are loaded from ESRI shapefiles, QES-Winds creates polygon buildings and applies appropriate parameterization to them. Figure \ref{fig:okc_qgis} shows an example ESRI shapefile can be read into QES-Winds, Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS (\href{https://qgis.org}{https://qgis.orgg}). The cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m is shown in Figure \ref{fig:okc_icell}. This plot indicates the ability of QES-Winds to read in and process ESRI shapefiles. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.
+A new shapefile reader function has been added to QES-Winds, which provides the capacity to load the ESRI shapefiles using GDAL (Geospatial Data Abstraction Library) libraries. After the building footprints and heights are loaded from ESRI shapefiles, QES-Winds creates polygon buildings and applies appropriate parameterization to them. Figure below shows an example ESRI shapefile can be read into QES-Winds, Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS (\href{https://qgis.org}{https://qgis.orgg}).
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13.0cm,keepaspectratio]{Images/OKC.png}
+\includegraphics[width=11.0cm,keepaspectratio]{Images/OKC.png}
 \caption{Central Business District (CBD) of Oklahoma City shapefile, subject to JU2003 experimental campaign \cite{allwine2006joint}, plotted using the freely available software QGIS.}
 \end{figure}
 
+The cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m is shown in Figure below. This plot indicates the ability of QES-Winds to read in and process ESRI shapefiles. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,keepaspectratio]{Images/oklahoma_z_3_icell.png}
+\includegraphics[width=11.0cm,keepaspectratio]{Images/oklahoma_z_3_icell.png}
 \caption{Cell type contour for the Oklahoma City test case in a horizontal plane at $z=3$ m. The cell type value $0$ (blue) represents the building cells while value $1$ (red) indicates the air cells.}
 \end{figure}
 
@@ -547,7 +549,7 @@ The user can define the address to the shapefile using <SHP> variable as well as
 	<SHPBuildingLayer>OKCSmallDomainJU2003</SHPBuildingLayer>
 	<!-- Height factor multiplied by the building height in the shapefile (default = 1.0)-->
 	<heightFactor> 1.0 </heightFactor>
-	... 				
+	...
 <buildingsParams>
 \end{lstlisting}
 
@@ -569,15 +571,15 @@ Instead of reading in a ESRI shapefile, the user can import building information
 		<width> 20.0 </width>
 		<buildingRotation> 0.0 </buildingRotation>
 	</rectangularBuilding>
-	... 				
+	...
 <buildingsParams>
 \end{lstlisting}
 
 \subsection{Upwind Cavity}\label{upwind-cavity}
 
-Upwind cavity as described in \cite{nelson20085,bagal2004improved,gowardhan2010evaluation} is the parameterization representing upwind and stagnation effects of the building on the fluid flow. There are three options available for this type of parameterization in QES-Winds. 
+Upwind cavity as described in \cite{nelson20085,bagal2004improved,gowardhan2010evaluation} is the parameterization representing upwind and stagnation effects of the building on the fluid flow. There are three options available for this type of parameterization in QES-Winds.
 
-The first option based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. They defined an ellipsoid to represent what they call is the displacement zone in front of the building. The length of the displacement zone, $L_F$, is defined by: 
+The first option based on the parameterization proposed by R\"{o}ckle \cite{rockle1990bestimmung} and later Kaplan and Dinar \cite{kaplan1996lagrangian}. They defined an ellipsoid to represent what they call is the displacement zone in front of the building. The length of the displacement zone, $L_F$, is defined by:
 \begin{equation}
 \frac{L_{\mathrm{F}}}{H}=\frac{2(W / H)}{1+0.8 W / H}
 \label{eq:lf}
@@ -591,7 +593,7 @@ The shape of the ellipsoid is estimated by:
 where $L$, $H$ and $W$ are length, width and height of the building, receptively.Finally, the initial velocity components in the displacement zone are set to zero.
 
 
-Part (a) of figures below show cell type contour to represent the area of effect of the R\"{o}ckle upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterizations is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:upwind_1_vert} and Figure \ref{fig:upwind_1_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
+Part (a) of figures below show cell type contour to represent the area of effect of the R\"{o}ckle upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterizations is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of figures below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
 \begin{figure}[h!]
     \centering
@@ -614,7 +616,7 @@ The second option is called the Modified Vortex Parameterization (MVP) and creat
 
 where $L$, $H$ and $W$ are length, width and height of the building, receptively.
 
-Part (a) of figures below show cell type contour to represent the area of effect of the MVP upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterizations is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:upwind_1_vert} and Figure \ref{fig:upwind_1_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
+Part (a) of figures below show cell type contour to represent the area of effect of the MVP upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterizations is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of the figures below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
 \begin{figure}[H]
     \centering
@@ -630,7 +632,7 @@ Part (a) of figures below show cell type contour to represent the area of effect
 
 The third option is called the high-rise MVP algorithm (HMVP) and is designed to address the shortcomings of the previous models when it comes to tall buildings  \cite{nelson20085}. The length of the displacement zone is calculated the same as Eq. \ref{eq:lf_MVP}. The HMVP algorithm creates two ellipsoids with the difference that the inner region only extends to $60\%$ of the minimum of building height and building width. In addition, the algorithm linearly reduces the velocities in the outer region from their upwind values at the outer surface to $40\%$ of the initial values on the inner region.
 
-Part (a) of figures below show cell type contour to represent the area of effect of the HMVP upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterization is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:upwind_1_vert} and Figure \ref{fig:upwind_1_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
+Part (a) of figures below show cell type contour to represent the area of effect of the HMVP upwind cavity parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The upwind parameterization is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of the figure below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
 \begin{figure}[H]
     \centering
@@ -651,8 +653,8 @@ In order to choose between these three upwind models, the user needs to change t
 <buildingsParams>
 	...
 	<!-- Upwind cavity flag (0-none, 1-Rockle, 2-MVP (default), 3-HMVP) -->
-	<upwindCavityFlag> 2 </upwindCavityFlag> 	
-	...		
+	<upwindCavityFlag> 2 </upwindCavityFlag>
+	...
 </buildingsParams>
 \end{lstlisting}
 
@@ -664,17 +666,17 @@ The far-wake and cavity parameterization described in \cite{singh2005testing,sin
 \frac{L_{R}}{H}=\frac{1.8 \frac{W}{H}}{\left(\frac{L}{H}\right)^{0.3}\left(1+0.24 \frac{W}{H}\right)},
 \label{eq:Lr}
 \end{equation}
-and wake is assumed to be approximately $3$ cavity lengths long (i.e., $3L_R$). After calculating $L_R$, the cavity length, $d$ in the stream-wise direction was defined by an ellipsoid shape using: 
+and wake is assumed to be approximately $3$ cavity lengths long (i.e., $3L_R$). After calculating $L_R$, the cavity length, $d$ in the stream-wise direction was defined by an ellipsoid shape using:
 \begin{equation}
 d=L_{R} \sqrt{\left(1-\left(\frac{z}{H}\right)^{2}\right)\left(1-\left(\frac{y}{W}\right)^{2}\right)}-\frac{L}{2}.
 \label{eq:d}
-\end{equation} 
+\end{equation}
 Finally, the velocity in the reversed cavity zone is defined using:
 \begin{equation}
 \frac{u(x, y, z)}{U(H)}=-\left(1-\left(\frac{x}{d}\right)^{2}\right)
 \label{eq:cavity}
 \end{equation}
-and in the wake region, the velocity field is estimated by: 
+and in the wake region, the velocity field is estimated by:
 \begin{equation}
 \frac{u(x, y, z)}{U(H)}=\left(1-\left(\frac{d}{x}\right)^{1.5}\right).
 \label{eq:wake}
@@ -682,7 +684,7 @@ and in the wake region, the velocity field is estimated by:
 
 where $L$, $H$ and $W$ are length, width and height of the building, receptively. $u(x,y,z)$ is the velocity at point $(x,y,z)$, $U(H)$ is the reference velocity at height of the building and $x$ is the distance from the building in the stream-wise direction.
 
-Part (a) of Figure \ref{fig:wake_vert} and Figure \ref{fig:wake_horiz} show cell type contour to represent the area of effect of the R\"{o}ckle wake parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The wake parameterization is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:wake_vert} and Figure \ref{fig:wake_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
+Part (a) of the figure below show cell type contour to represent the area of effect of the R\"{o}ckle wake parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The wake parameterization is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of the figures below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
 \begin{figure}[H]
     \centering
@@ -702,19 +704,19 @@ In order to turn on the wake model, the user needs to change the value of "wakeF
 <buildingsParams>
 	...
 	<!-- Wake flag (0-none, 1-Rockle, 2-Modified Rockle (default), 3-Area Scaled) -->
-	<wakeFlag> 2 </wakeFlag> 	
-	... 				
+	<wakeFlag> 2 </wakeFlag>
+	...
 <buildingsParams>
 \end{lstlisting}
 
 \subsection{Street Canyon}
 
-The street canyon parameterization detailed in \cite{singh2008evaluation} represents the effects of two buildings in close vicinity to each other, on the fluid flow. R\"{o}ckle \cite{rockle1990bestimmung} introduced velocity parameterizations for the stream-wise components as: 
+The street canyon parameterization detailed in \cite{singh2008evaluation} represents the effects of two buildings in close vicinity to each other, on the fluid flow. R\"{o}ckle \cite{rockle1990bestimmung} introduced velocity parameterizations for the stream-wise components as:
 \begin{equation}
 \frac{u(x, y, z)}{U(H)}=-\frac{x_{\mathrm{can}}}{(0.5 S)}\left(\frac{S-x_{\mathrm{can}}}{0.5 S}\right)
 \label{eq:u_can}
 \end{equation}
-and the vertical component as 
+and the vertical component as
 \begin{equation}
 \frac{w(x, y, z)}{U(H)}=-\left|\frac{1}{2}\left(1-\frac{x_{\text {can }}}{0.5 S}\right)\right|\left(1-\frac{S-x_{\text {can }}}{0.5 S}\right).
 \label{eq:w_can}
@@ -724,7 +726,7 @@ where $S$ is the spacing between two buildings and $x_{can}$ is the distance fro
 
 In order to identify the criteria to determine the existence of a street canyon, Singh et al. \cite{singh2008evaluation} utilized the cavity length, $L_R$ (Eq. \ref{eq:Lr}), for the upwind building. If $S < L_R$, the street canyon parameterization is applied, otherwise, the upwind building is considered as an isolated building.
 
-Part (a) of Figure \ref{fig:street_vert} and Figure \ref{fig:street_horiz} show cell type contour to represent the area of effect of the street canyon parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The street canyon parameterization is applied to an area between two rectangular buildings. The upwind building is same as the one defined in Section \ref{sec:building}. The downwind building is a rectangular building with $20$ m as height, $0$ m as base height, $20$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $120$ m in $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:street_vert} and Figure \ref{fig:street_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
+Part (a) of the figures below show cell type contour to represent the area of effect of the street canyon parameterization in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively. The street canyon parameterization is applied to an area between two rectangular buildings. The upwind building is same as the one defined in Section \ref{sec:building}. The downwind building is a rectangular building with $20$ m as height, $0$ m as base height, $20$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $120$ m in $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of the figures below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m and a horizontal plane at $z=5$ m, respectively.
 
 \begin{figure}[H]
     \centering
@@ -744,8 +746,8 @@ To turn on the street canyon parameterization, the user needs to change the valu
 <buildingsParams>
 	...
 	<!-- Street canyon flag (0-none, 1-Roeckle w/ Fackrel (default)) -->
-	<streetCanyonFlag> 1 </streetCanyonFlag> 	
-	... 				
+	<streetCanyonFlag> 1 </streetCanyonFlag>
+	...
 <buildingsParams>
 \end{lstlisting}
 
@@ -770,7 +772,7 @@ H_{\mathrm{c}}=0.22 R
 where $B_s$ is the smaller of the height ($H$) and the effective width ($W_{eff}$) of the
 building, $B_l$ is the larger of $H$ and $W_{eff}$ , $R$ is the vortex size scaling factor.
 
-Part (a) of Figure \ref{fig:street_vert} show cell type contour to represent the area of effect of the rooftop parameterization in a vertical plane at $y=100$ m. The rooftop parameterization is applied to a rectangular building with $40$ m as height, $0$ m as base height, $40$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:street_vert} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m.
+Part (a) of the figure below show cell type contour to represent the area of effect of the rooftop parameterization in a vertical plane at $y=100$ m. The rooftop parameterization is applied to a rectangular building with $40$ m as height, $0$ m as base height, $40$ m as length and width, closest corner to the origin located at $90$ m in $x$ and $y$ directions, and $0^{\circ}$ as rotation angle with respect to the North-South line. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of the figure below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a vertical plane at $y=100$ m.
 
 \begin{figure}[H]
     \centering
@@ -784,8 +786,8 @@ To turn the parameterization on, the user needs to change the value of "rooftopF
 <buildingsParams>
 	...
 	<!-- Rooftop flag (0-none, 1-log profile (default)) -->
-	<rooftopFlag> 1 </rooftopFlag> 
-	... 				
+	<rooftopFlag> 1 </rooftopFlag>
+	...
 <buildingsParams>
 \end{lstlisting}
 
@@ -809,7 +811,7 @@ where $B_s$ is the smaller of the height ($H$) and the effective width ($W_{eff}
 building, $B_l$ is the larger of $H$ and $W_{eff}$ , $R$ is the vortex size scaling factor, $L_c$ is the downwind length of the half-ellipse that defines the vortex recirculation region, and
 $W_c$ is the lateral width of the elliptical recirculation region. Within the recirculation zone, the velocity is reversed and scaled linearly from the reference wind speed near the wall to zero at the edge of the ellipse.
 
-Part (a) of Figure \ref{fig:street_vert} show cell type contour to represent the area of effect of the sidewall parameterization in a horizontal plane at $z=5$ m. The rooftop parameterization is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of Figure \ref{fig:sidewall_horiz} indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a horizontal plane at $z=5$ m.
+Part (a) of the figure below show cell type contour to represent the area of effect of the sidewall parameterization in a horizontal plane at $z=5$ m. The rooftop parameterization is applied to a rectangular building defined in Section \ref{sec:building}. The initial guess field is constructed using a single sensor with logarithmic profile as defined in \ref{sec:sensor_xml}. Parts (b) and (c) of the figure below indicate velocity magnitude contour with overlaying velocity vectors of initial (part (b)) and final (part(c)) velocity fields in a horizontal plane at $z=5$ m.
 
 \begin{figure}[H]
     \includegraphics[width=\textwidth]{Images/sidewall_z_5_1.pdf}
@@ -823,7 +825,7 @@ In order to turn the algorithm on, the user needs to change the value of "sidewa
 	...
 	<!-- Sidewall flag (0-off, 1-on (default)) -->
 	<sidewallFlag> 1 </sidewallFlag>
-	... 				
+	...
 <buildingsParams>
 \end{lstlisting}
 
@@ -836,9 +838,9 @@ In order to turn the parameterization on, the user needs to change the value of 
 \begin{lstlisting}[language=XML]
 <buildingsParams>
 	...
-	<!--Street intersection flag (0-off (default), 1-on) -->		
+	<!--Street intersection flag (0-off (default), 1-on) -->
     <streetIntersectionFlag> 0 </streetIntersectionFlag>
-	... 				
+	...
 <buildingsParams>
 \end{lstlisting}
 
@@ -852,12 +854,12 @@ In order to turn the parameterization on, the user needs to change the value of 
 <buildingsParams>
 	...
 	<!-- High-rise flag (0-off (default), 1-on) -->
-    <highRiseFlag> 0 </highRiseFlag> 
-	... 				
+    <highRiseFlag> 0 </highRiseFlag>
+	...
 <buildingsParams>
 \end{lstlisting}
 
 \section{Vegetation Parameters (vegetationParams)}
 
 \subsection{Row-organized canopy (ROC) model}
-The ROC model adjusts the mean wind field to account for drag in sparse, structured row crops (e.g., grape vineyards, carrots, and some orchards). It is comprised of several parameterizations that alter the flow in specific regions around each row in the ROC. These zones are pictured in figure below
+The ROC model adjusts the mean wind field to account for drag in sparse, structured row crops (e.g., grape vineyards, carrots, and some orchards). It is comprised of several parameterizations that alter the flow in specific regions around each row in the ROC. These zones are pictured in the figure below
