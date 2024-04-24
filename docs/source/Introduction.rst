@@ -1,8 +1,5 @@
-Getting Started
-===============
-
 Introduction
-------------
+============
 
 A new dispersion modeling system based on the well-used FORTRAN-based
 QUIC (Quick Urban and Industrial Complex) dispersion modeling system
@@ -33,7 +30,7 @@ simulations. **QES requires a NVIDIA GPU with Compute Capability of 7.0
 (or higher)**.
 
 QES-Winds
-~~~~~~~~~
+---------
 
 QES-Winds is a fast-response 3D diagnostic urban wind model using a
 mass-conserving wind-field solver :cite:`Bozorgmehr2021`. QES-Winds uses
@@ -47,7 +44,7 @@ the Successive Over-Relaxation (SOR) method (an iterative solver), which
 is a variant of the Gauss-Seidel method with more rapid convergence.
 
 QES-Turb
-~~~~~~~~
+--------
 
 QES-Turb is a turbulence model based on Prandtl’s mixing-length and
 Boussinesq eddy-viscosity hypotheses. QES-Turb computes the stress
@@ -55,7 +52,7 @@ tensor using local velocity gradients and some emprical non-local
 parameterizations.
 
 QES-Plume
-~~~~~~~~~
+---------
 
 QES-Plume is a stochastic Lagrangian dispersion model using QES-Winds
 mean wind field and QES-Turb turbulence fields. QES-Plume solves the
@@ -67,9 +64,76 @@ QES-Plume is also a stand-alone dispersion model that can run using
 fields from diverses sources such as RANS or LES models.
 
 QES-Fire
-~~~~~~~~
+--------
 
 QES-Fire is a microscale wildfire model coupling the fire front to
 microscale winds. The model consists of a simplified physics rate of
 spread model, a kinematic plume-rise model, and a mass-consistent wind
 solver. The QES-Fire module is currently not publicly available.
+
+Publications
+============
+
+-  QES-Winds: Dynamic Parallelism Solver
+
+   Bozorgmehr, B., Willemsen, P., Gibbs, J.A., Stoll, R., Kim, J.-J.,
+   Pardyjak, E.R., 2021. Utilizing dynamic parallelism in CUDA to
+   accelerate a 3D red-black successive over relaxation wind-field
+   solver. Environ Modell Softw 137, 104958.
+   https://doi.org/10.1016/j.envsoft.2021.104958
+
+-  QES-Winds: Isolated Tree Model
+
+   Margairaz, F., Eshagh, H., Hayati, A.N., Pardyjak, E.R., Stoll, R.,
+   2022. Development and evaluation of an isolated-tree flow model for
+   neutral-stability conditions. Urban Clim 42, 101083.
+   https://doi.org/10.1016/j.uclim.2022.101083
+
+-  QES-Winds: Raw-Oriented Canopy Model
+
+   Ulmer, L., Margairaz, F., Bailey, B.N., Mahaffee, W.F., Pardyjak,
+   E.R., Stoll, R., 2022. A fast-response, wind angle-sensitive model
+   for predicting mean winds in row-organized canopies. Agric. For.
+   Meteorol. 329, 109273.
+   https://doi.org/10.1016/j.agrformet.2022.109273
+
+-  QES-Plume: Lagrangian Dispersion Model
+
+   Margairaz, F., Singh, B., Gibbs, J.A., Atwood, L., Pardyjak, E.R.,
+   Stoll, R., 2023. QES-Plume v1.0: a Lagrangian dispersion model.
+   Geosci Model Dev 16:5729–5754.
+   https://doi.org/10.5194/gmd-16-5729-2023
+
+-  QES-Fire: wildfire model
+
+   Moody, M.J., Gibbs, J.A., Krueger, S., Mallia, D., Pardyjak, E.R.,
+   Kochanski, A.K., Bailey, B.N., Stoll, R., 2022. QES-Fire: a
+   dynamically coupled fast-response wildfire model. Int J Wildland Fire
+   31, 306–325. https://doi.org/10.1071/wf21057
+
+-  QES: Turbulence and Passive scalar transport in Raw-Oriented Canopy
+
+   Ulmer L., Margairaz F., Mahaffee W.F., Stoll R., 2024. A
+   fast-response model of turbulence and passive scalar transport in
+   row-organized canopies. Agric For Meteorol 349:109919.
+   https://doi.org/10.1016/j.agrformet.2024.109919
+
+Acknowledgements
+----------------
+
+This work was partly supported by grants from:
+
+-  The National Institute of Environment Research (NIER), funded by the
+   Ministry of Environment (MOE) of the Republic of Korea
+   (NIER-SP2019-312). In addition, we would like to acknowledge Dr.
+   Jae-Jin Kim from Department of Environmental Atmospheric Sciences,
+   Pukyong National University, Republic of Korea, as the main Principal
+   Investigator (PI) on the grant from the National Institute of
+   Environment Research (NIER).
+
+-  The United States Department of Agriculture National Institute for
+   Food and Agriculture Specialty Crop Research Initiative Award No.
+   2018-03375.
+
+-  The United States Department of Agriculture Agricultural Research
+   Service through Research Support Agreement 58-2072-0-036.

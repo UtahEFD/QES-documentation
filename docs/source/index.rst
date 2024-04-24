@@ -58,15 +58,15 @@ The modules are the following:
 
 .. toctree::
    :maxdepth: 2
-   :caption: User Guide
+   :caption: Getting Started
 
-   GettingStarted
+   Introduction
    Installation
    Usage
 
 .. toctree::
    :maxdepth: 2
-   :caption: Technical Guide
+   :caption: User Guide
 
    QES-Winds
    QES-Turb
@@ -118,15 +118,3 @@ Publications
   fast-response model of turbulence and passive scalar transport in
   row-organized canopies. Agric For Meteorol 349:109919.
   https://doi.org/10.1016/j.agrformet.2024.109919
-
-
-Acknowledgements
-----------------
-
-This work was partly supported by grants from:
-
-* The National Institute of Environment Research (NIER), funded by the Ministry of Environment (MOE) of the Republic of Korea (NIER-SP2019-312). In addition, we would like to acknowledge Dr. Jae-Jin Kim from Department of Environmental Atmospheric Sciences, Pukyong National University, Republic of Korea, as the main Principal Investigator (PI) on the grant from the National Institute of Environment Research (NIER).
-
-* The United States Department of Agriculture National Institute for Food and Agriculture Specialty Crop Research Initiative Award No. 2018-03375.
-
-* The United States Department of Agriculture Agricultural Research Service through Research Support Agreement 58-2072-0-036.
