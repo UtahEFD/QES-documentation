@@ -8,7 +8,7 @@ author = 'UTAH EFD'
 # The master toctree document.
 root_doc = 'index'
 
-#release = '1.0'
+release = 'v2.2.0'
 #version = '1.0.0'
 
 # -- General configuration
