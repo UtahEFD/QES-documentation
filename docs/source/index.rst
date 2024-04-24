@@ -36,7 +36,6 @@ framework designed to compute high-resolution wind and concentration fields in
 complex atmospheric-boundary-layer environments.
 
 The modules are the following:
-
 * **QES-Winds** is the new wind model computing divergence-free steady-state 3D wind field in complex domain.
 
 * **QES-TURB** is a stand-alone turbulence model that computes turbulence fields from the calculated wind field in QES-Winds.
