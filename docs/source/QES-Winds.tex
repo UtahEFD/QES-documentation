@@ -122,11 +122,19 @@ The domain information (number of cells and cell size) are defined under the <si
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- Number of cells in x,y and z directions-->
-  	<domain> 1000 1000 100 </domain>
-  	<!-- Mesh resolution (meters)-->
-  	<cellSize> 2.0 2.0 2.0 </cellSize>
+	<domain> 1000 1000 100 </domain>
+	<!-- Mesh resolution (meters)-->
+	<cellSize> 2.0 2.0 2.0 </cellSize>
+	<!-- vertical stretching (0-uniform grid (default), 1-costum grid)-->
+	<verticalStretching> 0 </verticalStretching>   
+	<!-- Number of time steps-->           
+	<totalTimeIncrements> 1 </totalTimeIncrements> 			
+	
+	<!-- ... -->
 </simulationParameters>
 \end{lstlisting}
+Note, <verticalStretching> is currently under development. The last parameter lets the user define the number of time instances that need to run, assuming the correct number of sensor time steps are define in <metParams>. This parameter can be set to 0 to let the program decide how many time instances need to be run based on input parameters.
+
 
 \subsection{Halo Region}
 
@@ -146,6 +154,8 @@ In order to define length of the halo zone in $x$ and $y$ direction, the user ca
 	<halo_x> 20.0 </halo_x>
 	<!-- Halo region added to y-direction of domain (at the beginning and the end of domain) (meters)-->
 	<halo_y> 30.0 </halo_y>
+	
+	<!-- ... -->
 </simulationParameters>
 \end{lstlisting}
 
@@ -172,6 +182,8 @@ The user can define the address to the DEM using <DEM> variable under the <simul
 <simulationParameters>
 	<!-- Address to DEM location-->
 	<DEM>../scratch/DEM/askervein.tif</DEM>
+	
+	<!-- ... -->
 </simulationParameters>
 \end{lstlisting}
 
@@ -198,6 +210,8 @@ There are two options to determine the location of the origin of QES domain insi
 	<DEMDistancex> 1000.0 </DEMDistancex>
 	<!-- y component (m) of origin in DEM coordinates (if originFlag = 0) -->
 	<DEMDistancey> 1000.0 </DEMDistancey>
+	
+	<!-- ... -->
 </simulationParameters>
 \end{lstlisting}
 
@@ -211,6 +225,8 @@ There are two options to determine the location of the origin of QES domain insi
 	<UTMx> 595469.6122881 </UTMx>
 	<!-- y component (m) of origin in UTM DEM coordinates (if originFlag = 1)-->
 	<UTMy> 6336281.9538635 </UTMy>
+	
+	<!-- ... -->
 </simulationParameters>
 \end{lstlisting}
 
@@ -225,32 +241,39 @@ QES-Winds can read a single or multiple sensors for a specific test case. In thi
 \item a logarithmic profile \cite{favaloro2008toward}:
 \begin{equation}
 \label{eq:log_law}
-u_{log}(z) = u_{ref}\cdot\frac{ln(z/z_0)}{ln(z_{ref}/z_0)}
+u_{log}(z) = u_{ref}\cdot\frac{\ln(z/z_0)}{\ln(z_{ref}/z_0)}
 \end{equation}
-
+where $u_{ref}$ is the measured velocity at measured height $z_{ref}$, $z_0$ is the surface roughness.
 \item a power law profile \cite{favaloro2008toward}:
 \begin{equation}
 \label{eq:power_law}
-u_{pow}(z) = u_{ref}\cdot(z/z_{ref})^{z_0}
+u_{pow}(z) = u_{ref}\cdot(z/z_{ref})^{p}
 \end{equation}
+where $u_{ref}$ is the measured velocity at measured height $z_{ref}$, $p$ is the power law exponent.
 
 \item an urban canopy profile \cite{favaloro2008toward,pardyjak2008near}:
 \begin{equation}
 \label{eq:urban_canopy_low}
 u_{uc}(z)=\begin{cases}
-u(H)\cdot\exp(\alpha(\frac{z}{H}-1)) & \text{if} z\leq H\\
-u(H)\cdot\exp(\alpha(\frac{z}{H}-1))& \text{if} z > H.
+u_H\cdot\exp(\alpha(\frac{z}{H}-1)) & \text{if } z\leq H\\
+\frac{u_*}{\kappa}\cdot \ln(\frac{z-d}{z_0}) & \text{if } z > H.
 \end{cases}
 \end{equation}
-
-where $u_{ref}$ is the measured velocity at measured height $z_{ref}$, $z_0$ is the surface
-roughness. The lower portion of the urban canopy profile calculated where $\alpha$ is a factor that depends on canopy
-element density (attenuation coefficient) and $u(H)$ is the computed velocity at height $H$. The upper portion of the urban canopy is a different form of a logarithmic profile where $u_*$ is the friction velocity,
-$\kappa$ is the von Karman constant at ~0.4 and $d$ is the zero plane displacement.
+Here the profile is separated into two parts: below and above the canopy height $H$. The method uses the reference velocity $u_{ref}$ is the measured velocity at measured height $z_{ref}$ and the attenuation coefficient $\alpha$ to calculate, via bisection, the zero plane displacement height $d$, the velocity at the canopy top $u_H$, and the friction velocity $u_*$. The lower portion of the urban canopy profile is calculated as an exponential reaching the velocity at the canopy top $u_H$, and the upper portion of the urban canopy is a logarithmic profile using the computed $u_*$ and $d$, with $\kappa \sim 0.4$ the von Karman constant. 
 
 \end{enumerate}
 
+Figure below shows velocity profiles of used for the initial velocity field using each of the scheme presented above.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{Images/VelocityProfiles.pdf}
+    \caption{Velocity profiles created using (1) logarithmic profile, (2) power law profile, and (3) urban canopy profile.}
+\end{figure}
+
 If there is only one sensor available in the computational domain, the code will extend the profile for that sensor uniformly to the whole domain. On the occasion of multiple sensors, QES-Winds utilizes a two-dimensional Barnes interpolation scheme \cite{koch1983interactive,booth2012validation} to interpolate velocity components at each cell height of the domain based on the weighted distance from each sensor.
+
+
 
 \subsection{XML Setup}
 \label{sec:sensor_xml}
@@ -258,6 +281,36 @@ If there is only one sensor available in the computational domain, the code will
 There are two options available for defining sensor information:
 
 \begin{enumerate}
+
+\item The user can define all information required for creating a sensor by using the <sensor> variable inside the <metParams> section of the XML file. An example of this section is presented below: 
+
+\begin{lstlisting}[language=XML]
+<!-- Meteorological parameters -->
+<metParams>
+	<!-- Distribution of surface roughness for domain (0-uniform (default), 1-custom -->
+	<z0_domain_flag> 0 </z0_domain_flag>           			
+  	
+  	<!-- Define a sensor -->  
+	<sensor>
+		<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->    	
+		<site_coord_flag> 1 </site_coord_flag> 			
+		<site_xcoord> 100.0  </site_xcoord> 		
+		<site_ycoord> 140.0 </site_ycoord> 
+		
+		<!-- Start of timestep information for a sensor -->
+		<timeSeries>			
+			<timeStamp>2003-07-23T23:00:00</timeStamp>					
+			<boundaryLayerFlag> 1 </boundaryLayerFlag> 	
+			<siteZ0> 0.1 </siteZ0> 			
+			<reciprocal> 0.0 </reciprocal> 	
+			<height> 10.0 </height> 		
+			<speed> 5.0 </speed> 			
+			<direction> 270.0 </direction> 	
+		</timeSeries>
+	</sensor>
+</metParams>	
+\end{lstlisting}
+In that case, multiple sensors can be defined in this section, each added using <sensor>...</sensor>.
 
 \item The user can put all the sensor information in a separate XML file and define the address to the location of the sensor file using the <sensorName> variable.
 
@@ -269,56 +322,71 @@ There are two options available for defining sensor information:
 	<sensorName>../data/InputFiles/sensor.xml</sensorName>
 </metParams>
 \end{lstlisting}
-\noindent
 
-\item The user can define all information required for creating a sensor by using the <sensor> variable inside the <metParams> section of the XML file.
+An example of the sensor file is presented below: 
+\begin{lstlisting}[language=XML]
+<sensor>
+	<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) --> 
+	<site_coord_flag> 1 </site_coord_flag> 		
+	<site_xcoord> 590.0  </site_xcoord> 		
+	<site_ycoord> 1.0 </site_ycoord> 			
 
-The first part of the sensor information is the location of the sensor in domain. There are three options for it: 1) define the location in local coordinates of the QES domain.
+	<!-- Start of timestep information for a sensor -->
+	<timeSeries>
+		<timeStamp>2003-07-23T23:00:00</timeStamp>		
+		<boundaryLayerFlag> 3 </boundaryLayerFlag> 	
+		<siteZ0> 0.3 </siteZ0> 
+		<reciprocal> 0.0 </reciprocal>
+		<height> 17.23 </height> 				
+		<speed> 5.15 </speed> 					
+		<direction> 153.83 </direction> 			
+		<canopyHeight> 10.1 </canopyHeight>
+		<attenuationCoefficient> 2.41 </attenuationCoefficient>
+	</timeSeries>
+
+	<!-- ... -->
+</sensor>
+\end{lstlisting}
+In that case, multiple sensors can be defined each in their separate XML file.
+
+\end{enumerate}
+
+The first part of the sensor information is the location of the sensor in domain. There are three options for it:
+
+\begin{enumerate}
+\item define the location in local coordinates of the QES domain.
 
 \begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
-		<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-		<site_coord_flag> 1 </site_coord_flag>
-		<!-- x component of site location in QES domain (m) (if site_coord_flag = 1) -->
-		<site_xcoord> 1.0  </site_xcoord>
-		<!-- y component of site location in QES domain (m) (if site_coord_flag = 1)-->
-		<site_ycoord> 1.0 </site_ycoord>
-	</sensor>
-</metParams>
+<sensor>
+	<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
+	<site_coord_flag> 1 </site_coord_flag>
+	<!-- x component of site location in QES domain (m) (if site_coord_flag = 1) -->
+	<site_xcoord> 1.0  </site_xcoord>
+	<!-- y component of site location in QES domain (m) (if site_coord_flag = 1)-->
+	<site_ycoord> 1.0 </site_ycoord>
+	
+	<!-- ... -->
+</sensor>
 \end{lstlisting}
 \noindent
 
-\item The user can define the location in the Universal Transverse Mercator (UTM) coordinates. In this case, user also needs to define the origin of computational domain in the UTM coordinates.
-
+\item The user can define the location in the UTM coordinates. 
 \begin{lstlisting}[language=XML]
-<simulationParameters>
-	<!-- x component (m) of origin in UTM -->
-	<UTMx> 634173 </UTMx>
-	<!-- y component (m) of origin in UTM -->
-	<UTMy> 3925360 </UTMy>
-	<!-- UTM zone that domain located -->
-	<UTMZone> 14 </UTMZone>
-</simulationParameters>
-\end{lstlisting}
-
-\begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
+<sensor>
 	<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
 	<site_coord_flag> 2 </site_coord_flag>
-	<!-- x components of site coordinate in UTM (if site_coord_flag = 2) -->
+	<!-- x components of site coordinate in UTM -->
 	<site_UTM_x> 634175 </site_UTM_x>
-	<!-- y components of site coordinate in UTM (if site_coord_flag = 2)-->
+	<!-- y components of site coordinate in UTM-->
 	<site_UTM_y> 3925362 </site_UTM_y>
-	<!-- UTM zone of the sensor site (if site_coord_flag = 2)-->
+	<!-- UTM zone of the sensor site -->
 	<site_UTM_zone> 14 </site_UTM_zone>
-	</sensor>
-</metParams>
+	
+	<!-- ... -->
+</sensor>
 \end{lstlisting}
-\noindent
-\item The user can define the location in Latitude and Longitude coordinates. In this case, user also needs to define the origin of computational domain in the UTM coordinates.
 
+In this case, user also needs to define the origin of computational domain in the UTM coordinates.
 \begin{lstlisting}[language=XML]
 <simulationParameters>
 	<!-- x component (m) of origin in UTM -->
@@ -330,17 +398,31 @@ The first part of the sensor information is the location of the sensor in domain
 </simulationParameters>
 \end{lstlisting}
 
+
+\item The user can define the location in Latitude and Longitude coordinates. 
 \begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
-		<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
-		<site_coord_flag> 3 </site_coord_flag>
-		<!-- x components of site coordinate in Latitude (if site_coord_flag = 3) -->
-		<site_lat> 35.46270 </site_lat>
-		<!-- y components of site coordinate in Longitude (if site_coord_flag = 3)-->
-		<site_lat> -97.52130 </site_lat>
-	</sensor>
-</metParams>
+<sensor>
+	<!-- Sensor site coordinate system (1=QES (default), 2=UTM, 3=Lat/Lon) -->
+	<site_coord_flag> 3 </site_coord_flag>
+	<!-- x components of site coordinate in Latitude -->
+	<site_lat> 35.46270 </site_lat>
+	<!-- y components of site coordinate in Longitude -->
+	<site_lat> -97.52130 </site_lat>
+	
+	<!-- ... -->
+</sensor>
+\end{lstlisting}
+
+In this case, user also needs to define the origin of computational domain in the UTM coordinates.
+\begin{lstlisting}[language=XML] 
+<simulationParameters>
+	<!-- x component (m) of origin in UTM -->
+	<UTMx> 634173 </UTMx>
+	<!-- y component (m) of origin in UTM -->
+	<UTMy> 3925360 </UTMy>
+	<!-- UTM zone that domain located -->
+	<UTMZone> 14 </UTMZone>
+</simulationParameters>
 \end{lstlisting}
 
 \end{enumerate}
@@ -351,136 +433,105 @@ The second part of sensor definition is choosing type of profile for different t
 \item Logarithmic velocity profile, based on Eq. \ref{eq:log_law}:
 
 \begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
-		<!-- Start of timestep informastion for a sensor -->
-		<timeSeries>
-			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
-			<boundaryLayerFlag> 1 </boundaryLayerFlag>
-			<!-- Site z0 -->
-			<siteZ0> 0.1 </siteZ0>
-			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
-			<reciprocal> 0.0 </reciprocal>
-			<!-- Height of the sensor -->
-			<height> 20.0 </height>
-			<!-- Measured speed at the sensor height -->
-			<speed> 5.0 </speed>
-			<!-- Wind direction of sensor -->
-			<direction> 270.0 </direction>
-		</timeSeries>
-	</sensor>
-</metParams>
+<!-- Start of timestep informastion for a sensor -->
+<timeSeries>
+	<!-- time of the current data input -->
+	<timeStamp>2003-07-23T23:00:00</timeStamp>		
+	<!-- Site BL flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
+	<boundaryLayerFlag> 1 </boundaryLayerFlag>
+	<!-- Site z0 -->
+	<siteZ0> 0.1 </siteZ0>
+	<!-- Reciprocal Monin-Obukhov Length (1/m) -->
+	<reciprocal> 0.0 </reciprocal>
+	<!-- Height of the sensor -->
+	<height> 20.0 </height>
+	<!-- Measured speed at the sensor height -->
+	<speed> 5.0 </speed>
+	<!-- Wind direction of sensor -->
+	<direction> 270.0 </direction>
+</timeSeries>
 \end{lstlisting}
-
-Figure below shows velocity magnitude contour with overlaying velocity vectors of initial velocity field created by the aforementioned example of the logarithmic profile.
-
-\begin{figure}[H]
-\includegraphics[width=11.0cm,keepaspectratio]{Images/log_y_101.png}
-\caption{Velocity magnitude contour with overlaying velocity vectors in a vertical plane at $y=101$ m for initial velocity field created by the logarithmic profile.}
-\end{figure}
-\noindent
 
 \item Exponential (power law) velocity profile, based on Eq. \ref{eq:power_law}:
 
 \begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
-		<!-- Start of timestep informastion for a sensor -->
-		<timeSeries>
-			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
-			<boundaryLayerFlag> 2 </boundaryLayerFlag>
-			<!-- Site z0 -->
-			<siteZ0> 0.1 </siteZ0>
-			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
-			<reciprocal> 0.0 </reciprocal>
-			<!-- Height of the sensor -->
-			<height> 20.0 </height>
-			<!-- Measured speed at the sensor height -->
-			<speed> 5.0 </speed>
-			<!-- Wind direction of sensor -->
-			<direction> 270.0 </direction>
-		</timeSeries>
-	</sensor>
-</metParams>
+<!-- Start of timestep informastion for a sensor -->
+<timeSeries>
+	<!-- time of the current data input -->
+	<timeStamp>2003-07-23T23:00:00</timeStamp>	
+	<!-- Site BL flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
+	<boundaryLayerFlag> 2 </boundaryLayerFlag>
+	<!-- Site z0 -->
+	<siteZ0> 0.1 </siteZ0>
+	<!-- Reciprocal Monin-Obukhov Length (1/m) -->
+	<reciprocal> 0.0 </reciprocal>
+	<!-- Height of the sensor -->
+	<height> 20.0 </height>
+	<!-- Measured speed at the sensor height -->
+	<speed> 5.0 </speed>
+	<!-- Wind direction of sensor -->
+	<direction> 270.0 </direction>
+</timeSeries>
 \end{lstlisting}
-
-Figure below shows velocity magnitude contour with overlaying  velocity vectors of the initial velocity field created by the aforementioned example of the exponential (power law) profile.
-
-\begin{figure}[H]
-\includegraphics[width=11.0cm,keepaspectratio]{Images/exp_y_101.png}
-\caption{Velocity magnitude contour with overlaying velocity vectors in a vertical plane at $y=101$ m for initial velocity field created by the exponential (power law) profile.}
-\end{figure}
-\noindent
-
 
 \item Urban canopy velocity profile, based on Eq. \ref{eq:urban_canopy_low} and \ref{eq:urban_canopy_up}:
 
 \begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
-		<!-- Start of timestep informastion for a sensor -->
-		<timeSeries>
-			<!-- Site boundary layer flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
-			<boundaryLayerFlag> 3 </boundaryLayerFlag>
-			<!-- Site z0 -->
-			<siteZ0> 0.1 </siteZ0>
-			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
-			<reciprocal> 0.0 </reciprocal>
-			<!-- Height of the sensor -->
-			<height> 20.0 </height>
-			<!-- Measured speed at the sensor height -->
-			<speed> 5.0 </speed>
-			<!-- Wind direction of sensor -->
-			<direction> 270.0 </direction>
-			<canopyHeight> 10.0 </canopyHeight>
-			<attenuationCoefficient> 1.0 </attenuationCoefficient>
-		</timeSeries>
-	</sensor>
-</metParams>
+<!-- Start of timestep informastion for a sensor -->
+<timeSeries>
+	<!-- time of the current data input -->
+	<timeStamp>2003-07-23T23:00:00</timeStamp>	
+	<!-- Site BL flag (1-log (default), 2-exp, 3-urban canopy, 4-data entry) -->
+	<boundaryLayerFlag> 3 </boundaryLayerFlag>
+	<!-- Site z0 -->
+	<siteZ0> 0.1 </siteZ0>
+	<!-- Reciprocal Monin-Obukhov Length (1/m) -->
+	<reciprocal> 0.0 </reciprocal>
+	<!-- Height of the sensor -->
+	<height> 20.0 </height>
+	<!-- Measured speed at the sensor height -->
+	<speed> 5.0 </speed>
+	<!-- Wind direction of sensor -->
+	<direction> 270.0 </direction>
+	<!-- Height of the canopy -->
+	<canopyHeight> 10.0 </canopyHeight>
+	<!-- attenuation coefficient -->
+	<attenuationCoefficient> 1.0 </attenuationCoefficient>
+</timeSeries>
 \end{lstlisting}
-
-Figure below shows velocity magnitude contour with overlaying  velocity vectors of the initial velocity field created by the aforementioned example of the urban canopy profile.
-
-\begin{figure}[H]
-\includegraphics[width=11cm,keepaspectratio]{Images/canopy_y_101.png}
-\caption{Velocity magnitude contour with overlaying velocity vectors in a vertical plane at $y=101$ m for initial velocity field created by the urban canopy profile.}
-\end{figure}
-\noindent
 
 \item Data entry of the profile from an experimental tower with multiple sensors or from a numerical mesoscale weather prediction model like WRF \cite{powers2017weather}:
 
 \begin{lstlisting}[language=XML]
-<metParams>
-	<sensor>
-		<!-- Start of timestep information for a sensor -->
-		<timeSeries>
-			<!-- Site boundary layer flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->
-			<boundaryLayerFlag> 4 </boundaryLayerFlag>
-			<!-- Site z0 -->
-			<siteZ0> 0.1 </siteZ0>
-			<!-- Reciprocal Monin-Obukhov Length (1/m) -->
-			<reciprocal> 0.0 </reciprocal>
-			<!-- Height of the sensor -->
-			<height> 30.7015 </height>
-			<height> 74.4169 </height>
-			<height> 144.644 </height>
-			<height> 197.455 </height>
-			<height> 268.468 </height>
-			<!-- Measured speed at the sensor height -->
-			<speed> 2.56922 </speed>
-			<speed> 2.55532 </speed>
-			<speed> 2.33319 </speed>
-			<speed> 2.16058 </speed>
-			<speed> 1.98843 </speed>
-			<!-- Wind direction of sensor -->
-			<direction> 323.283 </direction>
-			<direction> 327.377 </direction>
-			<direction> 332.676 </direction>
-			<direction> 337.649 </direction>
-			<direction> 344.273 </direction>
-		</timeSeries>
-	</sensor>
-</metParams>
+<!-- Start of timestep information for a sensor -->
+<timeSeries>
+	<!-- time of the current data input -->
+	<timeStamp>2003-07-23T23:00:00</timeStamp>	
+	<!-- Site BL flag (1-log, 2-exp, 3-urban canopy, 4-data entry) -->
+	<boundaryLayerFlag> 4 </boundaryLayerFlag>
+	<!-- Site z0 -->
+	<siteZ0> 0.1 </siteZ0>
+	<!-- Reciprocal Monin-Obukhov Length (1/m) -->
+	<reciprocal> 0.0 </reciprocal>
+	<!-- Height of the sensor -->
+	<height> 30.7015 </height>
+	<height> 74.4169 </height>
+	<height> 144.644 </height>
+	<height> 197.455 </height>
+	<height> 268.468 </height>
+	<!-- Measured speed at the sensor height -->
+	<speed> 2.56922 </speed>
+	<speed> 2.55532 </speed>
+	<speed> 2.33319 </speed>
+	<speed> 2.16058 </speed>
+	<speed> 1.98843 </speed>
+	<!-- Wind direction of sensor -->
+	<direction> 323.283 </direction>
+	<direction> 327.377 </direction>
+	<direction> 332.676 </direction>
+	<direction> 337.649 </direction>
+	<direction> 344.273 </direction>
+</timeSeries>
 \end{lstlisting}
 
 \end{enumerate}
@@ -860,6 +911,8 @@ In order to turn the parameterization on, the user needs to change the value of 
 \end{lstlisting}
 
 \section{Vegetation Parameters (vegetationParams)}
+
+Coming soon ...
 
 \subsection{Row-organized canopy (ROC) model}
 The ROC model adjusts the mean wind field to account for drag in sparse, structured row crops (e.g., grape vineyards, carrots, and some orchards). It is comprised of several parameterizations that alter the flow in specific regions around each row in the ROC. These zones are pictured in the figure below
