@@ -1292,8 +1292,6 @@ value of "highRiseFlag" in the XML file.
 Vegetation Parameters (vegetationParams)
 ----------------------------------------
 
-Coming soon ...
-
 Row-organized canopy (ROC) model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -1301,4 +1299,20 @@ The ROC model adjusts the mean wind field to account for drag in sparse,
 structured row crops (e.g., grape vineyards, carrots, and some
 orchards). It is comprised of several parameterizations that alter the
 flow in specific regions around each row in the ROC. These zones are
-pictured in the figure below
+pictured in Figure `1.1 <#fig:ROCmodel>`__.
+
+.. figure:: Images/ROC_model_schematic.png
+   name: fig:ROCmodel
+
+   VINEYARD MODEL
+
+A wake model forms the basis of the ROC parameterizations. It treats the
+wake from each row of vegetation separately, and the superposition of
+all wakes forms the overall canopy flow. To approximate the effect of
+drag from the vegetation, the initial velocities behind each row are
+multiplied by a sheltering coefficient :math:`alpha(x,y,z) \leq 1`. The
+form of :math:`alpha` is a prescribed algebraic expression that mimics
+the shape of mean velocity profiles found behind windbreaks
+:cite:`speckart2014`. At any point in the canopy, :math:`alpha` contains
+contributions from the nearest upwind row (“local” sheltering) and all
+other rows upwind of it (“non-local” sheltering).
