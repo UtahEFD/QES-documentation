@@ -847,7 +847,7 @@ The shape of the ellipsoid is estimated by:
 
 .. math::
 
-   \frac{X^{2}}{L_F}^{2}\left(1-(Z / 0.6 H)^{2}\right)}+\frac{Y^{2}}{W^{2}}=1
+   \frac{X^{2}}{L_F^{2}\left(1-(Z / 0.6 H)^{2}\right)}+\frac{Y^{2}}{W^{2}}=1
    \label{eq:upwind}
 
 where :math:`L`, :math:`H` and :math:`W` are length, width and height of
@@ -1299,20 +1299,140 @@ The ROC model adjusts the mean wind field to account for drag in sparse,
 structured row crops (e.g., grape vineyards, carrots, and some
 orchards). It is comprised of several parameterizations that alter the
 flow in specific regions around each row in the ROC. These zones are
-pictured in Figure `1.1 <#fig:ROCmodel>`__.
+pictured in Figure `1.1 <#fig:ROCmodel>`__. The ROC model is described
+in detail in :cite:`ulmer2023fast`.
 
-.. figure:: Images/ROC_model_schematic.png
+.. figure:: Images/vineyard_schematic.png
    name: fig:ROCmodel
+   :width: 17cm
 
-   VINEYARD MODEL
+   **Schematic of ROC model.** (a) Side view of ROC with a sparse
+   understory, (b) Side view of ROC without understory space. Green
+   patches indicate vegetation (or fence) where the bleed flow
+   parameterization is applied. Red patches indicate the region where
+   the wake parameterization is applied. The entry region is shown in
+   light red, and the equilibrium and recovery regions are shown in dark
+   red. Black lines behind the last row in (a) demonstrate the shape of
+   the sheltering profile Equation `[wakeAlpha] <#wakeAlpha>`__ (sparse
+   understory) multiplied with a logarithmic inlet velocity profile. The
+   black lines in (b) demonstrate the no-understory version. Blue
+   patches indicate the high-pressure upwind deficit (UD) zones. Dotted
+   lines show the boundaries of the shear mixing zones. (c) Top-down
+   view of the object-aligned coordinate system for the ROC model. The
+   coordinate :math:`x'` is the streamwise distance downwind of each
+   row, and is aligned with the reference wind direction and :math:`x`
+   is the row-orthogonal distance from a row.
 
-A wake model forms the basis of the ROC parameterizations. It treats the
+A wake model forms the basis of the ROC parameterizations. It applies a
 wake from each row of vegetation separately, and the superposition of
 all wakes forms the overall canopy flow. To approximate the effect of
 drag from the vegetation, the initial velocities behind each row are
-multiplied by a sheltering coefficient :math:`alpha(x,y,z) \leq 1`. The
-form of :math:`alpha` is a prescribed algebraic expression that mimics
-the shape of mean velocity profiles found behind windbreaks
-:cite:`speckart2014`. At any point in the canopy, :math:`alpha` contains
-contributions from the nearest upwind row (“local” sheltering) and all
-other rows upwind of it (“non-local” sheltering).
+multiplied by a sheltering coefficient :math:`\alpha(x,y,z) \leq 1`. An
+algebraic expression is prescribed for :math:`\alpha` that mimics the
+shape of mean velocity profiles found behind windbreaks
+:cite:`speckart2014method`. At any point in the canopy, :math:`\alpha`
+contains contributions from the nearest upwind row (“local” sheltering)
+and all other rows upwind of it (“non-local” sheltering). The sheltering
+profile from a single row is:
+
+.. math::
+
+   \label{wakeAlpha}
+   \alpha_r(x',z) = \frac{1-\alpha_{o}}{2}\tanh\left(1.5\frac{z-z_{szo}^{top}}{\lambda^{top}}\right) + \frac{1+\alpha_{o}}{2}
+
+for :math:`z \geq z_{mid}`, where :math:`z_{mid}` is the vertical
+midpoint of the canopy, and
+
+.. math:: \alpha_r(x',z) = \frac{1-\alpha_{o}}{2}\tanh\left(1.5\frac{z_{szo}^{bot}-z}{\lambda^{bot}}\right) + \frac{1+\alpha_{o}}{2}
+
+for :math:`z < z_{mid}`. The superscripts :math:`top` and :math:`bot`
+refer to separate shear zones at the canopy top and understory,
+respectively, and :math:`\lambda` is the thickness of a given shear
+mixing layer. The shear zone thicknesses increase linearly with downwind
+distance from each row (the coordinate :math:`x'` denotes the distance
+from the leeward side of a row along a vector aligned with the reference
+wind direction). Growth of :math:`\lambda` causes the vertical gradient
+of :math:`\alpha(x',z)` to decrease with :math:`x'`, representing wake
+recovery behavior. The growth rate of :math:`\lambda` (i.e., the
+recovery speed) increases with background turbulence (quantified by
+:math:`\sigma_w`), which causes the mixing layer to diffuse vertically.
+It also increases with vegetation density; with denser vegetation, the
+velocity gradient driving the growth of the mixing layer increases. The
+vertical center (i.e., origin) of a given shear mixing zone is denoted
+by :math:`z_{szo}`. This origin gradually drops to the ground as the
+wake recovers. This movement is parameterized with experimental data
+from :cite:`torkelson2022momentum`. The quantity :math:`\alpha_o` is the
+aerodynamic porosity of a single row and is obtained from the leaf area
+density (LAD) of the row. The aerodynamic porosity forms the primary
+boundary condition of the wake parameterization.
+
+The total sheltering behind any given row in the ROC is not simply the
+product of all :math:`\alpha` terms from all upwind rows; the velocity
+would approach zero for large row numbers. Instead, the ROC is
+partitioned into two regions: an entry region at the windward edge of
+the ROC, where momentum is lost from row to row, and an equilibrium
+region, where velocities are periodically oscillating. In the
+equilibrium zone, momentum is maintained from row to row as losses to
+canopy drag are balanced by turbulent momentum flux from above. In the
+model, these zones are delineated through different constructions of the
+total sheltering. In the entry region, the total sheltering behind any
+row is the product of the :math:`\alpha` terms for all rows upwind of
+it. In the equilibrium region, the sheltering is the product of
+:math:`\alpha` from the nearest row (the “local” row) and the rows in
+the entry region only (“non-local” rows), which caps the maximum net
+momentum loss within the canopy. Calculation of the number of rows in
+the entry region is explained in :cite:`ulmer2023fast`.
+
+Upwind of each row, there is a region of high pressure where momentum is
+lost to form drag. In the model, a parabolic region attached to the
+windward side of each row is defined in which velocities are reduced and
+recirculation may occur. Within that region, a velocity deficit is
+calculated based on a scaling argument that the vegetative drag term in
+the mean momentum equation is of similar magnitude as the advection
+term:
+
+.. math::
+
+   \label{UDscaling}
+        C_d \cdot LAD_{avg} \cdot U^2 \sim \cdot U \frac{\partial U}{\partial x}
+
+The velocity deficit, which originates from the :math:`\partial U`, is
+subtracted from the existing wake velocities throughout the parabolic
+region.
+
+.. code:: xml
+
+   <vegetationParams>
+     <vegetationParams>
+           <num_canopies>1</num_canopies>
+           <ROC>
+               <opticalPorosity>0.197</opticalPorosity>
+               <height>2.16</height>
+               <understoryHeight>0.5</understoryHeight>
+               <rowSpacing>2.5</rowSpacing>
+               <rowWidth>0.5</rowWidth>
+               <rowAngle>0</rowAngle>
+               <xVertex>5</xVertex>
+               <xVertex>45</xVertex>
+               <xVertex>45</xVertex>
+               <xVertex>5</xVertex>
+               <yVertex>5</yVertex>
+               <yVertex>5</yVertex>
+               <yVertex>55</yVertex>
+               <yVertex>55</yVertex>
+               <!-- Thin fence flag: 1 for thin fence (aero. porosity = optical porosity), 2 for vegetative row (aero. por. from LAD) -->
+               <thinFence>0</thinFence>
+               <!-- Upstream sig_w used in wake recovery rate calculation -->
+               <upstreamSigmaW>0.5187</upstreamSigmaW>
+               <!-- Upstream ustar used in entry length calculation -->
+               <upstreamUstar>0.5067</upstreamUstar>
+               <!-- Displacement height used in row-parallel component (empirical) -->
+               <displacementHeightParallel>1.42</displacementHeightParallel>
+               <!-- Average LAD: vertically averaged LAD for a single row, used in upwind displacement zone drag calculation -->
+               <LAD_avg>4.6418</LAD_avg>
+               <!-- Effective LAD: spatially averaged LAD (as in Bailey & Stoll, 2013), a bulk drag parameter used in entry length calculation -->
+               <LAD_eff>0.71736</LAD_eff>
+               <!-- TKE above the canopy, used in the k-l turbulence model -->
+               <tkeMax>1.9746</tkeMax>
+           </ROC>
+       </vegetationParams>
