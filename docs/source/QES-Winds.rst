@@ -1302,7 +1302,7 @@ flow in specific regions around each row in the ROC. These zones are
 pictured in Figure `1.1 <#fig:ROCmodel>`__. The ROC model is described
 in detail in :cite:`ulmer2023fast`.
 
-.. figure:: Images/vineyard_schematic.png
+.. figure:: Images/ROC_model_schematic.png
    name: fig:ROCmodel
    :width: 17cm
 
@@ -1313,15 +1313,15 @@ in detail in :cite:`ulmer2023fast`.
    the wake parameterization is applied. The entry region is shown in
    light red, and the equilibrium and recovery regions are shown in dark
    red. Black lines behind the last row in (a) demonstrate the shape of
-   the sheltering profile Equation `[wakeAlpha] <#wakeAlpha>`__ (sparse
-   understory) multiplied with a logarithmic inlet velocity profile. The
-   black lines in (b) demonstrate the no-understory version. Blue
-   patches indicate the high-pressure upwind deficit (UD) zones. Dotted
-   lines show the boundaries of the shear mixing zones. (c) Top-down
-   view of the object-aligned coordinate system for the ROC model. The
-   coordinate :math:`x'` is the streamwise distance downwind of each
-   row, and is aligned with the reference wind direction and :math:`x`
-   is the row-orthogonal distance from a row.
+   the sheltering profile (sparse understory) multiplied with a
+   logarithmic inlet velocity profile. The black lines in (b)
+   demonstrate the no-understory version. Blue patches indicate the
+   high-pressure upwind deficit (UD) zones. Dotted lines show the
+   boundaries of the shear mixing zones. (c) Top-down view of the
+   object-aligned coordinate system for the ROC model. The coordinate
+   :math:`x'` is the streamwise distance downwind of each row, and is
+   aligned with the reference wind direction and :math:`x` is the
+   row-orthogonal distance from a row.
 
 A wake model forms the basis of the ROC parameterizations. It applies a
 wake from each row of vegetation separately, and the superposition of
@@ -1394,11 +1394,17 @@ term:
 .. math::
 
    \label{UDscaling}
-        C_d \cdot LAD_{avg} \cdot U^2 \sim \cdot U \frac{\partial U}{\partial x}
+        C_d \cdot LAD_{avg} \cdot U^2 \sim U \frac{\partial U}{\partial x}
 
 The velocity deficit, which originates from the :math:`\partial U`, is
 subtracted from the existing wake velocities throughout the parabolic
 region.
+
+ROCs are added to a QES domain as a polygonal block, rather than as
+individual rows. Polygon vertices are provided by the user and rows are
+automatically generated within the block according to the user-specified
+row geometry parameters (spacing, thickness, height, understory height).
+The XML for adding ROCs is as follows:
 
 .. code:: xml
 
@@ -1407,10 +1413,15 @@ region.
            <num_canopies>1</num_canopies>
            <ROC>
                <opticalPorosity>0.197</opticalPorosity>
+               <!-- Height of canopy -->
                <height>2.16</height>
+               <!-- Height at which vegetation begins. Zero if the canopy extends to the ground. -->
                <understoryHeight>0.5</understoryHeight>
+               <!-- Front-to-front distance between rows -->
                <rowSpacing>2.5</rowSpacing>
+               <!-- Thickness of a single row. (still required for thin-fence parameterization) -->
                <rowWidth>0.5</rowWidth>
+               <!-- Row angle: orientation of rows, in compass degrees -->
                <rowAngle>0</rowAngle>
                <xVertex>5</xVertex>
                <xVertex>45</xVertex>
