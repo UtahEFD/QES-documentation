@@ -918,7 +918,7 @@ The ROC model is described in detail in \cite{ulmer2023fast}.
 
 \begin{figure}[H]\label{fig:ROCmodel}
 \includegraphics[width=17cm]{Images/ROC_model_schematic.png}
-\caption{\textbf{Schematic of ROC model.} (a) Side view of ROC with a sparse understory, (b) Side view of ROC without understory space. Green patches indicate vegetation (or fence) where the bleed flow parameterization is applied. Red patches indicate the region where the wake parameterization is applied. The entry region is shown in light red, and the equilibrium and recovery regions are shown in dark red.  Black lines behind the last row in (a) demonstrate the shape of the sheltering profile (sparse understory) multiplied with a logarithmic inlet velocity profile. The black lines in (b) demonstrate the no-understory version. Blue patches indicate the high-pressure upwind deficit (UD) zones. Dotted lines show the boundaries of the shear mixing zones. 
+\caption{\textbf{Schematic of ROC model.} (a) Side view of ROC with a sparse understory, (b) Side view of ROC without understory space. Green patches indicate vegetation (or fence) where the bleed flow parameterization is applied. Red patches indicate the region where the wake parameterization is applied. The entry region is shown in light red, and the equilibrium and recovery regions are shown in dark red.  Black lines behind the last row in (a) demonstrate the shape of the sheltering profile (sparse understory) multiplied with a logarithmic inlet velocity profile. The black lines in (b) demonstrate the no-understory version. Blue patches indicate the high-pressure upwind deficit (UD) zones. Dotted lines show the boundaries of the shear mixing zones.
     (c) Top-down view of the object-aligned coordinate system for the ROC model. The coordinate $x'$ is the streamwise distance downwind of each row, and is aligned with the reference wind direction and $x$ is the row-orthogonal distance from a row.}
 \end{figure}
 
@@ -930,7 +930,7 @@ The sheltering profile from a single row is:
 
 \begin{equation}\label{wakeAlpha}
 \alpha_r(x',z) = \frac{1-\alpha_{o}}{2}\tanh\left(1.5\frac{z-z_{szo}^{top}}{\lambda^{top}}\right) + \frac{1+\alpha_{o}}{2}
-\end{equation} 
+\end{equation}
 for $z \geq z_{mid}$, where $z_{mid}$ is the vertical midpoint of the canopy, and
 \begin{equation}
 \alpha_r(x',z) = \frac{1-\alpha_{o}}{2}\tanh\left(1.5\frac{z_{szo}^{bot}-z}{\lambda^{bot}}\right) + \frac{1+\alpha_{o}}{2}
@@ -944,20 +944,26 @@ In the model, these zones are delineated through different constructions of the 
 
 Upwind of each row, there is a region of high pressure where momentum is lost to form drag. In the model, a parabolic region attached to the windward side of each row is defined in which velocities are reduced and recirculation may occur. Within that region, a velocity deficit is calculated based on a scaling argument that the vegetative drag term in the mean  momentum equation is of similar magnitude as the advection term:
 \begin{equation} \label{UDscaling}
-     C_d \cdot LAD_{avg} \cdot U^2 \sim \cdot U \frac{\partial U}{\partial x}
+     C_d \cdot LAD_{avg} \cdot U^2 \sim U \frac{\partial U}{\partial x}
  \end{equation}
 The velocity deficit, which originates from the $\partial U$, is subtracted from the existing wake velocities throughout the parabolic region.
 
+ROCs are added to a QES domain as a polygonal block, rather than as individual rows. Polygon vertices are provided by the user and rows are automatically generated within the block according to the user-specified row geometry parameters (spacing, thickness, height, understory height). The XML for adding ROCs is as follows:
 \begin{lstlisting}[language=XML]
 <vegetationParams>
   <vegetationParams>
         <num_canopies>1</num_canopies>
         <ROC>
             <opticalPorosity>0.197</opticalPorosity>
+            <!-- Height of canopy -->
             <height>2.16</height>
+            <!-- Height at which vegetation begins. Zero if the canopy extends to the ground. -->
             <understoryHeight>0.5</understoryHeight>
+            <!-- Front-to-front distance between rows -->
             <rowSpacing>2.5</rowSpacing>
+            <!-- Thickness of a single row. (still required for thin-fence parameterization) -->
             <rowWidth>0.5</rowWidth>
+            <!-- Row angle: orientation of rows, in compass degrees -->
             <rowAngle>0</rowAngle>
             <xVertex>5</xVertex>
             <xVertex>45</xVertex>
@@ -984,4 +990,3 @@ The velocity deficit, which originates from the $\partial U$, is subtracted from
         </ROC>
     </vegetationParams>
 \end{lstlisting}
-
