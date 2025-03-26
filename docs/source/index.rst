@@ -71,6 +71,7 @@ The modules are the following:
    QES-Winds
    QES-Turb
    QES-Plume
+   QES-Fire
 
 .. toctree::
    :maxdepth: 2
