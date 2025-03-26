@@ -8,8 +8,9 @@ Welcome to QES's documentation!
    :target: https://doi.org/10.5281/zenodo.7098279
 
 
-Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid_fm|, Matthew Moody |orcid_mm|, Lucas Ulmer |orcid_lu|,
-Eric R Pardyjak |orcid_ep|, Rob Stoll |orcid_rs|, Pete Willemsen
+Behnam Bozorgmehr |orcid_bb|, Jeremy A Gibbs |orcid_jg|, Fabien Margairaz |orcid_fm|, Matthew Moody |orcid_mm|, 
+
+Lucas Ulmer |orcid_lu|, Eric R Pardyjak |orcid_ep|, Rob Stoll |orcid_rs|, Pete Willemsen
 
 .. |orcid_bb| image:: https://info.orcid.org/wp-content/uploads/2019/11/orcid_16x16.png
     :target: https://orcid.org/0000-0003-1633-8383
