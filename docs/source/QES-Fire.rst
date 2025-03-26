@@ -196,7 +196,7 @@ specified under <cure> as the fraction of water to oven dry fuel mass.
    </fires>
 
 Ignitions
-^^^^^^^^^
+~~~~~~~~~
 
 QES-Fire must have an initial ignition point specified in the XML.
 Multiple ignitions may be specified, and all ignitions will occur at the
@@ -230,7 +230,7 @@ domain (meters), and ’y’ = y location in domain (meters).
    </fires>
 
 Example XML
-^^^^^^^^^^^
+~~~~~~~~~~~
 
 The full XML used to run the FireFlux II simulation is included.
 

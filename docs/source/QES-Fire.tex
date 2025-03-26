@@ -107,7 +107,8 @@ QES-Fire fuel elements for each grid cell are initialized through the XML. These
     <!-- ... -->
 </fires>
 \end{lstlisting}
-\subsubsection{Ignitions}
+
+\subsection{Ignitions}
 
 QES-Fire must have an initial ignition point specified in the XML. Multiple ignitions may be specified, and all ignitions will occur at the start of the simulation corresponding to the first <timeStep> in the <metParams> section of the XML. For ignitions occurring after the initial start, the user must provide a netCDF file with the structure of 't' = time after simulation start (seconds), 'x' = x location in the domain (meters), and 'y' = y location in domain (meters).
 
@@ -134,7 +135,7 @@ QES-Fire must have an initial ignition point specified in the XML. Multiple igni
 </fires>
 \end{lstlisting}
 
-\subsubsection{Example XML}
+\subsection{Example XML}
 The full XML used to run the FireFlux II simulation is included.
 \begin{lstlisting}[language=XML]
 <QESWindsParameters>
