@@ -13,13 +13,9 @@ from QES-Winds to couple atmospheric winds with fire-induced winds to
 create a 3-D wind field. The wind field then drives a 1-D rate of spread
 (ROS) model that advances the perimeter at all points along the fire
 front using the level set method. A graphical representation of the fire
-model is shown in Fig. `1.1 <#fig:fire_flow>`__.
+model is shown in figure below.
 
-.. figure:: Images/Fire-Flowchart.png
-   name: fig:fire_flow
-   :width: 9cm
-
-   Flowchart for QES-Fire
+|image|
 
 Fire-Induced Winds
 ~~~~~~~~~~~~~~~~~~
@@ -290,3 +286,6 @@ The full XML used to run the FireFlux II simulation is included.
            <outputFields>all</outputFields>
        </fileOptions>
    </QESWindsParameters>
+
+.. |image| image:: Images/Fire-Flowchart.png
+   :width: 9cm
