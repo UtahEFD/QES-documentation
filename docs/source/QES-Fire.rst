@@ -1,6 +1,3 @@
-morestring=[s][]"", morecomment=[s]<??>, morecomment=[s][]<!––>,
-stringstyle=, identifierstyle=, keywordstyle=, morekeywords=fires
-
 QES-Fire
 ========
 
@@ -16,7 +13,7 @@ front using the level set method. A graphical representation of the fire
 model is shown in figure below.
 
 .. figure:: Images/Fire-Flowchart.png
-   :width: 9cm
+   :width: 14cm
 
    Flowchart for QES-Fire
 
