@@ -15,7 +15,10 @@ create a 3-D wind field. The wind field then drives a 1-D rate of spread
 front using the level set method. A graphical representation of the fire
 model is shown in figure below.
 
-|image|
+.. figure:: Images/Fire-Flowchart.png
+   :width: 9cm
+
+   Flowchart for QES-Fire
 
 Fire-Induced Winds
 ~~~~~~~~~~~~~~~~~~
@@ -286,6 +289,3 @@ The full XML used to run the FireFlux II simulation is included.
            <outputFields>all</outputFields>
        </fileOptions>
    </QESWindsParameters>
-
-.. |image| image:: Images/Fire-Flowchart.png
-   :width: 9cm
