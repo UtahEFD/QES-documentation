@@ -6,3 +6,7 @@ build-backend = "flit_core.buildapi"
 name = "QES"
 authors = [{name = "Fabien Margairaz", email = "fabien.margairaz@utah.edu"}]
 dynamic = ["version", "description"]
+
+[tool.esbonio.sphinx]
+buildCommand = ["sphinx-build", "-M", "html", "docs/source", "docs/build"]
+pythonCommand = ["${venv:.venv}"]

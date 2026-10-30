@@ -83,9 +83,8 @@ already passed, an upwind numerical scheme to advance the level set is
 appropriate, and is calculated as
 
 .. math::
-
-   \label{eq:levelSet}
-       \phi_{i,j} = \phi_{i,j}^{0} - \Delta t\left[max(F_{i,j},0)\nabla^{+} + min(F_{i,j},0)\nabla^{-}\right],
+    \label{eq:levelSet}
+    \phi_{i,j} = \phi_{i,j}^{0} - \Delta t\left[max(F_{i,j},0)\nabla^{+} + min(F_{i,j},0)\nabla^{-}\right],
 
 where the superscript :math:`0` is the previous value for the level set
 function, :math:`\Delta t` is the timestep, :math:`F_{i,j}` is the

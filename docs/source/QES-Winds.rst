@@ -1303,7 +1303,7 @@ pictured in Figure `1.1 <#fig:ROCmodel>`__. The ROC model is described
 in detail in :cite:`ulmer2023fast`.
 
 .. figure:: Images/ROC_model_schematic.png
-   name: fig:ROCmodel
+   :name: fig:ROCmodel
    :width: 17cm
 
    **Schematic of ROC model.** (a) Side view of ROC with a sparse
