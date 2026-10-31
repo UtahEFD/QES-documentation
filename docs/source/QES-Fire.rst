@@ -12,7 +12,7 @@ create a 3-D wind field. The wind field then drives a 1-D rate of spread
 front using the level set method. A graphical representation of the fire
 model is shown in figure below.
 
-.. figure:: Images/Fire-Flowchart.png
+.. figure:: images/Fire-Flowchart.png
    :width: 14cm
 
    Flowchart for QES-Fire

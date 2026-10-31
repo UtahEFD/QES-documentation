@@ -28,7 +28,7 @@ modules are the following:
 Figure below shows a schematic of QES system and how different elements
 of the system interact with each other.
 
-.. figure:: Images/QES_chart.png
+.. figure:: images/QES_chart.png
    :width: 16cm
 
    Schematic of the QUIC EnvSim system and the relationship between
