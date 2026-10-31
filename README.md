@@ -2,6 +2,24 @@
 
 Link to the documentation: https://qes-documentation.readthedocs.io/en/latest/
 
+### Repository layout
+
+```
+QES-documentation/
+├── docs/
+│   ├── source/             # Editable RST pages, Sphinx configuration, bibliography, and published images
+│   ├── figures/            # Figure source images and figure-preparation material
+│   ├── Makefile            # Local Sphinx build commands (macOS/Linux)
+│   ├── make.bat            # Local Sphinx build commands (Windows)
+│   └── requirements.txt    # Python dependencies for the documentation build
+├── .readthedocs.yaml       # Read the Docs build configuration
+├── pyproject.toml          # Project metadata
+└── README.md               # Repository overview and contributor workflow
+```
+
+Edit documentation pages directly in `docs/source`. Generated files in
+`docs/build` are local build output and are not committed.
+
 ### Template for the Read the Docs tutorial
 
 This GitHub template includes fictional Python library with some basic 
