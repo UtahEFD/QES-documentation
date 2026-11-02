@@ -69,6 +69,12 @@ To update the Read-the-Doc:
 * on the build page, select build the latest
 * check that the webpage was updated correlcty (some times, changes can take a few minutes to take effect)
 
+Build the PDG documentation with:
+
+```sh
+make -C docs latexpdf
+```
+
 ### Previewing documentation in VS Code
 
 The [Esbonio](https://marketplace.visualstudio.com/items?itemName=swyddfa.esbonio)

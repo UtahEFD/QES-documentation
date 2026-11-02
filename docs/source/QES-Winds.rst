@@ -753,7 +753,7 @@ available software QGIS (https://qgis.org).
    :width: 11cm
 
    Central Business District (CBD) of Oklahoma City shapefile, subject
-   to JU2003 experimental campaign :cite:`allwine2006joint`, plotted
+   to JU2003 experimental campaign, plotted
    using the freely available software QGIS.
 
 The cell type contour for the Oklahoma City test case in a horizontal

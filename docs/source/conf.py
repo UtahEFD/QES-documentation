@@ -43,6 +43,6 @@ epub_show_urls = 'footnote'
 
 # -- Options for LaTeX output
 latex_documents = [
-    ('main', 'main.tex', 'QES Documentation',
+    ('index', 'main.tex', 'QES Documentation',
      'UTAH EFD', 'howto', 'false'),
 ]
