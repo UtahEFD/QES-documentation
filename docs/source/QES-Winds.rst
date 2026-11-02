@@ -275,7 +275,7 @@ ability of QES-Winds to read in and process DEM files. The cell type
 value :math:`1` (blue) represents the air cells while value :math:`2`
 (red) indicates the terrain cells.
 
-.. figure:: images/askervein.pdf
+.. figure:: images/askervein.png
 
    Cell type contour for the Askervin hill test case in a (a) vertical
    plane at :math:`y=3000` m, (b) horizontal plane at :math:`z=20` m.
@@ -405,7 +405,7 @@ type of profile:
 Figure below shows velocity profiles of used for the initial velocity
 field using each of the scheme presented above.
 
-.. figure:: images/VelocityProfiles.pdf
+.. figure:: images/VelocityProfiles.png
 
    Velocity profiles created using (1) logarithmic profile, (2) power
    law profile, and (3) urban canopy profile.
@@ -865,7 +865,7 @@ initial (part (b)) and final (part(c)) velocity fields in a vertical
 plane at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
 respectively.
 
-.. figure:: images/upwind_y_100_1.pdf
+.. figure:: images/upwind_y_100_1.png
 
    (a) Cell type contour to show the area of effect of the Röckle upwind
    cavity parameterization in a vertical plane at :math:`y=100` m.
@@ -873,7 +873,7 @@ respectively.
    initial velocity field and (c) final velocity field, in a vertical
    plane at :math:`y=100` m.
 
-.. figure:: images/upwind_z_5_1.pdf
+.. figure:: images/upwind_z_5_1.png
 
    (a) Cell type contour to show the area of effect of the Röckle upwind
    cavity parameterization in a horizontal plane at :math:`z=5` m.
@@ -909,7 +909,7 @@ initial (part (b)) and final (part(c)) velocity fields in a vertical
 plane at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
 respectively.
 
-.. figure:: images/upwind_y_100_2.pdf
+.. figure:: images/upwind_y_100_2.png
 
    (a) Cell type contour to show the area of effect of the MVP upwind
    cavity parameterization in a vertical plane at :math:`y=100` m.
@@ -917,7 +917,7 @@ respectively.
    initial velocity field and (c) final velocity field, in a vertical
    plane at :math:`y=100` m.
 
-.. figure:: images/upwind_z_5_2.pdf
+.. figure:: images/upwind_z_5_2.png
 
    (a) Cell type contour to show the area of effect of the MVP upwind
    cavity parameterization in a horizontal plane at :math:`z=5` m.
@@ -947,7 +947,7 @@ initial (part (b)) and final (part(c)) velocity fields in a vertical
 plane at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
 respectively.
 
-.. figure:: images/upwind_y_100_3.pdf
+.. figure:: images/upwind_y_100_3.png
 
    (a) Cell type contour to show the area of effect for the HMVP upwind
    cavity parameterization in a vertical plane at :math:`y=100` m.
@@ -955,7 +955,7 @@ respectively.
    initial velocity field and (c) final velocity field, in a vertical
    plane at :math:`y=100` m.
 
-.. figure:: images/upwind_z_5_3.pdf
+.. figure:: images/upwind_z_5_3.png
 
    (a) Cell type contour to show the area of effect of the HMVP upwind
    cavity parameterization in a horizontal plane at :math:`z=5` m.
@@ -1034,7 +1034,7 @@ initial (part (b)) and final (part(c)) velocity fields in a vertical
 plane at :math:`y=100` m and a horizontal plane at :math:`z=5` m,
 respectively.
 
-.. figure:: images/wake_y_100_1.pdf
+.. figure:: images/wake_y_100_1.png
 
    (a) Cell type contour to show the area of effect of the Röckle wake
    parameterization in a vertical plane at :math:`y=100` m. Velocity
@@ -1042,7 +1042,7 @@ respectively.
    velocity field and (c) final velocity field, in a vertical plane at
    :math:`y=100` m.
 
-.. figure:: images/wake_z_5_1.pdf
+.. figure:: images/wake_z_5_1.png
 
    (a) Cell type contour to show the area of effect of the Röckle wake
    parameterization in a horizontal plane at :math:`z=5` m. Velocity
@@ -1108,7 +1108,7 @@ velocity magnitude contour with overlaying velocity vectors of initial
 (part (b)) and final (part(c)) velocity fields in a vertical plane at
 :math:`y=100` m and a horizontal plane at :math:`z=5` m, respectively.
 
-.. figure:: images/street_y_100_1.pdf
+.. figure:: images/street_y_100_1.png
 
    (a) Cell type contour to show the area of effect of the street canyon
    parameterization in a vertical plane at :math:`y=100` m. Velocity
@@ -1116,7 +1116,7 @@ velocity magnitude contour with overlaying velocity vectors of initial
    velocity field and (c) final velocity field, in a vertical plane at
    :math:`y=100` m.
 
-.. figure:: images/street_z_5_1.pdf
+.. figure:: images/street_z_5_1.png
 
    (a) Cell type contour to show the area of effect of the street canyon
    parameterization in a horizontal plane at :math:`z=5` m. Velocity
@@ -1180,7 +1180,7 @@ velocity magnitude contour with overlaying velocity vectors of initial
 (part (b)) and final (part(c)) velocity fields in a vertical plane at
 :math:`y=100` m.
 
-.. figure:: images/rooftop_y_100_1.pdf
+.. figure:: images/rooftop_y_100_1.png
 
    (a) Cell type contour to show the area of effect of the rooftop
    parameterization in a vertical plane at :math:`y=100` m. Velocity
@@ -1235,7 +1235,7 @@ indicate velocity magnitude contour with overlaying velocity vectors of
 initial (part (b)) and final (part(c)) velocity fields in a horizontal
 plane at :math:`z=5` m.
 
-.. figure:: images/sidewall_z_5_1.pdf
+.. figure:: images/sidewall_z_5_1.png
 
    (a) Cell type contour to show the area of effect of the sidewall
    parameterization in a horizontal plane at :math:`z=5` m. Velocity
